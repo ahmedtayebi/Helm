@@ -262,10 +262,10 @@ export function Navbar() {
                     </div>
 
                     <div className="flex items-center gap-3 border-l border-navy-500/50 pl-6">
-                        <Link href="/login">
+                        <Link href="/auth/login">
                             <Button variant="outline" size="sm">Log In</Button>
                         </Link>
-                        <Link href="/register">
+                        <Link href="/auth/register">
                             <Button variant="primary" size="sm">Register</Button>
                         </Link>
                     </div>
@@ -369,10 +369,10 @@ export function Navbar() {
                                     )}
                                 </div>
 
-                                <Link href="/login" className="block w-full">
+                                <Link href="/auth/login" className="block w-full">
                                     <Button variant="outline" className="w-full justify-center">Log In</Button>
                                 </Link>
-                                <Link href="/register" className="block w-full">
+                                <Link href="/auth/register" className="block w-full">
                                     <Button variant="primary" className="w-full justify-center">Register</Button>
                                 </Link>
                             </div>

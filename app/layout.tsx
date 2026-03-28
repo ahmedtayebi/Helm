@@ -6,8 +6,7 @@ import {
   Cairo,
 } from "next/font/google";
 import { ThemeProvider } from "@/components/shared/theme-provider";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { GlobalShell } from "@/components/shared/GlobalShell";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -97,11 +96,9 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <Navbar />
-          <div className="flex flex-col min-h-screen">
-            <main className="flex-1">{children}</main>
-          </div>
-          <Footer />
+          <GlobalShell>
+            {children}
+          </GlobalShell>
         </ThemeProvider>
       </body>
     </html>
