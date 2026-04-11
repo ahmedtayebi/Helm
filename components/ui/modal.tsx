@@ -69,7 +69,7 @@ export function Modal({
                 <div className="fixed inset-0 z-[300] flex items-center justify-center p-4">
                     {/* Backdrop */}
                     <motion.div
-                        className="absolute inset-0 bg-navy-950/80 backdrop-blur-sm"
+                        className="absolute inset-0 bg-slate-900/20 dark:bg-navy-950/80 backdrop-blur-sm"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -80,7 +80,7 @@ export function Modal({
                     {/* Modal Panel */}
                     <motion.div
                         className={cn(
-                            "relative w-full rounded-lg bg-navy-700 border border-navy-500/50 shadow-gold-xl overflow-hidden",
+                            "relative w-full rounded-lg bg-white dark:bg-navy-700 border border-slate-200 dark:border-navy-500/50 shadow-gold-xl overflow-hidden",
                             modalSizes[size],
                             className
                         )}
@@ -94,12 +94,12 @@ export function Modal({
                             <div className="flex items-start justify-between px-6 pt-5 pb-3">
                                 <div className="space-y-1 flex-1">
                                     {title && (
-                                        <h2 className="font-display text-xl font-semibold text-white">
+                                        <h2 className="font-display text-xl font-semibold text-[#0D1B2A] dark:text-white">
                                             {title}
                                         </h2>
                                     )}
                                     {description && (
-                                        <p className="text-sm text-navy-200 font-body">
+                                        <p className="text-sm text-slate-500 dark:text-navy-200 font-body">
                                             {description}
                                         </p>
                                     )}
@@ -107,7 +107,7 @@ export function Modal({
                                 {showClose && (
                                     <button
                                         onClick={onClose}
-                                        className="ml-4 p-1.5 rounded-sm text-navy-300 hover:text-white hover:bg-navy-600 transition-colors"
+                                        className="ml-4 p-1.5 rounded-sm text-slate-400 dark:text-navy-300 hover:text-[#0D1B2A] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-navy-600 transition-colors"
                                         aria-label="Close modal"
                                     >
                                         <X className="h-5 w-5" />

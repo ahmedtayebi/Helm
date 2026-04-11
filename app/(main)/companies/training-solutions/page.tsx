@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 const PACKAGES = [
     {
@@ -80,17 +81,18 @@ export default function TrainingSolutionsPage() {
     const [form, setForm] = useState({ name: "", company: "", email: "", teamSize: "", track: "", message: "" });
     const [submitted, setSubmitted] = useState(false);
     const set = (k: keyof typeof form, v: string) => setForm(p => ({ ...p, [k]: v }));
+    const tc = useThemeColors();
 
     return (
-        <main className="min-h-screen bg-navy-950 overflow-x-hidden">
+        <main className={`min-h-screen ${tc.sectionBgAlt} overflow-x-hidden`}>
             {/* ── HERO ── */}
-            <section className="relative pt-28 pb-20 px-4 overflow-hidden border-b border-navy-700">
+            <section className={`relative pt-28 pb-20 px-4 overflow-hidden border-b ${tc.borderSubtle}`}>
                 <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full bg-teal-500/5 blur-[120px]" />
-                    <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: "linear-gradient(rgba(45,212,191,1) 1px, transparent 1px), linear-gradient(90deg, rgba(45,212,191,1) 1px, transparent 1px)", backgroundSize: "80px 80px" }} />
+                    <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: `linear-gradient(rgba(45,212,191,1) 1px, transparent 1px), linear-gradient(90deg, rgba(45,212,191,1) 1px, transparent 1px)`, backgroundSize: "80px 80px" }} />
                 </div>
                 <div className="relative max-w-4xl mx-auto text-center">
-                    <div className="flex items-center gap-2 text-sm text-navy-400 justify-center mb-8">
+                    <div className={`flex items-center gap-2 text-sm ${tc.subtle} justify-center mb-8`}>
                         <Link href="/companies" className="hover:text-primary transition-colors">Companies</Link>
                         <ChevronRight className="w-4 h-4" />
                         <span className="text-teal-400">Training Solutions</span>
@@ -98,10 +100,10 @@ export default function TrainingSolutionsPage() {
                     <div className="inline-flex items-center gap-2 bg-teal-500/10 border border-teal-500/30 text-teal-400 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
                         <BookOpen className="w-4 h-4" /> Corporate Learning & Development
                     </div>
-                    <h1 className="font-display text-5xl md:text-7xl text-white mb-6 leading-tight">
+                    <h1 className={`font-display text-5xl md:text-7xl ${tc.heading} mb-6 leading-tight`}>
                         Train Your Team<br /><span className="text-teal-400">Like the Best Do</span>
                     </h1>
-                    <p className="text-navy-200 text-xl leading-relaxed max-w-2xl mx-auto mb-10">
+                    <p className={`${tc.body} text-xl leading-relaxed max-w-2xl mx-auto mb-10`}>
                         Commission bespoke petroleum engineering training programmes for your team — from quick upskilling sprints to full internal academies. All delivered and tracked through HELM.
                     </p>
                     <div className="flex flex-wrap gap-4 justify-center">
@@ -116,19 +118,19 @@ export default function TrainingSolutionsPage() {
                 <div className="max-w-6xl mx-auto">
                     <motion.div {...fadeUp} className="text-center mb-12">
                         <p className="text-teal-400 text-sm font-bold uppercase tracking-widest mb-3">Benefits</p>
-                        <h2 className="font-display text-4xl text-white">Everything your L&D team needs</h2>
+                        <h2 className={`font-display text-4xl ${tc.heading}`}>Everything your L&D team needs</h2>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                         {BENEFITS.map((b, idx) => {
                             const Icon = b.icon;
                             return (
                                 <motion.div key={b.title} {...fadeUp} transition={{ delay: idx * 0.1 }}
-                                    className="bg-navy-900 border border-navy-600 rounded-2xl p-5 hover:border-teal-500/30 transition-colors">
+                                    className={`${tc.cardBg} border ${tc.borderAccent} rounded-2xl p-5 hover:border-teal-500/30 transition-colors`}>
                                     <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center mb-4">
                                         <Icon className="w-5 h-5 text-teal-400" />
                                     </div>
-                                    <h3 className="font-display text-lg text-white mb-2">{b.title}</h3>
-                                    <p className="text-sm text-navy-300 leading-relaxed">{b.desc}</p>
+                                    <h3 className={`font-display text-lg ${tc.heading} mb-2`}>{b.title}</h3>
+                                    <p className={`text-sm ${tc.muted} leading-relaxed`}>{b.desc}</p>
                                 </motion.div>
                             );
                         })}
@@ -137,20 +139,20 @@ export default function TrainingSolutionsPage() {
             </section>
 
             {/* ── COURSE TRACKS ── */}
-            <section className="py-16 px-4 border-t border-navy-700 bg-navy-900/30">
+            <section className={`py-16 px-4 border-t ${tc.borderSubtle} ${tc.isDark ? "bg-navy-900/30" : "bg-slate-50/60"}`}>
                 <div className="max-w-5xl mx-auto">
                     <motion.div {...fadeUp} className="text-center mb-10">
-                        <h2 className="font-display text-3xl text-white mb-2">Available Training Tracks</h2>
-                        <p className="text-navy-400">Choose one or combine multiple tracks into a custom programme</p>
+                        <h2 className={`font-display text-3xl ${tc.heading} mb-2`}>Available Training Tracks</h2>
+                        <p className={tc.subtle}>Choose one or combine multiple tracks into a custom programme</p>
                     </motion.div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {TRACKS.map((track, idx) => (
                             <motion.div key={track.name} {...fadeUp} transition={{ delay: idx * 0.08 }}
-                                className="flex items-center gap-4 bg-navy-900 border border-navy-600 rounded-xl p-4 hover:border-teal-500/40 transition-colors">
+                                className={`flex items-center gap-4 ${tc.cardBg} border ${tc.borderAccent} rounded-xl p-4 hover:border-teal-500/40 transition-colors`}>
                                 <span className="text-2xl">{track.icon}</span>
                                 <div>
-                                    <p className="font-medium text-white text-sm">{track.name}</p>
-                                    <p className="text-xs text-navy-400 mt-0.5">{track.modules} modules · {track.hours}</p>
+                                    <p className={`font-medium ${tc.heading} text-sm`}>{track.name}</p>
+                                    <p className={`text-xs ${tc.subtle} mt-0.5`}>{track.modules} modules · {track.hours}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -163,8 +165,8 @@ export default function TrainingSolutionsPage() {
                 <div className="max-w-6xl mx-auto">
                     <motion.div {...fadeUp} className="text-center mb-16">
                         <p className="text-teal-400 text-sm font-bold uppercase tracking-widest mb-3">Packages</p>
-                        <h2 className="font-display text-4xl text-white mb-3">Choose your scale</h2>
-                        <p className="text-navy-400">All packages include content creation, progress tracking, and certification</p>
+                        <h2 className={`font-display text-4xl ${tc.heading} mb-3`}>Choose your scale</h2>
+                        <p className={tc.subtle}>All packages include content creation, progress tracking, and certification</p>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
                         {PACKAGES.map((pkg, idx) => {
@@ -175,15 +177,15 @@ export default function TrainingSolutionsPage() {
                                     {pkg.isPopular && (
                                         <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-teal-500 text-navy-950 text-xs font-bold px-3 py-1 rounded-full">Most Chosen</span>
                                     )}
-                                    <div className={`w-12 h-12 rounded-xl bg-navy-900/70 border ${pkg.border} flex items-center justify-center mb-4`}>
+                                    <div className={`w-12 h-12 rounded-xl ${tc.isDark ? "bg-navy-900/70" : "bg-white/70"} border ${pkg.border} flex items-center justify-center mb-4`}>
                                         <Icon className={`w-6 h-6 ${pkg.accent}`} />
                                     </div>
-                                    <h3 className="font-display text-2xl text-white mb-1">{pkg.name}</h3>
-                                    <p className="text-navy-300 text-sm mb-1">{pkg.desc}</p>
+                                    <h3 className={`font-display text-2xl ${tc.heading} mb-1`}>{pkg.name}</h3>
+                                    <p className={`${tc.muted} text-sm mb-1`}>{pkg.desc}</p>
                                     <p className={`text-sm font-medium mb-4 ${pkg.accent}`}>⏱ Timeline: {pkg.duration}</p>
                                     <ul className="space-y-2.5 mb-6 flex-1">
                                         {pkg.features.map(f => (
-                                            <li key={f} className="flex items-start gap-2 text-sm text-navy-200">
+                                            <li key={f} className={`flex items-start gap-2 text-sm ${tc.body}`}>
                                                 <CheckCircle className={`w-4 h-4 flex-shrink-0 mt-0.5 ${pkg.accent}`} /> {f}
                                             </li>
                                         ))}
@@ -197,43 +199,43 @@ export default function TrainingSolutionsPage() {
             </section>
 
             {/* ── PROPOSAL FORM ── */}
-            <section className="py-20 px-4 border-t border-navy-700 bg-navy-900/20" id="proposal">
+            <section className={`py-20 px-4 border-t ${tc.borderSubtle} ${tc.isDark ? "bg-navy-900/20" : "bg-slate-50/40"}`} id="proposal">
                 <div className="max-w-2xl mx-auto">
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <p className="text-teal-400 text-sm font-bold uppercase tracking-widest mb-3">Get Started</p>
-                        <h2 className="font-display text-4xl text-white mb-3">Request a Proposal</h2>
-                        <p className="text-navy-300">Tell us about your team and we&apos;ll send a tailored training proposal within 2 business days.</p>
+                        <h2 className={`font-display text-4xl ${tc.heading} mb-3`}>Request a Proposal</h2>
+                        <p className={tc.muted}>Tell us about your team and we&apos;ll send a tailored training proposal within 2 business days.</p>
                     </motion.div>
 
                     {submitted ? (
-                        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-navy-900 border border-teal-500/30 rounded-2xl p-10 text-center">
+                        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className={`${tc.cardBg} border border-teal-500/30 rounded-2xl p-10 text-center`}>
                             <div className="w-16 h-16 rounded-full bg-teal-500/10 border-2 border-teal-500 flex items-center justify-center mx-auto mb-4">
                                 <CheckCircle className="w-8 h-8 text-teal-400" />
                             </div>
-                            <h3 className="font-display text-2xl text-white mb-2">Proposal Requested!</h3>
-                            <p className="text-navy-300">Our L&D team will review your requirements and send a tailored proposal within 48 hours.</p>
+                            <h3 className={`font-display text-2xl ${tc.heading} mb-2`}>Proposal Requested!</h3>
+                            <p className={tc.muted}>Our L&D team will review your requirements and send a tailored proposal within 48 hours.</p>
                         </motion.div>
                     ) : (
                         <motion.form {...fadeUp} onSubmit={e => { e.preventDefault(); setSubmitted(true); }}
-                            className="bg-navy-900 border border-navy-600 rounded-2xl p-6 md:p-8 space-y-5">
+                            className={`${tc.cardBg} border ${tc.borderAccent} rounded-2xl p-6 md:p-8 space-y-5`}>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-navy-300 mb-1.5">Full Name *</label>
-                                    <Input required placeholder="Your name" className="bg-navy-800 border-navy-600 focus:border-teal-500" value={form.name} onChange={e => set("name", e.target.value)} />
+                                    <label className={`block text-sm font-medium ${tc.muted} mb-1.5`}>Full Name *</label>
+                                    <Input required placeholder="Your name" className={`${tc.inputBg} ${tc.borderAccent} focus:border-teal-500`} value={form.name} onChange={e => set("name", e.target.value)} />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-navy-300 mb-1.5">Company *</label>
-                                    <Input required placeholder="Company name" className="bg-navy-800 border-navy-600 focus:border-teal-500" value={form.company} onChange={e => set("company", e.target.value)} />
+                                    <label className={`block text-sm font-medium ${tc.muted} mb-1.5`}>Company *</label>
+                                    <Input required placeholder="Company name" className={`${tc.inputBg} ${tc.borderAccent} focus:border-teal-500`} value={form.company} onChange={e => set("company", e.target.value)} />
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-navy-300 mb-1.5">Work Email *</label>
-                                <Input required type="email" placeholder="you@company.com" className="bg-navy-800 border-navy-600 focus:border-teal-500" value={form.email} onChange={e => set("email", e.target.value)} />
+                                <label className={`block text-sm font-medium ${tc.muted} mb-1.5`}>Work Email *</label>
+                                <Input required type="email" placeholder="you@company.com" className={`${tc.inputBg} ${tc.borderAccent} focus:border-teal-500`} value={form.email} onChange={e => set("email", e.target.value)} />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-navy-300 mb-1.5">Team Size *</label>
-                                    <select required className="w-full bg-navy-800 border border-navy-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-teal-500 transition-colors" value={form.teamSize} onChange={e => set("teamSize", e.target.value)}>
+                                    <label className={`block text-sm font-medium ${tc.muted} mb-1.5`}>Team Size *</label>
+                                    <select required className={`w-full ${tc.inputBg} border ${tc.borderAccent} rounded-xl px-4 py-3 ${tc.heading} text-sm focus:outline-none focus:border-teal-500 transition-colors`} value={form.teamSize} onChange={e => set("teamSize", e.target.value)}>
                                         <option value="">Select size</option>
                                         <option value="1–20">1–20 engineers</option>
                                         <option value="20–100">20–100 engineers</option>
@@ -242,24 +244,24 @@ export default function TrainingSolutionsPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-navy-300 mb-1.5">Preferred Track</label>
-                                    <select className="w-full bg-navy-800 border border-navy-600 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-teal-500 transition-colors" value={form.track} onChange={e => set("track", e.target.value)}>
+                                    <label className={`block text-sm font-medium ${tc.muted} mb-1.5`}>Preferred Track</label>
+                                    <select className={`w-full ${tc.inputBg} border ${tc.borderAccent} rounded-xl px-4 py-3 ${tc.heading} text-sm focus:outline-none focus:border-teal-500 transition-colors`} value={form.track} onChange={e => set("track", e.target.value)}>
                                         <option value="">Any / Multiple</option>
-                                        {TRACKS.map(t => <option key={t.name} value={t.name}>{t.name}</option>)}
+                                        {TRACKS.map(tr => <option key={tr.name} value={tr.name}>{tr.name}</option>)}
                                     </select>
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-navy-300 mb-1.5">Training Goals & Context</label>
+                                <label className={`block text-sm font-medium ${tc.muted} mb-1.5`}>Training Goals & Context</label>
                                 <textarea rows={4} placeholder="Describe your team&apos;s current level, what you want to achieve, any timeline constraints..."
-                                    className="w-full bg-navy-800 border border-navy-600 rounded-xl px-4 py-3 text-white placeholder:text-navy-500 text-sm focus:outline-none focus:border-teal-500 resize-none transition-colors"
+                                    className={`w-full ${tc.inputBg} border ${tc.borderAccent} rounded-xl px-4 py-3 ${tc.heading} placeholder:${tc.faint} text-sm focus:outline-none focus:border-teal-500 resize-none transition-colors`}
                                     value={form.message} onChange={e => set("message", e.target.value)}
                                 />
                             </div>
                             <Button type="submit" size="lg" className="w-full bg-teal-500 hover:bg-teal-400 text-navy-950 font-bold border-0 shadow-[0_0_20px_rgba(45,212,191,0.3)]">
                                 Send Proposal Request <Send className="w-4 h-4 ml-2" />
                             </Button>
-                            <p className="text-xs text-navy-500 text-center">No commitment required. We&apos;ll respond within 48 business hours.</p>
+                            <p className={`text-xs ${tc.faint} text-center`}>No commitment required. We&apos;ll respond within 48 business hours.</p>
                         </motion.form>
                     )}
                 </div>

@@ -5,12 +5,14 @@ import Link from "next/link";
 import { GraduationCap, ArrowRight, Linkedin, Twitter, Youtube, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
+    const t = useThemeColors();
 
     return (
-        <footer className="bg-[#060E1A] pt-20 pb-10 border-t border-navy-500/30 relative overflow-hidden">
+        <footer className={`pt-20 pb-10 border-t ${t.borderMuted} relative overflow-hidden`} style={{ backgroundColor: t.bg }}>
             {/* Subtle Top Gold Border */}
             <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-gold opacity-50" />
 
@@ -27,7 +29,7 @@ export function Footer() {
                                 <GraduationCap className="h-6 w-6 text-navy-900" />
                             </div>
                             <div>
-                                <span className="block text-xl font-display font-bold text-white tracking-tight leading-none">
+                                <span className={`block text-xl font-display font-bold ${t.heading} tracking-tight leading-none`}>
                                     HELM
                                 </span>
                                 <span className="block text-[10px] font-body text-primary tracking-[0.2em] uppercase mt-0.5">
@@ -36,38 +38,31 @@ export function Footer() {
                             </div>
                         </Link>
 
-                        <p className="text-sm text-navy-200 font-body leading-relaxed max-w-xs">
+                        <p className={`text-sm ${t.body} font-body leading-relaxed max-w-xs`}>
                             Engineer your future in energy. The premier petroleum engineering learning platform for professionals across Algeria and the MENA region.
                         </p>
 
                         <div className="flex items-center gap-4">
-                            <a href="#" className="w-9 h-9 rounded bg-navy-800 flex items-center justify-center text-navy-200 hover:bg-primary/20 hover:text-primary transition-colors border border-navy-600 hover:border-primary/30 outline-none">
-                                <Linkedin className="h-4 w-4" />
-                                <span className="sr-only">LinkedIn</span>
-                            </a>
-                            <a href="#" className="w-9 h-9 rounded bg-navy-800 flex items-center justify-center text-navy-200 hover:bg-primary/20 hover:text-primary transition-colors border border-navy-600 hover:border-primary/30 outline-none">
-                                <Twitter className="h-4 w-4" />
-                                <span className="sr-only">Twitter</span>
-                            </a>
-                            <a href="#" className="w-9 h-9 rounded bg-navy-800 flex items-center justify-center text-navy-200 hover:bg-primary/20 hover:text-primary transition-colors border border-navy-600 hover:border-primary/30 outline-none">
-                                <Youtube className="h-4 w-4" />
-                                <span className="sr-only">YouTube</span>
-                            </a>
-                            <a href="#" className="w-9 h-9 rounded bg-navy-800 flex items-center justify-center text-navy-200 hover:bg-primary/20 hover:text-primary transition-colors border border-navy-600 hover:border-primary/30 outline-none">
-                                <Send className="h-4 w-4" />
-                                <span className="sr-only">Telegram</span>
-                            </a>
+                            {[Linkedin, Twitter, Youtube, Send].map((Icon, i) => {
+                                const labels = ["LinkedIn", "Twitter", "YouTube", "Telegram"];
+                                return (
+                                    <a key={labels[i]} href="#" className={`w-9 h-9 rounded ${t.cardBgSubtle} flex items-center justify-center ${t.body} hover:bg-primary/20 hover:text-primary transition-colors border ${t.borderAccent} hover:border-primary/30 outline-none`}>
+                                        <Icon className="h-4 w-4" />
+                                        <span className="sr-only">{labels[i]}</span>
+                                    </a>
+                                );
+                            })}
                         </div>
                     </div>
 
                     {/* ── Col 2: Explore ── */}
                     <div>
-                        <h4 className="font-display text-white text-lg font-semibold mb-6">Explore</h4>
+                        <h4 className={`font-display ${t.heading} text-lg font-semibold mb-6`}>Explore</h4>
                         <ul className="space-y-4">
                             {['Engineering Programs', 'Learning Paths', 'Professional Certifications', 'Technical Library', 'Job Board'].map((item) => (
                                 <li key={item}>
-                                    <Link href="#" className="text-sm text-navy-200 hover:text-primary transition-colors flex items-center gap-2 group outline-none">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-navy-600 group-hover:bg-primary transition-colors" />
+                                    <Link href="#" className={`text-sm ${t.body} hover:text-primary transition-colors flex items-center gap-2 group outline-none`}>
+                                        <span className={`w-1.5 h-1.5 rounded-full ${t.isDark ? "bg-navy-600" : "bg-slate-300"} group-hover:bg-primary transition-colors`} />
                                         {item}
                                     </Link>
                                 </li>
@@ -77,12 +72,12 @@ export function Footer() {
 
                     {/* ── Col 3: Company ── */}
                     <div>
-                        <h4 className="font-display text-white text-lg font-semibold mb-6">Company</h4>
+                        <h4 className={`font-display ${t.heading} text-lg font-semibold mb-6`}>Company</h4>
                         <ul className="space-y-4">
                             {['About HELM', 'Careers', 'Instructor Application', 'Corporate Training', 'Contact Us'].map((item) => (
                                 <li key={item}>
-                                    <Link href="#" className="text-sm text-navy-200 hover:text-primary transition-colors flex items-center gap-2 group outline-none">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-navy-600 group-hover:bg-primary transition-colors" />
+                                    <Link href="#" className={`text-sm ${t.body} hover:text-primary transition-colors flex items-center gap-2 group outline-none`}>
+                                        <span className={`w-1.5 h-1.5 rounded-full ${t.isDark ? "bg-navy-600" : "bg-slate-300"} group-hover:bg-primary transition-colors`} />
                                         {item}
                                     </Link>
                                 </li>
@@ -91,9 +86,9 @@ export function Footer() {
                     </div>
 
                     {/* ── Col 4: Newsletter CTA ── */}
-                    <div className="glass-strong p-6 rounded-xl border-navy-500/50">
-                        <h4 className="font-display text-white text-lg font-semibold mb-2">Join our Newsletter</h4>
-                        <p className="text-sm text-navy-200 font-body mb-5">
+                    <div className={`glass-strong p-6 rounded-xl ${t.borderFaint}`}>
+                        <h4 className={`font-display ${t.heading} text-lg font-semibold mb-2`}>Join our Newsletter</h4>
+                        <p className={`text-sm ${t.body} font-body mb-5`}>
                             Get the latest insights, course drops, and industry news delivered weekly.
                         </p>
                         <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
@@ -101,14 +96,14 @@ export function Footer() {
                                 type="email"
                                 placeholder="Enter your email"
                                 variant="filled"
-                                className="bg-navy-800"
+                                className={t.cardBgSubtle}
                                 required
                             />
                             <Button type="submit" className="w-full" rightIcon={<ArrowRight className="h-4 w-4" />}>
                                 Subscribe
                             </Button>
                         </form>
-                        <p className="text-[10px] text-navy-400 mt-3 text-center">
+                        <p className={`text-[10px] ${t.subtle} mt-3 text-center`}>
                             By subscribing, you agree to our Privacy Policy.
                         </p>
                     </div>
@@ -116,11 +111,11 @@ export function Footer() {
                 </div>
 
                 {/* ── Bottom Bar ── */}
-                <div className="pt-8 border-t border-navy-500/30 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-xs text-navy-300 font-body text-center md:text-left">
+                <div className={`pt-8 border-t ${t.borderMuted} flex flex-col md:flex-row items-center justify-between gap-4`}>
+                    <p className={`text-xs ${t.muted} font-body text-center md:text-left`}>
                         &copy; {currentYear} HELM Academy. All rights reserved.
                     </p>
-                    <div className="flex items-center gap-6 text-xs text-navy-300 font-body">
+                    <div className={`flex items-center gap-6 text-xs ${t.muted} font-body`}>
                         <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
                         <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
                         <Link href="/cookies" className="hover:text-primary transition-colors">Cookie Policy</Link>

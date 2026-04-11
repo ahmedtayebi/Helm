@@ -39,9 +39,9 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 
         const variants = {
             default:
-                "bg-navy-700/50 border border-navy-500/50 focus:border-primary focus:ring-1 focus:ring-primary/30",
+                "bg-white dark:bg-navy-700/50 border border-slate-300 dark:border-navy-500/50 focus:border-primary focus:ring-1 focus:ring-primary/30",
             filled:
-                "bg-navy-600 border border-transparent focus:border-primary focus:ring-1 focus:ring-primary/30",
+                "bg-slate-100 dark:bg-navy-600 border border-transparent focus:border-primary focus:ring-1 focus:ring-primary/30",
         };
 
         return (
@@ -49,7 +49,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                 {label && (
                     <label
                         htmlFor={selectId}
-                        className="block text-sm font-medium font-body text-navy-200"
+                        className="block text-sm font-medium font-body text-slate-600 dark:text-navy-200"
                     >
                         {label}
                     </label>
@@ -59,7 +59,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                         ref={ref}
                         id={selectId}
                         className={cn(
-                            "w-full h-10 px-3 pr-10 rounded-md text-sm font-body text-white appearance-none transition-all duration-200 outline-none cursor-pointer",
+                            "w-full h-10 px-3 pr-10 rounded-md text-sm font-body text-[#0D1B2A] dark:text-white appearance-none transition-all duration-200 outline-none cursor-pointer",
                             variants[variant],
                             error &&
                             "border-danger focus:border-danger focus:ring-danger/30",
@@ -67,7 +67,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                         )}
                         {...props}
                     >
-                        <option value="" disabled className="text-navy-400 bg-navy-800">
+                        <option value="" disabled className="text-slate-400 dark:text-navy-400 bg-white dark:bg-navy-800">
                             {placeholder}
                         </option>
                         {options.map((option) => (
@@ -75,17 +75,17 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
                                 key={option.value}
                                 value={option.value}
                                 disabled={option.disabled}
-                                className="bg-navy-800 text-white"
+                                className="bg-white dark:bg-navy-800 text-[#0D1B2A] dark:text-white"
                             >
                                 {option.label}
                             </option>
                         ))}
                     </select>
-                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-navy-300 pointer-events-none" />
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 dark:text-navy-300 pointer-events-none" />
                 </div>
                 {error && <p className="text-xs text-danger font-body">{error}</p>}
                 {hint && !error && (
-                    <p className="text-xs text-navy-300 font-body">{hint}</p>
+                    <p className="text-xs text-slate-400 dark:text-navy-300 font-body">{hint}</p>
                 )}
             </div>
         );

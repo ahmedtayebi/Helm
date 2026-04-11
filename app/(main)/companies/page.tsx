@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 const STATS = [
     { value: "12,400+", label: "Verified Engineers", icon: Users },
@@ -132,6 +133,7 @@ const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0
 export default function CompaniesPage() {
     const [contactForm, setContactForm] = useState({ name: "", company: "", email: "", phone: "", message: "" });
     const [submitted, setSubmitted] = useState(false);
+    const t = useThemeColors();
 
     const handleContact = (e: React.FormEvent) => {
         e.preventDefault();
@@ -139,7 +141,7 @@ export default function CompaniesPage() {
     };
 
     return (
-        <main className="min-h-screen bg-navy-950 overflow-x-hidden">
+        <main className={`min-h-screen ${t.sectionBgAlt} overflow-x-hidden`}>
 
             {/* ── HERO ─────────────────────────────────────────────────── */}
             <section className="relative min-h-[92vh] flex items-center pt-24 pb-16 overflow-hidden">
@@ -147,7 +149,7 @@ export default function CompaniesPage() {
                     <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
                     <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px]" />
                     <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-teal-500/5 blur-[100px]" />
-                    <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(212,160,23,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,160,23,1) 1px, transparent 1px)", backgroundSize: "80px 80px" }} />
+                    <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `linear-gradient(${t.gridLine} 1px, transparent 1px), linear-gradient(90deg, ${t.gridLine} 1px, transparent 1px)`, backgroundSize: "80px 80px" }} />
                 </div>
 
                 <div className="relative max-w-6xl mx-auto px-4 xl:px-8">
@@ -156,12 +158,12 @@ export default function CompaniesPage() {
                             <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/30 text-primary text-sm font-medium px-4 py-1.5 rounded-full mb-6">
                                 <Building2 className="w-4 h-4" /> For Companies & Operators
                             </div>
-                            <h1 className="font-display text-5xl md:text-6xl xl:text-7xl text-white leading-[1.08] mb-6">
+                            <h1 className={`font-display text-5xl md:text-6xl xl:text-7xl ${t.heading} leading-[1.08] mb-6`}>
                                 Find & Develop<br />
                                 <span className="text-gradient-gold">Top Petroleum</span><br />
                                 Talent
                             </h1>
-                            <p className="text-navy-200 text-xl leading-relaxed mb-8 max-w-lg">
+                            <p className={`${t.body} text-xl leading-relaxed mb-8 max-w-lg`}>
                                 HELM connects Algeria&apos;s leading energy companies with 12,400+ verified petroleum engineers — and provides the training infrastructure to develop the ones you already have.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4">
@@ -171,12 +173,12 @@ export default function CompaniesPage() {
                                     </Button>
                                 </Link>
                                 <Link href="/companies/training-solutions">
-                                    <Button size="xl" variant="outline" className="text-base px-8 w-full sm:w-auto border-navy-500 hover:border-primary">
+                                    <Button size="xl" variant="outline" className={`text-base px-8 w-full sm:w-auto ${t.borderFaint} hover:border-primary`}>
                                         Explore Training Solutions
                                     </Button>
                                 </Link>
                             </div>
-                            <div className="flex flex-wrap gap-5 mt-10 text-xs text-navy-400">
+                            <div className={`flex flex-wrap gap-5 mt-10 text-xs ${t.subtle}`}>
                                 <span className="flex items-center gap-1.5"><ShieldCheck className="w-4 h-4 text-teal-400" /> ISO 27001 Compliant</span>
                                 <span className="flex items-center gap-1.5"><Award className="w-4 h-4 text-primary" /> Accredited Content</span>
                                 <span className="flex items-center gap-1.5"><Zap className="w-4 h-4 text-purple-400" /> 24h Activation</span>
@@ -185,10 +187,10 @@ export default function CompaniesPage() {
 
                         <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="hidden lg:grid grid-cols-2 gap-4">
                             {STATS.map(({ value, label, icon: Icon }, idx) => (
-                                <div key={label} className={`bg-navy-900/80 border border-navy-600 rounded-2xl p-6 backdrop-blur ${idx === 0 ? 'border-primary/30 bg-primary/5' : ''}`}>
-                                    <Icon className={`w-8 h-8 mb-4 ${idx === 0 ? 'text-primary' : 'text-navy-400'}`} />
-                                    <p className="font-display text-3xl xl:text-4xl text-white font-bold">{value}</p>
-                                    <p className="text-navy-400 text-sm mt-1">{label}</p>
+                                <div key={label} className={`${t.isDark ? "bg-navy-900/80" : "bg-white/80"} border ${t.borderAccent} rounded-2xl p-6 backdrop-blur ${idx === 0 ? 'border-primary/30 bg-primary/5' : ''}`}>
+                                    <Icon className={`w-8 h-8 mb-4 ${idx === 0 ? 'text-primary' : t.subtle}`} />
+                                    <p className={`font-display text-3xl xl:text-4xl ${t.heading} font-bold`}>{value}</p>
+                                    <p className={`${t.subtle} text-sm mt-1`}>{label}</p>
                                 </div>
                             ))}
                         </motion.div>
@@ -197,12 +199,12 @@ export default function CompaniesPage() {
             </section>
 
             {/* ── STATS BAR (mobile) ───────────────────────────────────── */}
-            <section className="lg:hidden border-t border-b border-navy-700 bg-navy-900/50 py-8 px-4">
+            <section className={`lg:hidden border-t border-b ${t.borderSubtle} ${t.isDark ? "bg-navy-900/50" : "bg-slate-50/50"} py-8 px-4`}>
                 <div className="grid grid-cols-2 gap-4 max-w-xl mx-auto">
                     {STATS.map(({ value, label }) => (
                         <div key={label} className="text-center">
                             <p className="font-display text-3xl text-primary font-bold">{value}</p>
-                            <p className="text-navy-400 text-sm">{label}</p>
+                            <p className={`${t.subtle} text-sm`}>{label}</p>
                         </div>
                     ))}
                 </div>
@@ -213,8 +215,8 @@ export default function CompaniesPage() {
                 <div className="max-w-6xl mx-auto">
                     <motion.div {...fadeUp} className="text-center mb-16">
                         <p className="text-primary text-sm font-bold uppercase tracking-widest mb-3">Why HELM</p>
-                        <h2 className="font-display text-4xl md:text-5xl text-white mb-4">Built for the Energy Industry</h2>
-                        <p className="text-navy-300 text-lg max-w-2xl mx-auto">Unlike generalist platforms, HELM was designed from the ground up for petroleum engineering — giving you unparalleled precision in both recruitment and training.</p>
+                        <h2 className={`font-display text-4xl md:text-5xl ${t.heading} mb-4`}>Built for the Energy Industry</h2>
+                        <p className={`${t.muted} text-lg max-w-2xl mx-auto`}>Unlike generalist platforms, HELM was designed from the ground up for petroleum engineering — giving you unparalleled precision in both recruitment and training.</p>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {VALUE_PROPS.map((vp, idx) => {
@@ -222,11 +224,11 @@ export default function CompaniesPage() {
                             return (
                                 <motion.div key={vp.title} {...fadeUp} transition={{ duration: 0.5, delay: idx * 0.1 }}
                                     className={`relative p-6 rounded-2xl bg-gradient-to-br ${vp.color} border ${vp.border} group hover:scale-[1.01] transition-transform duration-300`}>
-                                    <div className={`w-12 h-12 rounded-xl bg-navy-950/60 border ${vp.border} flex items-center justify-center mb-4`}>
+                                    <div className={`w-12 h-12 rounded-xl ${t.isDark ? "bg-navy-950/60" : "bg-white/60"} border ${vp.border} flex items-center justify-center mb-4`}>
                                         <Icon className={`w-6 h-6 ${vp.accent}`} />
                                     </div>
-                                    <h3 className="font-display text-xl text-white mb-2">{vp.title}</h3>
-                                    <p className="text-navy-200 text-sm leading-relaxed">{vp.description}</p>
+                                    <h3 className={`font-display text-xl ${t.heading} mb-2`}>{vp.title}</h3>
+                                    <p className={`${t.body} text-sm leading-relaxed`}>{vp.description}</p>
                                 </motion.div>
                             );
                         })}
@@ -235,11 +237,11 @@ export default function CompaniesPage() {
             </section>
 
             {/* ── HOW IT WORKS ─────────────────────────────────────────── */}
-            <section className="py-20 px-4 bg-navy-900/30 border-t border-b border-navy-700">
+            <section className={`py-20 px-4 ${t.isDark ? "bg-navy-900/30" : "bg-slate-50/60"} border-t border-b ${t.borderSubtle}`}>
                 <div className="max-w-5xl mx-auto">
                     <motion.div {...fadeUp} className="text-center mb-16">
                         <p className="text-primary text-sm font-bold uppercase tracking-widest mb-3">Process</p>
-                        <h2 className="font-display text-4xl md:text-5xl text-white">Up and running in 24 hours</h2>
+                        <h2 className={`font-display text-4xl md:text-5xl ${t.heading}`}>Up and running in 24 hours</h2>
                     </motion.div>
                     <div className="relative">
                         <div className="hidden md:block absolute top-14 left-[16.66%] right-[16.66%] h-px bg-gradient-to-r from-primary/30 via-teal-400/40 to-purple-400/30" />
@@ -251,10 +253,10 @@ export default function CompaniesPage() {
                                     <motion.div key={item.step} {...fadeUp} transition={{ delay: idx * 0.15 }} className="flex flex-col items-center text-center">
                                         <div className={`relative w-28 h-28 rounded-full border-2 flex items-center justify-center mb-6 ${accent}`}>
                                             <Icon className="w-10 h-10" />
-                                            <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-navy-950 border border-navy-600 text-xs font-bold text-navy-200 flex items-center justify-center">{item.step}</span>
+                                            <span className={`absolute -top-2 -right-2 w-7 h-7 rounded-full ${t.sectionBgAlt} border ${t.borderAccent} text-xs font-bold ${t.body} flex items-center justify-center`}>{item.step}</span>
                                         </div>
-                                        <h3 className="font-display text-xl text-white mb-2">{item.title}</h3>
-                                        <p className="text-navy-300 text-sm leading-relaxed">{item.desc}</p>
+                                        <h3 className={`font-display text-xl ${t.heading} mb-2`}>{item.title}</h3>
+                                        <p className={`${t.muted} text-sm leading-relaxed`}>{item.desc}</p>
                                     </motion.div>
                                 );
                             })}
@@ -267,10 +269,10 @@ export default function CompaniesPage() {
             <section className="py-20 px-4">
                 <div className="max-w-5xl mx-auto">
                     <motion.div {...fadeUp} className="text-center mb-10">
-                        <p className="text-navy-400 text-sm uppercase tracking-widest font-medium mb-6">Trusted by leading energy companies</p>
+                        <p className={`${t.subtle} text-sm uppercase tracking-widest font-medium mb-6`}>Trusted by leading energy companies</p>
                         <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
                             {COMPANY_LOGOS.map((co) => (
-                                <div key={co} className="h-14 bg-navy-900 border border-navy-700 rounded-xl flex items-center justify-center text-sm font-semibold transition-all hover:border-primary/40 hover:text-white text-navy-400 px-2 text-center cursor-default">
+                                <div key={co} className={`h-14 ${t.cardBg} border ${t.borderSubtle} rounded-xl flex items-center justify-center text-sm font-semibold transition-all hover:border-primary/40 ${t.isDark ? "hover:text-white text-navy-400" : "hover:text-[#0D1B2A] text-slate-400"} px-2 text-center cursor-default`}>
                                     {co}
                                 </div>
                             ))}
@@ -280,12 +282,12 @@ export default function CompaniesPage() {
             </section>
 
             {/* ── TESTIMONIAL ──────────────────────────────────────────── */}
-            <section className="py-16 px-4 border-t border-navy-700">
+            <section className={`py-16 px-4 border-t ${t.borderSubtle}`}>
                 <div className="max-w-3xl mx-auto">
-                    <motion.div {...fadeUp} className="relative bg-navy-900 border border-primary/20 rounded-3xl p-8 md:p-12 text-center">
+                    <motion.div {...fadeUp} className={`relative ${t.cardBg} border border-primary/20 rounded-3xl p-8 md:p-12 text-center`}>
                         <div className="absolute -top-px left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
                         <div className="text-5xl text-primary/30 font-display leading-none mb-4">&ldquo;</div>
-                        <blockquote className="text-xl md:text-2xl text-white font-light leading-relaxed mb-8 italic">
+                        <blockquote className={`text-xl md:text-2xl ${t.heading} font-light leading-relaxed mb-8 italic`}>
                             {TESTIMONIAL.quote}
                         </blockquote>
                         <div className="flex items-center justify-center gap-4">
@@ -293,8 +295,8 @@ export default function CompaniesPage() {
                                 {TESTIMONIAL.initials}
                             </div>
                             <div className="text-left">
-                                <p className="font-semibold text-white">{TESTIMONIAL.name}</p>
-                                <p className="text-sm text-navy-400">{TESTIMONIAL.role} · {TESTIMONIAL.company}</p>
+                                <p className={`font-semibold ${t.heading}`}>{TESTIMONIAL.name}</p>
+                                <p className={`text-sm ${t.subtle}`}>{TESTIMONIAL.role} · {TESTIMONIAL.company}</p>
                             </div>
                         </div>
                         <div className="flex justify-center gap-1 mt-5">
@@ -309,8 +311,8 @@ export default function CompaniesPage() {
                 <div className="max-w-6xl mx-auto">
                     <motion.div {...fadeUp} className="text-center mb-16">
                         <p className="text-primary text-sm font-bold uppercase tracking-widest mb-3">Pricing</p>
-                        <h2 className="font-display text-4xl md:text-5xl text-white mb-4">Transparent, Scalable Plans</h2>
-                        <p className="text-navy-300 text-lg">Start free. Scale as you hire.</p>
+                        <h2 className={`font-display text-4xl md:text-5xl ${t.heading} mb-4`}>Transparent, Scalable Plans</h2>
+                        <p className={`${t.muted} text-lg`}>Start free. Scale as you hire.</p>
                     </motion.div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
@@ -318,8 +320,8 @@ export default function CompaniesPage() {
                             <motion.div key={plan.tier} {...fadeUp} transition={{ delay: idx * 0.1 }}
                                 className={`relative flex flex-col rounded-2xl border p-6 md:p-8 transition-all ${
                                     plan.isPopular
-                                        ? "border-primary bg-navy-900 shadow-gold-md"
-                                        : "border-navy-600 bg-navy-900 hover:border-navy-400"
+                                        ? `border-primary ${t.cardBg} shadow-gold-md`
+                                        : `${t.borderAccent} ${t.cardBg} ${t.isDark ? "hover:border-navy-400" : "hover:border-slate-400"}`
                                 }`}>
                                 {plan.isPopular && (
                                     <>
@@ -328,22 +330,22 @@ export default function CompaniesPage() {
                                     </>
                                 )}
                                 <div className="mb-6">
-                                    <h3 className="font-display text-2xl text-white mb-1">{plan.tier}</h3>
-                                    <p className="text-navy-400 text-sm mb-4">{plan.desc}</p>
+                                    <h3 className={`font-display text-2xl ${t.heading} mb-1`}>{plan.tier}</h3>
+                                    <p className={`${t.subtle} text-sm mb-4`}>{plan.desc}</p>
                                     <div className="flex items-baseline gap-1">
-                                        <span className="font-display text-4xl text-white font-bold">{plan.price}</span>
-                                        {plan.period && <span className="text-navy-400 text-sm">{plan.period}</span>}
+                                        <span className={`font-display text-4xl ${t.heading} font-bold`}>{plan.price}</span>
+                                        {plan.period && <span className={`${t.subtle} text-sm`}>{plan.period}</span>}
                                     </div>
                                 </div>
                                 <ul className="space-y-3 mb-6 flex-1">
                                     {plan.features.map(f => (
-                                        <li key={f} className="flex items-center gap-2.5 text-sm text-navy-200">
+                                        <li key={f} className={`flex items-center gap-2.5 text-sm ${t.body}`}>
                                             <CheckCircle className="w-4 h-4 text-teal-400 flex-shrink-0" /> {f}
                                         </li>
                                     ))}
                                     {plan.missing.map(f => (
-                                        <li key={f} className="flex items-center gap-2.5 text-sm text-navy-600 line-through">
-                                            <CheckCircle className="w-4 h-4 text-navy-700 flex-shrink-0" /> {f}
+                                        <li key={f} className={`flex items-center gap-2.5 text-sm ${t.isDark ? "text-navy-600" : "text-slate-300"} line-through`}>
+                                            <CheckCircle className={`w-4 h-4 ${t.isDark ? "text-navy-700" : "text-slate-300"} flex-shrink-0`} /> {f}
                                         </li>
                                     ))}
                                 </ul>
@@ -357,29 +359,29 @@ export default function CompaniesPage() {
             </section>
 
             {/* ── FINAL CTA / CONTACT ──────────────────────────────────── */}
-            <section className="py-24 px-4 border-t border-navy-700 bg-navy-900/30" id="contact">
+            <section className={`py-24 px-4 border-t ${t.borderSubtle} ${t.isDark ? "bg-navy-900/30" : "bg-slate-50/60"}`} id="contact">
                 <div className="max-w-5xl mx-auto">
                     <div className="grid lg:grid-cols-2 gap-16 items-start">
                         <motion.div {...fadeUp}>
                             <p className="text-primary text-sm font-bold uppercase tracking-widest mb-4">Get in Touch</p>
-                            <h2 className="font-display text-4xl md:text-5xl text-white mb-6">Ready to Partner<br /> with HELM?</h2>
-                            <p className="text-navy-200 text-lg leading-relaxed mb-8">
+                            <h2 className={`font-display text-4xl md:text-5xl ${t.heading} mb-6`}>Ready to Partner<br />with HELM?</h2>
+                            <p className={`${t.body} text-lg leading-relaxed mb-8`}>
                                 Whether you want to post your first job today or discuss a custom training programme for 500 engineers, our team is ready.
                             </p>
                             <div className="space-y-4 text-sm">
-                                <a href="mailto:partnerships@helm-academy.dz" className="flex items-center gap-3 text-navy-300 hover:text-primary transition-colors group">
+                                <a href="mailto:partnerships@helm-academy.dz" className={`flex items-center gap-3 ${t.muted} hover:text-primary transition-colors group`}>
                                     <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                                         <Mail className="w-5 h-5 text-primary" />
                                     </div>
                                     partnerships@helm-academy.dz
                                 </a>
-                                <a href="tel:+21321000000" className="flex items-center gap-3 text-navy-300 hover:text-primary transition-colors group">
+                                <a href="tel:+21321000000" className={`flex items-center gap-3 ${t.muted} hover:text-primary transition-colors group`}>
                                     <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                                         <Phone className="w-5 h-5 text-primary" />
                                     </div>
                                     +213 21 000 000
                                 </a>
-                                <p className="flex items-center gap-3 text-navy-300">
+                                <p className={`flex items-center gap-3 ${t.muted}`}>
                                     <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
                                         <Globe className="w-5 h-5 text-primary" />
                                     </div>
@@ -390,44 +392,44 @@ export default function CompaniesPage() {
 
                         <motion.div {...fadeUp} transition={{ delay: 0.15 }}>
                             {submitted ? (
-                                <div className="bg-navy-900 border border-teal-500/30 rounded-2xl p-10 text-center">
+                                <div className={`${t.cardBg} border border-teal-500/30 rounded-2xl p-10 text-center`}>
                                     <div className="w-16 h-16 rounded-full bg-teal-500/10 border-2 border-teal-500 flex items-center justify-center mx-auto mb-4">
                                         <CheckCircle className="w-8 h-8 text-teal-400" />
                                     </div>
-                                    <h3 className="font-display text-2xl text-white mb-2">Message Sent!</h3>
-                                    <p className="text-navy-300">Our partnerships team will respond within 1 business day.</p>
+                                    <h3 className={`font-display text-2xl ${t.heading} mb-2`}>Message Sent!</h3>
+                                    <p className={t.muted}>Our partnerships team will respond within 1 business day.</p>
                                 </div>
                             ) : (
-                                <form onSubmit={handleContact} className="bg-navy-900 border border-navy-600 rounded-2xl p-6 md:p-8 space-y-4">
+                                <form onSubmit={handleContact} className={`${t.cardBg} border ${t.borderAccent} rounded-2xl p-6 md:p-8 space-y-4`}>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-xs font-medium text-navy-300 mb-1.5">Full Name *</label>
-                                            <Input required placeholder="Your name" className="bg-navy-800 border-navy-600 focus:border-primary" value={contactForm.name} onChange={e => setContactForm(p => ({ ...p, name: e.target.value }))} />
+                                            <label className={`block text-xs font-medium ${t.muted} mb-1.5`}>Full Name *</label>
+                                            <Input required placeholder="Your name" className={`${t.inputBg} ${t.borderAccent} focus:border-primary`} value={contactForm.name} onChange={e => setContactForm(p => ({ ...p, name: e.target.value }))} />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-medium text-navy-300 mb-1.5">Company *</label>
-                                            <Input required placeholder="Company name" className="bg-navy-800 border-navy-600 focus:border-primary" value={contactForm.company} onChange={e => setContactForm(p => ({ ...p, company: e.target.value }))} />
+                                            <label className={`block text-xs font-medium ${t.muted} mb-1.5`}>Company *</label>
+                                            <Input required placeholder="Company name" className={`${t.inputBg} ${t.borderAccent} focus:border-primary`} value={contactForm.company} onChange={e => setContactForm(p => ({ ...p, company: e.target.value }))} />
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-medium text-navy-300 mb-1.5">Work Email *</label>
-                                        <Input required type="email" placeholder="you@company.com" className="bg-navy-800 border-navy-600 focus:border-primary" value={contactForm.email} onChange={e => setContactForm(p => ({ ...p, email: e.target.value }))} />
+                                        <label className={`block text-xs font-medium ${t.muted} mb-1.5`}>Work Email *</label>
+                                        <Input required type="email" placeholder="you@company.com" className={`${t.inputBg} ${t.borderAccent} focus:border-primary`} value={contactForm.email} onChange={e => setContactForm(p => ({ ...p, email: e.target.value }))} />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-medium text-navy-300 mb-1.5">Phone (optional)</label>
-                                        <Input type="tel" placeholder="+213 5XX XXX XXX" className="bg-navy-800 border-navy-600 focus:border-primary" value={contactForm.phone} onChange={e => setContactForm(p => ({ ...p, phone: e.target.value }))} />
+                                        <label className={`block text-xs font-medium ${t.muted} mb-1.5`}>Phone (optional)</label>
+                                        <Input type="tel" placeholder="+213 5XX XXX XXX" className={`${t.inputBg} ${t.borderAccent} focus:border-primary`} value={contactForm.phone} onChange={e => setContactForm(p => ({ ...p, phone: e.target.value }))} />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-medium text-navy-300 mb-1.5">How can we help? *</label>
+                                        <label className={`block text-xs font-medium ${t.muted} mb-1.5`}>How can we help? *</label>
                                         <textarea required rows={4} placeholder="Tell us about your hiring needs or training requirements..."
-                                            className="w-full bg-navy-800 border border-navy-600 rounded-xl px-4 py-3 text-white placeholder:text-navy-500 text-sm focus:outline-none focus:border-primary resize-none transition-colors"
+                                            className={`w-full ${t.inputBg} border ${t.borderAccent} rounded-xl px-4 py-3 ${t.heading} placeholder:${t.faint} text-sm focus:outline-none focus:border-primary resize-none transition-colors`}
                                             value={contactForm.message} onChange={e => setContactForm(p => ({ ...p, message: e.target.value }))}
                                         />
                                     </div>
                                     <Button type="submit" size="lg" className="w-full shadow-gold-sm font-bold">
                                         Send Message <Send className="w-4 h-4 ml-2" />
                                     </Button>
-                                    <p className="text-xs text-navy-500 text-center">We typically respond within 4 business hours.</p>
+                                    <p className={`text-xs ${t.faint} text-center`}>We typically respond within 4 business hours.</p>
                                 </form>
                             )}
                         </motion.div>

@@ -24,6 +24,7 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 // ── Mega Menu Data ──
 const explorePrograms = [
@@ -67,12 +68,11 @@ export function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [megaMenuOpen, setMegaMenuOpen] = useState(false);
 
-    const { theme, setTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
+    const { setTheme } = useTheme();
     const pathname = usePathname();
+    const t = useThemeColors();
 
     useEffect(() => {
-        setMounted(true);
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
@@ -96,7 +96,7 @@ export function Navbar() {
             className={cn(
                 "fixed top-0 inset-x-0 z-[100] transition-all duration-300 border-b",
                 isScrolled
-                    ? "h-16 bg-navy-900/80 backdrop-blur-xl border-navy-500/30 shadow-sm"
+                    ? `h-16 ${t.backdropBg} backdrop-blur-xl ${t.borderMuted} shadow-sm`
                     : "h-20 bg-transparent border-transparent"
             )}
         >
@@ -108,7 +108,7 @@ export function Navbar() {
                         <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 text-navy-900" />
                     </div>
                     <div>
-                        <span className="block text-lg sm:text-xl font-display font-bold text-white tracking-tight leading-none group-hover:text-primary-light transition-colors">
+                        <span className={`block text-lg sm:text-xl font-display font-bold ${t.heading} tracking-tight leading-none group-hover:text-primary-light transition-colors`}>
                             HELM
                         </span>
                         <span className="block text-[9px] sm:text-[10px] font-body text-primary tracking-[0.2em] uppercase mt-0.5">
@@ -125,7 +125,7 @@ export function Navbar() {
                         onMouseEnter={() => setMegaMenuOpen(true)}
                         onMouseLeave={() => setMegaMenuOpen(false)}
                     >
-                        <button className="flex items-center gap-1.5 text-sm font-medium font-body text-navy-200 hover:text-white transition-colors h-full outline-none">
+                        <button className={`flex items-center gap-1.5 text-sm font-medium font-body ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} transition-colors h-full outline-none`}>
                             Explore
                             <ChevronDown
                                 className={cn(
@@ -143,12 +143,12 @@ export function Navbar() {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                     transition={{ duration: 0.2, ease: "easeOut" }}
-                                    className="absolute top-full left-1/2 -translate-x-1/2 w-[800px] p-6 glass-strong shadow-card-hover border border-navy-500/50 rounded-xl mt-2 grid grid-cols-12 gap-8 before:absolute before:-top-4 before:inset-x-0 before:h-4 overflow-hidden"
+                                    className={`absolute top-full left-1/2 -translate-x-1/2 w-[800px] p-6 glass-strong shadow-card-hover border ${t.borderFaint} rounded-xl mt-2 grid grid-cols-12 gap-8 before:absolute before:-top-4 before:inset-x-0 before:h-4 overflow-hidden`}
                                 >
                                     {/* Left Column: Programs Grid */}
                                     <div className="col-span-7">
                                         <div className="flex items-center justify-between mb-4">
-                                            <h4 className="text-white font-display text-lg">Engineering Programs</h4>
+                                            <h4 className={`${t.heading} font-display text-lg`}>Engineering Programs</h4>
                                             <Link href="/explore" className="text-primary text-xs font-medium hover:underline flex items-center gap-1">
                                                 View all <ChevronDown className="h-3 w-3 -rotate-90" />
                                             </Link>
@@ -160,12 +160,12 @@ export function Navbar() {
                                                     <Link
                                                         key={prog.label}
                                                         href={prog.href}
-                                                        className="flex items-center gap-3 p-2.5 rounded-lg hover:bg-navy-700/50 border border-transparent hover:border-navy-500/50 transition-colors group"
+                                                        className={`flex items-center gap-3 p-2.5 rounded-lg ${t.hoverBgSubtle} border border-transparent ${t.isDark ? "hover:border-navy-500/50" : "hover:border-slate-200"} transition-colors group`}
                                                     >
-                                                        <div className="w-8 h-8 rounded bg-navy-800 flex items-center justify-center border border-navy-600 group-hover:border-primary/30 transition-colors">
+                                                        <div className={`w-8 h-8 rounded ${t.cardBgSubtle} flex items-center justify-center border ${t.borderAccent} group-hover:border-primary/30 transition-colors`}>
                                                             <Icon className="h-4 w-4" style={{ color: prog.color }} />
                                                         </div>
-                                                        <span className="text-sm font-medium text-navy-100 group-hover:text-white">{prog.label}</span>
+                                                        <span className={`text-sm font-medium ${t.isDark ? "text-navy-100 group-hover:text-white" : "text-slate-600 group-hover:text-[#0D1B2A]"}`}>{prog.label}</span>
                                                     </Link>
                                                 );
                                             })}
@@ -173,14 +173,14 @@ export function Navbar() {
                                     </div>
 
                                     {/* Right Column: Links */}
-                                    <div className="col-span-5 grid grid-cols-2 gap-6 bg-navy-800/30 -m-6 p-6 border-l border-navy-500/30">
+                                    <div className={`col-span-5 grid grid-cols-2 gap-6 ${t.isDark ? "bg-navy-800/30" : "bg-slate-50/80"} -m-6 p-6 border-l ${t.borderMuted}`}>
                                         {exploreLinks.slice(0, 2).map((col) => (
                                             <div key={col.title} className="space-y-4">
-                                                <h5 className="text-xs font-bold text-navy-300 uppercase tracking-wider">{col.title}</h5>
+                                                <h5 className={`text-xs font-bold ${t.muted} uppercase tracking-wider`}>{col.title}</h5>
                                                 <ul className="space-y-2.5">
                                                     {col.links.map((link) => (
                                                         <li key={link.label}>
-                                                            <Link href={link.href} className="text-sm text-navy-100 hover:text-primary transition-colors">
+                                                            <Link href={link.href} className={`text-sm ${t.isDark ? "text-navy-100" : "text-slate-600"} hover:text-primary transition-colors`}>
                                                                 {link.label}
                                                             </Link>
                                                         </li>
@@ -189,22 +189,22 @@ export function Navbar() {
                                             </div>
                                         ))}
 
-                                        <div className="col-span-2 space-y-4 mt-2 pt-4 border-t border-navy-500/30">
-                                            <h5 className="text-xs font-bold text-navy-300 uppercase tracking-wider">{exploreLinks[2].title}</h5>
+                                        <div className={`col-span-2 space-y-4 mt-2 pt-4 border-t ${t.borderMuted}`}>
+                                            <h5 className={`text-xs font-bold ${t.muted} uppercase tracking-wider`}>{exploreLinks[2].title}</h5>
                                             <ul className="grid grid-cols-2 gap-2.5">
                                                 {exploreLinks[2].links.map((link) => (
                                                     <li key={link.label}>
-                                                        <Link href={link.href} className="text-sm text-navy-100 hover:text-primary transition-colors">
+                                                        <Link href={link.href} className={`text-sm ${t.isDark ? "text-navy-100" : "text-slate-600"} hover:text-primary transition-colors`}>
                                                             {link.label}
                                                         </Link>
                                                     </li>
                                                 ))}
                                             </ul>
 
-                                            <div className="mt-4 p-3 rounded-md bg-gradient-to-r from-navy-800 to-navy-700 border border-primary/20 flex items-center justify-between group cursor-pointer hover:border-primary/50 transition-colors">
+                                            <div className={`mt-4 p-3 rounded-md ${t.isDark ? "bg-gradient-to-r from-navy-800 to-navy-700" : "bg-gradient-to-r from-slate-100 to-white"} border border-primary/20 flex items-center justify-between group cursor-pointer hover:border-primary/50 transition-colors`}>
                                                 <div className="flex items-center gap-2">
                                                     <Compass className="h-4 w-4 text-primary" />
-                                                    <span className="text-sm font-medium text-white">Engineering Tools</span>
+                                                    <span className={`text-sm font-medium ${t.heading}`}>Engineering Tools</span>
                                                 </div>
                                                 <Badge variant="warning" size="sm" className="scale-90 opacity-80 group-hover:opacity-100 transition-opacity">Coming Soon</Badge>
                                             </div>
@@ -223,8 +223,8 @@ export function Navbar() {
                                 key={link.label}
                                 href={link.href}
                                 className={cn(
-                                    "relative px-4 h-full flex items-center text-sm font-medium font-body transition-colors hover:text-white",
-                                    isActive ? "text-white" : "text-navy-200"
+                                    `relative px-4 h-full flex items-center text-sm font-medium font-body transition-colors ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"}`,
+                                    isActive ? t.heading : t.body
                                 )}
                             >
                                 {link.label}
@@ -244,24 +244,22 @@ export function Navbar() {
                 {/* ── Right: Actions ── */}
                 <div className="hidden lg:flex items-center gap-4">
                     <div className="flex items-center gap-1 mr-2">
-                        <button className="w-8 h-8 rounded-full flex items-center justify-center text-navy-200 hover:text-white hover:bg-navy-800 transition-colors">
+                        <button className={`w-8 h-8 rounded-full flex items-center justify-center ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} ${t.hoverBg} transition-colors`}>
                             <Search className="h-4 w-4" />
                         </button>
-                        <button className="w-8 h-8 rounded-full flex items-center justify-center text-navy-200 hover:text-white hover:bg-navy-800 transition-colors">
+                        <button className={`w-8 h-8 rounded-full flex items-center justify-center ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} ${t.hoverBg} transition-colors`}>
                             <Globe className="h-4 w-4" />
                         </button>
-                        {mounted && (
-                            <button
-                                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                                className="w-8 h-8 rounded-full flex items-center justify-center text-navy-200 hover:text-white hover:bg-navy-800 transition-colors"
+                        <button
+                                onClick={() => setTheme(t.isDark ? "light" : "dark")}
+                                className={`w-8 h-8 rounded-full flex items-center justify-center ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} ${t.hoverBg} transition-colors`}
                                 aria-label="Toggle theme"
                             >
-                                {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                                {t.isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                             </button>
-                        )}
                     </div>
 
-                    <div className="flex items-center gap-3 border-l border-navy-500/50 pl-6">
+                    <div className={`flex items-center gap-3 border-l ${t.borderFaint} pl-6`}>
                         <Link href="/auth/login">
                             <Button variant="outline" size="sm">Log In</Button>
                         </Link>
@@ -273,7 +271,7 @@ export function Navbar() {
 
                 {/* ── Mobile Menu Toggle ── */}
                 <button
-                    className="lg:hidden p-2 -mr-2 text-navy-200 hover:text-white"
+                    className={`lg:hidden p-2 -mr-2 ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"}`}
                     onClick={() => setMobileMenuOpen(true)}
                 >
                     <Menu className="h-6 w-6" />
@@ -288,7 +286,7 @@ export function Navbar() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-navy-950/80 backdrop-blur-sm z-[110] lg:hidden"
+                            className={`fixed inset-0 ${t.overlayBg} backdrop-blur-sm z-[110] lg:hidden`}
                             onClick={() => setMobileMenuOpen(false)}
                         />
                         <motion.div
@@ -296,15 +294,16 @@ export function Navbar() {
                             animate={{ x: 0 }}
                             exit={{ x: "100%" }}
                             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="fixed top-0 right-0 bottom-0 w-[85vw] max-w-[400px] bg-navy-900 border-l border-navy-500/50 z-[120] lg:hidden flex flex-col shadow-2xl"
+                            className={`fixed top-0 right-0 bottom-0 w-[85vw] max-w-[400px] ${t.cardBg} border-l ${t.borderFaint} z-[120] lg:hidden flex flex-col shadow-2xl`}
+                            style={{ backgroundColor: t.isDark ? "#0A1628" : "#FFFFFF" }}
                         >
-                            <div className="flex items-center justify-between p-4 border-b border-navy-500/30">
-                                <span className="font-display font-bold text-lg text-white tracking-tight">
+                            <div className={`flex items-center justify-between p-4 border-b ${t.borderMuted}`}>
+                                <span className={`font-display font-bold text-lg ${t.heading} tracking-tight`}>
                                     Menu
                                 </span>
                                 <button
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="p-2 rounded-md hover:bg-navy-800 text-navy-200 hover:text-white transition-colors"
+                                    className={`p-2 rounded-md ${t.hoverBg} ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} transition-colors`}
                                 >
                                     <X className="h-5 w-5" />
                                 </button>
@@ -313,7 +312,7 @@ export function Navbar() {
                             <div className="flex-1 overflow-y-auto py-6 px-4 space-y-8">
                                 {/* Mobile Explore Section */}
                                 <div className="space-y-4">
-                                    <h4 className="text-xs font-bold text-navy-400 uppercase tracking-wider px-2">Explore Programs</h4>
+                                    <h4 className={`text-xs font-bold ${t.subtle} uppercase tracking-wider px-2`}>Explore Programs</h4>
                                     <div className="grid grid-cols-1 gap-1">
                                         {explorePrograms.map((prog) => {
                                             const Icon = prog.icon;
@@ -321,17 +320,17 @@ export function Navbar() {
                                                 <Link
                                                     key={prog.label}
                                                     href={prog.href}
-                                                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-navy-800 transition-colors"
+                                                    className={`flex items-center gap-3 p-3 rounded-lg ${t.hoverBg} transition-colors`}
                                                 >
                                                     <Icon className="h-5 w-5" style={{ color: prog.color }} />
-                                                    <span className="text-base font-medium text-navy-100">{prog.label}</span>
+                                                    <span className={`text-base font-medium ${t.isDark ? "text-navy-100" : "text-slate-600"}`}>{prog.label}</span>
                                                 </Link>
                                             );
                                         })}
                                     </div>
                                 </div>
 
-                                <div className="h-px bg-navy-500/30" />
+                                <div className={`h-px ${t.borderMuted.replace("border-", "bg-")}`} />
 
                                 {/* Mobile Standard Links */}
                                 <div className="space-y-1">
@@ -339,7 +338,7 @@ export function Navbar() {
                                         <Link
                                             key={link.label}
                                             href={link.href}
-                                            className="block p-3 rounded-lg text-base font-medium text-navy-100 hover:bg-navy-800 hover:text-white transition-colors"
+                                            className={`block p-3 rounded-lg text-base font-medium ${t.isDark ? "text-navy-100 hover:text-white" : "text-slate-600 hover:text-[#0D1B2A]"} ${t.hoverBg} transition-colors`}
                                         >
                                             {link.label}
                                         </Link>
@@ -348,25 +347,23 @@ export function Navbar() {
                             </div>
 
                             {/* Mobile Actions Footer */}
-                            <div className="p-4 border-t border-navy-500/30 bg-navy-900/50 space-y-3">
-                                <div className="flex items-center justify-around pb-4 mb-4 border-b border-navy-500/30">
-                                    <button className="text-navy-300 hover:text-white flex flex-col items-center gap-1">
+                            <div className={`p-4 border-t ${t.borderMuted} ${t.isDark ? "bg-navy-900/50" : "bg-slate-50/50"} space-y-3`}>
+                                <div className={`flex items-center justify-around pb-4 mb-4 border-b ${t.borderMuted}`}>
+                                    <button className={`${t.muted} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} flex flex-col items-center gap-1`}>
                                         <Search className="h-5 w-5" />
                                         <span className="text-[10px] uppercase">Search</span>
                                     </button>
-                                    <button className="text-navy-300 hover:text-white flex flex-col items-center gap-1">
+                                    <button className={`${t.muted} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} flex flex-col items-center gap-1`}>
                                         <Globe className="h-5 w-5" />
                                         <span className="text-[10px] uppercase">Ar / En</span>
                                     </button>
-                                    {mounted && (
-                                        <button
-                                            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                                            className="text-navy-300 hover:text-white flex flex-col items-center gap-1"
+                                    <button
+                                            onClick={() => setTheme(t.isDark ? "light" : "dark")}
+                                            className={`${t.muted} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} flex flex-col items-center gap-1`}
                                         >
-                                            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+                                            {t.isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
                                             <span className="text-[10px] uppercase">Theme</span>
                                         </button>
-                                    )}
                                 </div>
 
                                 <Link href="/auth/login" className="block w-full">

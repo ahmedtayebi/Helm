@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star, Clock, Video } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardImage } from "@/components/ui/card";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 // Mock latest courses data
 const courses = [
@@ -76,6 +77,7 @@ export function CourseCarousel() {
     const scrollRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+    const t = useThemeColors();
 
     const scroll = (direction: "left" | "right") => {
         if (scrollRef.current) {
@@ -89,7 +91,7 @@ export function CourseCarousel() {
     };
 
     return (
-        <section className="section-padding bg-navy-900 border-b border-navy-500/30 overflow-hidden" ref={containerRef}>
+        <section className={`section-padding ${t.sectionBg} border-b ${t.borderMuted} overflow-hidden`} ref={containerRef}>
             <div className="section-container mb-10">
                 <motion.div
                     className="flex flex-col md:flex-row md:items-end justify-between gap-6"
@@ -98,8 +100,8 @@ export function CourseCarousel() {
                     transition={{ duration: 0.6 }}
                 >
                     <div>
-                        <Badge variant="success" className="mb-4 text-white">New Arrivals</Badge>
-                        <h2 className="font-display text-3xl md:text-4xl text-white">
+                        <Badge variant="success" className={`mb-4 ${t.heading}`}>New Arrivals</Badge>
+                        <h2 className={`font-display text-3xl md:text-4xl ${t.heading}`}>
                             Latest <span className="text-gradient-gold">Courses</span>
                         </h2>
                     </div>
@@ -107,14 +109,14 @@ export function CourseCarousel() {
                     <div className="flex items-center gap-3">
                         <button
                             onClick={() => scroll("left")}
-                            className="w-10 h-10 rounded-full border border-navy-500/50 flex items-center justify-center text-navy-200 hover:text-primary hover:border-primary/50 transition-colors bg-navy-800"
+                            className={`w-10 h-10 rounded-full border ${t.borderFaint} flex items-center justify-center ${t.body} hover:text-primary hover:border-primary/50 transition-colors ${t.cardBgSubtle}`}
                             aria-label="Scroll left"
                         >
                             <ChevronLeft className="h-5 w-5" />
                         </button>
                         <button
                             onClick={() => scroll("right")}
-                            className="w-10 h-10 rounded-full border border-navy-500/50 flex items-center justify-center text-navy-200 hover:text-primary hover:border-primary/50 transition-colors bg-navy-800"
+                            className={`w-10 h-10 rounded-full border ${t.borderFaint} flex items-center justify-center ${t.body} hover:text-primary hover:border-primary/50 transition-colors ${t.cardBgSubtle}`}
                             aria-label="Scroll right"
                         >
                             <ChevronRight className="h-5 w-5" />
@@ -126,7 +128,7 @@ export function CourseCarousel() {
             {/* Horizontal Scroll Container */}
             <div className="relative w-full max-w-[100vw] overflow-hidden">
                 {/* Left Gradient Mask */}
-                <div className="invisible lg:visible absolute left-0 inset-y-0 w-12 bg-gradient-to-r from-navy-900 to-transparent z-10 pointer-events-none" />
+                <div className={`invisible lg:visible absolute left-0 inset-y-0 w-12 bg-gradient-to-r ${t.fadeFrom} to-transparent z-10 pointer-events-none`} />
 
                 <div
                     ref={scrollRef}
@@ -141,7 +143,7 @@ export function CourseCarousel() {
                             animate={isInView ? { opacity: 1, x: 0 } : {}}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
-                            <Card variant="glass" className="h-full flex flex-col group hover:shadow-gold-glow border-navy-500/30">
+                            <Card variant="glass" className={`h-full flex flex-col group hover:shadow-gold-glow ${t.borderMuted}`}>
                                 <div className="relative">
                                     <CardImage
                                         src={course.image}
@@ -149,11 +151,11 @@ export function CourseCarousel() {
                                         className="h-44 group-hover:scale-110 transition-transform duration-700"
                                     />
                                     <div className="absolute top-3 left-3 flex items-center gap-2">
-                                        <Badge variant="default" className="bg-navy-900/80 backdrop-blur-md text-white border-primary/30">
+                                        <Badge variant="default" className={`${t.isDark ? "bg-navy-900/80" : "bg-white/90"} backdrop-blur-md ${t.heading} border-primary/30`}>
                                             {course.category}
                                         </Badge>
                                         {course.badge && (
-                                            <Badge variant={course.badge === "Free" ? "success" : "warning"} className="bg-navy-900/80 backdrop-blur-md shadow-sm">
+                                            <Badge variant={course.badge === "Free" ? "success" : "warning"} className={`${t.isDark ? "bg-navy-900/80" : "bg-white/90"} backdrop-blur-md shadow-sm`}>
                                                 {course.badge}
                                             </Badge>
                                         )}
@@ -162,7 +164,7 @@ export function CourseCarousel() {
 
                                 <div className="p-5 flex-1 flex flex-col">
                                     {/* Meta Stats */}
-                                    <div className="flex items-center gap-4 text-xs text-navy-200 font-body mb-3">
+                                    <div className={`flex items-center gap-4 text-xs ${t.body} font-body mb-3`}>
                                         <div className="flex items-center gap-1.5">
                                             <Clock className="h-3.5 w-3.5 text-primary" />
                                             {course.duration}
@@ -173,22 +175,22 @@ export function CourseCarousel() {
                                         </div>
                                     </div>
 
-                                    <h3 className="font-display font-semibold text-lg text-white mb-2 line-clamp-2 leading-tight group-hover:text-primary transition-colors">
+                                    <h3 className={`font-display font-semibold text-lg ${t.heading} mb-2 line-clamp-2 leading-tight group-hover:text-primary transition-colors`}>
                                         {course.title}
                                     </h3>
 
-                                    <p className="text-sm text-navy-300 mb-4">{course.instructor}</p>
+                                    <p className={`text-sm ${t.muted} mb-4`}>{course.instructor}</p>
 
-                                    <div className="mt-auto flex items-center justify-between pt-4 border-t border-navy-500/30">
+                                    <div className={`mt-auto flex items-center justify-between pt-4 border-t ${t.borderMuted}`}>
                                         {/* Rating */}
                                         <div className="flex items-center gap-1.5">
                                             <Star className="h-4 w-4 fill-primary text-primary" />
-                                            <span className="text-sm font-semibold text-white">{course.rating}</span>
-                                            <span className="text-xs text-navy-300">({course.reviews})</span>
+                                            <span className={`text-sm font-semibold ${t.heading}`}>{course.rating}</span>
+                                            <span className={`text-xs ${t.muted}`}>({course.reviews})</span>
                                         </div>
 
                                         {/* Price */}
-                                        <div className="font-display font-bold text-lg text-white">
+                                        <div className={`font-display font-bold text-lg ${t.heading}`}>
                                             {course.price === 0 ? (
                                                 <span className="text-success tracking-wide uppercase text-sm">Free</span>
                                             ) : (
@@ -206,7 +208,7 @@ export function CourseCarousel() {
                 </div>
 
                 {/* Right Gradient Mask */}
-                <div className="invisible lg:visible absolute right-0 inset-y-0 w-24 bg-gradient-to-l from-navy-900 to-transparent z-10 pointer-events-none" />
+                <div className={`invisible lg:visible absolute right-0 inset-y-0 w-24 bg-gradient-to-l ${t.fadeFrom} to-transparent z-10 pointer-events-none`} />
             </div>
         </section>
     );

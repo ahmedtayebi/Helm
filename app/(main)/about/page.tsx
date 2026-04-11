@@ -7,6 +7,7 @@ import {
     Mail, Phone, MapPin, Linkedin, Send, Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 const fadeUp = (delay = 0) => ({
     initial: { opacity: 0, y: 24 },
@@ -38,7 +39,8 @@ function ContactSection() {
     const [state, setState] = useState({ name: "", email: "", subject: "", message: "" });
     const [loading, setLoading] = useState(false);
     const [sent, setSent] = useState(false);
-    const inputCls = "w-full bg-navy-800/80 border border-navy-600 rounded-xl px-4 py-3 text-sm text-white placeholder:text-navy-500 focus:border-primary focus:outline-none transition-colors";
+    const t = useThemeColors();
+    const inputCls = `w-full ${t.inputBg} border ${t.borderAccent} rounded-xl px-4 py-3 text-sm ${t.heading} placeholder:${t.faint} focus:border-primary focus:outline-none transition-colors`;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -49,11 +51,11 @@ function ContactSection() {
     };
 
     return (
-        <section className="py-20 bg-navy-950/50">
+        <section className={`py-20 ${t.isDark ? "bg-navy-950/50" : "bg-slate-50"}`}>
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div {...fadeUp()} className="text-center mb-12">
-                    <h2 className="font-display text-3xl md:text-4xl text-white mb-4">Get In Touch</h2>
-                    <p className="text-navy-300 max-w-xl mx-auto">Have a question, partnership idea, or press inquiry? We&apos;d love to hear from you.</p>
+                    <h2 className={`font-display text-3xl md:text-4xl ${t.heading} mb-4`}>Get In Touch</h2>
+                    <p className={`${t.muted} max-w-xl mx-auto`}>Have a question, partnership idea, or press inquiry? We&apos;d love to hear from you.</p>
                 </motion.div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
@@ -71,45 +73,45 @@ function ContactSection() {
                                         <Icon className="w-4 h-4 text-primary" />
                                     </div>
                                     <div>
-                                        <p className="text-xs text-navy-500 mb-0.5">{item.label}</p>
-                                        <p className="text-sm text-navy-200">{item.val}</p>
+                                        <p className={`text-xs ${t.faint} mb-0.5`}>{item.label}</p>
+                                        <p className={`text-sm ${t.body}`}>{item.val}</p>
                                     </div>
                                 </div>
                             );
                         })}
-                        <div className="mt-6 p-4 bg-teal-500/5 border border-teal-500/20 rounded-xl text-sm text-navy-300">
-                            🇩🇿 We&apos;re a <strong className="text-white">remote-first Algerian team</strong> with collaborators across the Maghreb and Gulf. Response time: within 24 business hours.
+                        <div className={`mt-6 p-4 bg-teal-500/5 border border-teal-500/20 rounded-xl text-sm ${t.muted}`}>
+                            🇩🇿 We&apos;re a <strong className={t.heading}>remote-first Algerian team</strong> with collaborators across the Maghreb and Gulf. Response time: within 24 business hours.
                         </div>
                     </motion.div>
 
                     {/* Form */}
                     <motion.div {...fadeUp(0.15)} className="lg:col-span-3">
                         {sent ? (
-                            <div className="bg-navy-900 border border-teal-500/20 rounded-2xl p-10 text-center">
+                            <div className={`${t.cardBg} border border-teal-500/20 rounded-2xl p-10 text-center`}>
                                 <div className="w-16 h-16 rounded-full bg-teal-500/10 border-2 border-teal-500 flex items-center justify-center mx-auto mb-4">
                                     <Send className="w-7 h-7 text-teal-400" />
                                 </div>
-                                <h3 className="font-display text-2xl text-white mb-2">Message Sent!</h3>
-                                <p className="text-navy-400 text-sm">We&apos;ll get back to you within 24 hours.</p>
+                                <h3 className={`font-display text-2xl ${t.heading} mb-2`}>Message Sent!</h3>
+                                <p className={`${t.subtle} text-sm`}>We&apos;ll get back to you within 24 hours.</p>
                             </div>
                         ) : (
-                            <form onSubmit={handleSubmit} className="bg-navy-900 border border-navy-700 rounded-2xl p-6 space-y-4">
+                            <form onSubmit={handleSubmit} className={`${t.cardBg} border ${t.borderSubtle} rounded-2xl p-6 space-y-4`}>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-xs text-navy-400 mb-1.5">Full Name *</label>
+                                        <label className={`block text-xs ${t.subtle} mb-1.5`}>Full Name *</label>
                                         <input required className={inputCls} placeholder="Ahmed Benali" value={state.name} onChange={e => setState(p => ({ ...p, name: e.target.value }))} />
                                     </div>
                                     <div>
-                                        <label className="block text-xs text-navy-400 mb-1.5">Email *</label>
+                                        <label className={`block text-xs ${t.subtle} mb-1.5`}>Email *</label>
                                         <input required type="email" className={inputCls} placeholder="ahmed@email.com" value={state.email} onChange={e => setState(p => ({ ...p, email: e.target.value }))} />
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-navy-400 mb-1.5">Subject</label>
+                                    <label className={`block text-xs ${t.subtle} mb-1.5`}>Subject</label>
                                     <input className={inputCls} placeholder="Partnership / General Inquiry / Press" value={state.subject} onChange={e => setState(p => ({ ...p, subject: e.target.value }))} />
                                 </div>
                                 <div>
-                                    <label className="block text-xs text-navy-400 mb-1.5">Message *</label>
+                                    <label className={`block text-xs ${t.subtle} mb-1.5`}>Message *</label>
                                     <textarea required rows={5} className={inputCls + " resize-none"} placeholder="Tell us how we can help..." value={state.message} onChange={e => setState(p => ({ ...p, message: e.target.value }))} />
                                 </div>
                                 <Button type="submit" className="w-full shadow-gold-sm font-bold" disabled={loading}>
@@ -126,8 +128,10 @@ function ContactSection() {
 
 /* ─── Page ──────────────────────────────────── */
 export default function AboutPage() {
+    const t = useThemeColors();
+
     return (
-        <div className="bg-navy-950 min-h-screen pt-16">
+        <div className={`${t.sectionBgAlt} min-h-screen pt-16`}>
             {/* Hero */}
             <section className="relative py-28 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-teal-500/5" />
@@ -142,12 +146,12 @@ export default function AboutPage() {
                         Our Story
                     </motion.span>
                     <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-                        className="font-display text-4xl md:text-6xl text-white leading-tight mb-6">
+                        className={`font-display text-4xl md:text-6xl ${t.heading} leading-tight mb-6`}>
                         Powering the Next Generation of
                         <span className="block text-gradient-gold">Petroleum Engineers</span>
                     </motion.h1>
                     <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-                        className="text-lg text-navy-300 max-w-2xl mx-auto">
+                        className={`text-lg ${t.muted} max-w-2xl mx-auto`}>
                         HELM Academy was born from a simple observation: world-class petroleum engineering education was too expensive, too English-centric, and too distant from the realities of the MENA energy sector.
                     </motion.p>
                 </div>
@@ -159,15 +163,15 @@ export default function AboutPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <motion.div {...fadeUp()}>
                             <span className="text-xs font-bold uppercase tracking-widest text-primary mb-4 block">Who We Are</span>
-                            <h2 className="font-display text-3xl md:text-4xl text-white mb-6 leading-snug">Built by engineers, for engineers</h2>
-                            <div className="space-y-4 text-navy-300 leading-relaxed">
+                            <h2 className={`font-display text-3xl md:text-4xl ${t.heading} mb-6 leading-snug`}>Built by engineers, for engineers</h2>
+                            <div className={`space-y-4 ${t.muted} leading-relaxed`}>
                                 <p>Founded in 2023 by a team of petroleum engineers and edtech veterans, HELM Academy is Algeria&apos;s first dedicated petroleum engineering learning platform — and the largest Arabic-language petroleum curriculum in the world.</p>
                                 <p>Our instructors are active professionals: drilling engineers who just came off a rig, reservoir scientists who published last quarter, HSE leaders who have managed million-barrel operations. They don&apos;t teach from textbooks — they teach from experience.</p>
-                                <p>We&apos;re backed by a community of <strong className="text-white">12,000+ engineers</strong> across Algeria, Morocco, Libya, Saudi Arabia, Qatar, and the UAE — all united by the goal of building a stronger, more skilled MENA energy workforce.</p>
+                                <p>We&apos;re backed by a community of <strong className={t.heading}>12,000+ engineers</strong> across Algeria, Morocco, Libya, Saudi Arabia, Qatar, and the UAE — all united by the goal of building a stronger, more skilled MENA energy workforce.</p>
                             </div>
                         </motion.div>
                         <motion.div {...fadeUp(0.15)} className="relative">
-                            <div className="relative bg-navy-900 border border-navy-700 rounded-2xl p-8 overflow-hidden">
+                            <div className={`relative ${t.cardBg} border ${t.borderSubtle} rounded-2xl p-8 overflow-hidden`}>
                                 <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
                                 <div className="grid grid-cols-2 gap-4">
                                     {[
@@ -176,14 +180,14 @@ export default function AboutPage() {
                                         { n: "500+", l: "Courses", sub: "and growing" },
                                         { n: "50+", l: "Companies", sub: "trust HELM" },
                                     ].map(s => (
-                                        <div key={s.l} className="bg-navy-800/60 border border-navy-700 rounded-xl p-4 text-center">
+                                        <div key={s.l} className={`${t.cardBgMuted} border ${t.borderSubtle} rounded-xl p-4 text-center`}>
                                             <p className="font-display text-2xl text-primary font-bold">{s.n}</p>
-                                            <p className="text-sm text-white font-medium">{s.l}</p>
-                                            <p className="text-xs text-navy-500">{s.sub}</p>
+                                            <p className={`text-sm ${t.heading} font-medium`}>{s.l}</p>
+                                            <p className={`text-xs ${t.faint}`}>{s.sub}</p>
                                         </div>
                                     ))}
                                 </div>
-                                <p className="text-center text-xs text-navy-500 mt-6">🇩🇿 Proudly founded in Algeria · Remote-first team</p>
+                                <p className={`text-center text-xs ${t.faint} mt-6`}>🇩🇿 Proudly founded in Algeria · Remote-first team</p>
                             </div>
                         </motion.div>
                     </div>
@@ -191,23 +195,23 @@ export default function AboutPage() {
             </section>
 
             {/* Mission & Vision */}
-            <section className="py-20 bg-navy-900/40">
+            <section className={`py-20 ${t.isDark ? "bg-navy-900/40" : "bg-slate-50/60"}`}>
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div {...fadeUp()} className="text-center mb-12">
-                        <h2 className="font-display text-3xl md:text-4xl text-white">Mission &amp; Vision</h2>
+                        <h2 className={`font-display text-3xl md:text-4xl ${t.heading}`}>Mission &amp; Vision</h2>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {[
                             { icon: "🎯", badge: "Mission", title: "Democratize Petroleum Engineering Education", desc: "To make industry-grade petroleum engineering training accessible, affordable, and available in Arabic to every aspiring engineer across the MENA region — removing geographic and financial barriers to career growth." },
-                            { icon: "🔭", badge: "Vision", title: "Become the Global Hub for Energy Talent", desc: "To be recognized as the world&apos;s leading platform for petroleum engineering education and career development — the place where the next generation of energy leaders are discovered, trained, and hired." },
+                            { icon: "🔭", badge: "Vision", title: "Become the Global Hub for Energy Talent", desc: "To be recognized as the world\u0027s leading platform for petroleum engineering education and career development — the place where the next generation of energy leaders are discovered, trained, and hired." },
                         ].map((card, idx) => (
                             <motion.div key={card.badge} {...fadeUp(idx * 0.1)}
-                                className="relative bg-navy-900 border border-navy-700 rounded-2xl p-8 overflow-hidden group hover:border-primary/30 transition-colors">
+                                className={`relative ${t.cardBg} border ${t.borderSubtle} rounded-2xl p-8 overflow-hidden group hover:border-primary/30 transition-colors`}>
                                 <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
                                 <div className="text-3xl mb-4">{card.icon}</div>
                                 <span className="text-[10px] uppercase tracking-widest font-bold text-primary px-2 py-0.5 rounded bg-primary/10 mb-3 inline-block">{card.badge}</span>
-                                <h3 className="font-display text-xl text-white mb-3">{card.title}</h3>
-                                <p className="text-sm text-navy-300 leading-relaxed">{card.desc}</p>
+                                <h3 className={`font-display text-xl ${t.heading} mb-3`}>{card.title}</h3>
+                                <p className={`text-sm ${t.muted} leading-relaxed`}>{card.desc}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -218,20 +222,20 @@ export default function AboutPage() {
             <section className="py-20">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div {...fadeUp()} className="text-center mb-12">
-                        <h2 className="font-display text-3xl md:text-4xl text-white mb-3">Our Values</h2>
-                        <p className="text-navy-400 max-w-lg mx-auto">Six principles that guide every decision we make — from course design to company culture.</p>
+                        <h2 className={`font-display text-3xl md:text-4xl ${t.heading} mb-3`}>Our Values</h2>
+                        <p className={`${t.subtle} max-w-lg mx-auto`}>Six principles that guide every decision we make — from course design to company culture.</p>
                     </motion.div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                         {VALUES.map((v, idx) => {
                             const Icon = v.icon;
                             return (
                                 <motion.div key={v.label} {...fadeUp(idx * 0.07)}
-                                    className="bg-navy-900 border border-navy-700 rounded-xl p-6 hover:border-primary/30 transition-colors group">
+                                    className={`${t.cardBg} border ${t.borderSubtle} rounded-xl p-6 hover:border-primary/30 transition-colors group`}>
                                     <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/25 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                                         <Icon className="w-5 h-5 text-primary" />
                                     </div>
-                                    <h3 className="font-display text-lg text-white mb-2">{v.label}</h3>
-                                    <p className="text-sm text-navy-400 leading-relaxed">{v.desc}</p>
+                                    <h3 className={`font-display text-lg ${t.heading} mb-2`}>{v.label}</h3>
+                                    <p className={`text-sm ${t.subtle} leading-relaxed`}>{v.desc}</p>
                                 </motion.div>
                             );
                         })}
@@ -240,25 +244,25 @@ export default function AboutPage() {
             </section>
 
             {/* Advisory Board */}
-            <section className="py-20 bg-navy-900/40">
+            <section className={`py-20 ${t.isDark ? "bg-navy-900/40" : "bg-slate-50/60"}`}>
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div {...fadeUp()} className="text-center mb-12">
-                        <h2 className="font-display text-3xl md:text-4xl text-white mb-3">Advisory Board</h2>
-                        <p className="text-navy-400 max-w-lg mx-auto">Industry veterans who ensure our curriculum stays rigorous, current, and relevant.</p>
+                        <h2 className={`font-display text-3xl md:text-4xl ${t.heading} mb-3`}>Advisory Board</h2>
+                        <p className={`${t.subtle} max-w-lg mx-auto`}>Industry veterans who ensure our curriculum stays rigorous, current, and relevant.</p>
                     </motion.div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                         {BOARD.map((member, idx) => (
                             <motion.div key={member.name} {...fadeUp(idx * 0.08)}
-                                className="bg-navy-900 border border-navy-700 rounded-2xl p-5 text-center hover:border-primary/30 transition-colors group">
+                                className={`${t.cardBg} border ${t.borderSubtle} rounded-2xl p-5 text-center hover:border-primary/30 transition-colors group`}>
                                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/30 flex items-center justify-center font-display text-xl font-bold text-primary mx-auto mb-4">
                                     {member.initials}
                                 </div>
-                                <h3 className="font-display text-base text-white mb-0.5">{member.name}</h3>
+                                <h3 className={`font-display text-base ${t.heading} mb-0.5`}>{member.name}</h3>
                                 <p className="text-xs text-primary font-medium mb-1">{member.title}</p>
-                                <p className="text-xs text-navy-500 mb-3">{member.company}</p>
-                                <span className="text-[10px] px-2 py-0.5 rounded-full bg-navy-800 text-navy-400 border border-navy-700">{member.spec}</span>
+                                <p className={`text-xs ${t.faint} mb-3`}>{member.company}</p>
+                                <span className={`text-[10px] px-2 py-0.5 rounded-full ${t.cardBgSubtle} ${t.subtle} border ${t.borderSubtle}`}>{member.spec}</span>
                                 <div className="mt-4">
-                                    <a href="#" className="inline-flex items-center gap-1 text-xs text-navy-500 hover:text-primary transition-colors">
+                                    <a href="#" className={`inline-flex items-center gap-1 text-xs ${t.faint} hover:text-primary transition-colors`}>
                                         <Linkedin className="w-3.5 h-3.5" /> LinkedIn
                                     </a>
                                 </div>

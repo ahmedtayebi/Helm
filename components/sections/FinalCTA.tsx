@@ -5,13 +5,16 @@ import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 // ── Animated Mesh Background ──
 function MeshBackground() {
+    const t = useThemeColors();
+
     return (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {/* Base gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-navy-950 via-navy-900 to-[#1A1500]" />
+            <div className={`absolute inset-0 ${t.isDark ? "bg-gradient-to-br from-navy-950 via-navy-900 to-[#1A1500]" : "bg-gradient-to-br from-slate-100 via-[#F0F4F8] to-[#FDF8E8]"}`} />
 
             {/* Animated Glow Blobs */}
             <motion.div
@@ -35,7 +38,7 @@ function MeshBackground() {
             <div
                 className="absolute inset-0 opacity-[0.05]"
                 style={{
-                    backgroundImage: "linear-gradient(rgba(212, 160, 23, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 160, 23, 1) 1px, transparent 1px)",
+                    backgroundImage: `linear-gradient(${t.gridLine} 1px, transparent 1px), linear-gradient(90deg, ${t.gridLine} 1px, transparent 1px)`,
                     backgroundSize: "60px 60px"
                 }}
             />
@@ -44,6 +47,8 @@ function MeshBackground() {
 }
 
 export function FinalCTA() {
+    const t = useThemeColors();
+
     return (
         <section className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
             <MeshBackground />
@@ -56,12 +61,12 @@ export function FinalCTA() {
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8 }}
                 >
-                    <h2 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-white mb-6 tracking-tight">
+                    <h2 className={`font-display font-bold text-4xl md:text-5xl lg:text-6xl ${t.heading} mb-6 tracking-tight`}>
                         Ready to Advance Your <br className="hidden sm:block" />
                         <span className="text-gradient-gold">Petroleum Career?</span>
                     </h2>
 
-                    <p className="text-lg md:text-xl text-navy-200 font-body mb-10 max-w-2xl mx-auto leading-relaxed">
+                    <p className={`text-lg md:text-xl ${t.body} font-body mb-10 max-w-2xl mx-auto leading-relaxed`}>
                         Join 12,000+ engineers from Sonatrach, Saudi Aramco, and BP who are using HELM Academy to future-proof their skills.
                     </p>
 
@@ -70,7 +75,7 @@ export function FinalCTA() {
                             type="email"
                             placeholder="Enter your email address"
                             variant="default"
-                            className="h-14 bg-navy-900/80 backdrop-blur-md border-primary/30 focus:border-primary text-base px-6 shadow-inner"
+                            className={`h-14 ${t.isDark ? "bg-navy-900/80" : "bg-white/80"} backdrop-blur-md border-primary/30 focus:border-primary text-base px-6 shadow-inner`}
                             required
                         />
                         <Button size="xl" type="submit" className="w-full sm:w-auto h-14 px-8 shadow-gold-md">
@@ -78,7 +83,7 @@ export function FinalCTA() {
                         </Button>
                     </form>
 
-                    <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-navy-300 font-medium">
+                    <div className={`flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm ${t.muted} font-medium`}>
                         <div className="flex items-center gap-2">
                             <CheckCircle2 className="h-4 w-4 text-primary" />
                             <span>7-Day Free Trial</span>

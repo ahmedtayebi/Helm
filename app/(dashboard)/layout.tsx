@@ -10,6 +10,7 @@ import {
     CreditCard, Search as SearchIcon, ChevronLeft, ChevronRight,
     Bell, Settings, LogOut, Menu, X
 } from "lucide-react";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 /* ─── Types ─────────────────────────────────────── */
 type Role = "student" | "instructor" | "company";
@@ -69,22 +70,23 @@ function Sidebar({ collapsed, toggle, role, mobileOpen, onMobileClose }: {
     const pathname = usePathname();
     const items = NAV_ITEMS[role];
     const meta = ROLE_META[role];
+    const t = useThemeColors();
 
     const sidebarContent = (
         <div className="flex flex-col h-full">
             {/* Logo */}
-            <div className={`flex items-center h-16 border-b border-navy-800 px-4 ${collapsed ? "justify-center" : "gap-3"}`}>
+            <div className={`flex items-center h-16 border-b ${t.borderClass} px-4 ${collapsed ? "justify-center" : "gap-3"}`}>
                 <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
                     <div className="w-8 h-8 rounded-lg bg-gradient-gold flex items-center justify-center flex-shrink-0">
                         <span className="text-navy-950 font-display font-bold text-sm">H</span>
                     </div>
-                    {!collapsed && <span className="font-display text-lg text-white whitespace-nowrap">HELM</span>}
+                    {!collapsed && <span className={`font-display text-lg ${t.heading} whitespace-nowrap`}>HELM</span>}
                 </Link>
-                <button onClick={toggle} className="hidden lg:flex ml-auto text-navy-500 hover:text-white transition-colors p-1 rounded">
+                <button onClick={toggle} className={`hidden lg:flex ml-auto ${t.faint} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} transition-colors p-1 rounded`}>
                     {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
                 </button>
                 {/* Mobile close */}
-                <button onClick={onMobileClose} className="lg:hidden ml-auto text-navy-400 hover:text-white p-1">
+                <button onClick={onMobileClose} className={`lg:hidden ml-auto ${t.subtle} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} p-1`}>
                     <X className="w-5 h-5" />
                 </button>
             </div>
@@ -99,12 +101,12 @@ function Sidebar({ collapsed, toggle, role, mobileOpen, onMobileClose }: {
                             className={`group relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                                 isActive
                                     ? "bg-primary/10 text-primary"
-                                    : "text-navy-400 hover:text-white hover:bg-navy-800/60"
+                                    : `${t.subtle} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} ${t.hoverBgSubtle}`
                             }`}>
                             {isActive && (
                                 <motion.div layoutId="activeNav" className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 rounded-r-full bg-primary" />
                             )}
-                            <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? "text-primary" : "text-navy-500 group-hover:text-white"}`} />
+                            <Icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? "text-primary" : `${t.faint} ${t.isDark ? "group-hover:text-white" : "group-hover:text-[#0D1B2A]"}`}`} />
                             {!collapsed && <span>{item.label}</span>}
                         </Link>
                     );
@@ -112,14 +114,14 @@ function Sidebar({ collapsed, toggle, role, mobileOpen, onMobileClose }: {
             </nav>
 
             {/* User */}
-            <div className={`border-t border-navy-800 px-3 py-4 ${collapsed ? "flex justify-center" : ""}`}>
+            <div className={`border-t ${t.borderClass} px-3 py-4 ${collapsed ? "flex justify-center" : ""}`}>
                 <div className={`flex items-center ${collapsed ? "" : "gap-3"}`}>
                     <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/40 flex items-center justify-center text-xs font-display font-bold text-primary flex-shrink-0">
                         {meta.avatar}
                     </div>
                     {!collapsed && (
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm text-white font-medium truncate">{meta.name}</p>
+                            <p className={`text-sm ${t.heading} font-medium truncate`}>{meta.name}</p>
                             <span className={`text-[10px] px-1.5 py-0.5 rounded-full border ${meta.badge}`}>{meta.label}</span>
                         </div>
                     )}
@@ -131,7 +133,7 @@ function Sidebar({ collapsed, toggle, role, mobileOpen, onMobileClose }: {
     return (
         <>
             {/* Desktop */}
-            <aside className={`hidden lg:flex flex-col fixed top-0 left-0 h-screen bg-[#060E1A] border-r border-navy-800 z-40 transition-all duration-300 ${collapsed ? "w-[72px]" : "w-64"}`}>
+            <aside className={`hidden lg:flex flex-col fixed top-0 left-0 h-screen border-r ${t.borderClass} z-40 transition-all duration-300 ${collapsed ? "w-[72px]" : "w-64"}`} style={{ backgroundColor: t.bg }}>
                 {sidebarContent}
             </aside>
 
@@ -140,9 +142,9 @@ function Sidebar({ collapsed, toggle, role, mobileOpen, onMobileClose }: {
                 {mobileOpen && (
                     <>
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-navy-950/70 backdrop-blur-sm z-40 lg:hidden" onClick={onMobileClose} />
+                            className={`fixed inset-0 ${t.overlayBg} backdrop-blur-sm z-40 lg:hidden`} onClick={onMobileClose} />
                         <motion.aside initial={{ x: -280 }} animate={{ x: 0 }} exit={{ x: -280 }} transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                            className="fixed top-0 left-0 h-screen w-64 bg-[#060E1A] border-r border-navy-800 z-50 lg:hidden">
+                            className={`fixed top-0 left-0 h-screen w-64 border-r ${t.borderClass} z-50 lg:hidden`} style={{ backgroundColor: t.bg }}>
                             {sidebarContent}
                         </motion.aside>
                     </>
@@ -154,23 +156,24 @@ function Sidebar({ collapsed, toggle, role, mobileOpen, onMobileClose }: {
 
 /* ─── TopBar ───────────────────────────────────── */
 function TopBar({ title, onMenuClick }: { title: string; onMenuClick: () => void }) {
+    const t = useThemeColors();
     return (
-        <header className="sticky top-0 z-30 h-16 bg-navy-900/80 backdrop-blur-xl border-b border-navy-800 flex items-center justify-between px-4 lg:px-6">
+        <header className={`sticky top-0 z-30 h-16 ${t.backdropBg} backdrop-blur-xl border-b ${t.borderClass} flex items-center justify-between px-4 lg:px-6`}>
             <div className="flex items-center gap-3">
-                <button onClick={onMenuClick} className="lg:hidden text-navy-400 hover:text-white p-1.5 rounded-lg hover:bg-navy-800 transition-colors">
+                <button onClick={onMenuClick} className={`lg:hidden ${t.subtle} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} p-1.5 rounded-lg ${t.hoverBg} transition-colors`}>
                     <Menu className="w-5 h-5" />
                 </button>
-                <h1 className="font-display text-lg text-white">{title}</h1>
+                <h1 className={`font-display text-lg ${t.heading}`}>{title}</h1>
             </div>
             <div className="flex items-center gap-2">
-                <button className="relative p-2 rounded-xl text-navy-400 hover:text-white hover:bg-navy-800 transition-colors">
+                <button className={`relative p-2 rounded-xl ${t.subtle} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} ${t.hoverBg} transition-colors`}>
                     <Bell className="w-5 h-5" />
                     <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary" />
                 </button>
-                <button className="p-2 rounded-xl text-navy-400 hover:text-white hover:bg-navy-800 transition-colors">
+                <button className={`p-2 rounded-xl ${t.subtle} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} ${t.hoverBg} transition-colors`}>
                     <Settings className="w-5 h-5" />
                 </button>
-                <Link href="/auth/login" className="p-2 rounded-xl text-navy-400 hover:text-red-400 hover:bg-navy-800 transition-colors">
+                <Link href="/auth/login" className={`p-2 rounded-xl ${t.subtle} hover:text-red-400 ${t.hoverBg} transition-colors`}>
                     <LogOut className="w-5 h-5" />
                 </Link>
             </div>
@@ -208,10 +211,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const [mobileOpen, setMobileOpen] = useState(false);
     const role = detectRole(pathname);
     const title = resolveTitle(pathname);
+    const t = useThemeColors();
 
     return (
         <DashboardContext.Provider value={{ collapsed, toggle: () => setCollapsed(c => !c), role }}>
-            <div className="min-h-screen bg-navy-900">
+            <div className={`min-h-screen ${t.sectionBg}`}>
                 <Sidebar collapsed={collapsed} toggle={() => setCollapsed(c => !c)} role={role}
                     mobileOpen={mobileOpen} onMobileClose={() => setMobileOpen(false)} />
                 <div className={`transition-all duration-300 ${collapsed ? "lg:pl-[72px]" : "lg:pl-64"}`}>

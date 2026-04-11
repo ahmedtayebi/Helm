@@ -47,10 +47,10 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
                                 animate={{ opacity: 1, x: 0, scale: 1 }}
                                 exit={{ opacity: 0, x: 60, scale: 0.95 }}
                                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                                className={`pointer-events-auto flex items-start gap-3 px-4 py-3 rounded-xl border backdrop-blur-xl bg-navy-900/90 shadow-xl ${STYLES[t.type]}`}>
+                                className={`pointer-events-auto flex items-start gap-3 px-4 py-3 rounded-xl border backdrop-blur-xl bg-white/90 dark:bg-navy-900/90 shadow-xl ${STYLES[t.type]}`}>
                                 <Icon className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                                <p className="flex-1 text-sm text-white leading-snug">{t.message}</p>
-                                <button onClick={() => dismiss(t.id)} className="text-navy-500 hover:text-white transition-colors flex-shrink-0">
+                                <p className="flex-1 text-sm text-[#0D1B2A] dark:text-white leading-snug">{t.message}</p>
+                                <button onClick={() => dismiss(t.id)} className="text-slate-400 dark:text-navy-500 hover:text-[#0D1B2A] dark:hover:text-white transition-colors flex-shrink-0">
                                     <X className="w-3.5 h-3.5" />
                                 </button>
                             </motion.div>

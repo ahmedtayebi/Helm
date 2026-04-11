@@ -4,6 +4,7 @@ import React from "react";
 import { motion, Variants } from "framer-motion";
 import { Users, Languages, Briefcase, Award, Library, Cpu } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 const features = [
     {
@@ -57,8 +58,10 @@ const itemVariants: Variants = {
 };
 
 export function Features() {
+    const t = useThemeColors();
+
     return (
-        <section className="section-padding bg-navy-950 relative overflow-hidden border-y border-navy-500/30">
+        <section className={`section-padding ${t.sectionBgAlt} relative overflow-hidden border-y ${t.borderMuted}`}>
             {/* Background Decor */}
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/[0.02] rounded-full blur-3xl pointer-events-none" />
@@ -69,10 +72,10 @@ export function Features() {
                 {/* Header */}
                 <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
                     <Badge variant="outline" className="mb-4">Why HELM Academy</Badge>
-                    <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-white mb-6">
+                    <h2 className={`font-display text-3xl md:text-4xl lg:text-5xl ${t.heading} mb-6`}>
                         The Standard in <span className="text-gradient-gold">Energy Education</span>
                     </h2>
-                    <p className="text-navy-200 font-body text-lg">
+                    <p className={`${t.body} font-body text-lg`}>
                         We bridge the gap between academic theory and field reality, empowering MENA&apos;s next generation of petroleum engineers.
                     </p>
                 </div>
@@ -95,17 +98,17 @@ export function Features() {
                             >
                                 {/* Connecting Line (Desktop only) */}
                                 {idx < features.length - 1 && (idx + 1) % 3 !== 0 && (
-                                    <div className="hidden lg:block absolute top-10 left-[60%] w-[80%] h-px border-t border-dashed border-navy-500/50 pointer-events-none" />
+                                    <div className={`hidden lg:block absolute top-10 left-[60%] w-[80%] h-px border-t border-dashed ${t.borderFaint} pointer-events-none`} />
                                 )}
 
-                                <div className="w-20 h-20 rounded-2xl bg-navy-800 border border-navy-600 flex items-center justify-center mb-6 shadow-card group-hover:-translate-y-2 group-hover:border-primary/40 group-hover:shadow-gold-glow transition-all duration-300 relative">
+                                <div className={`w-20 h-20 rounded-2xl ${t.cardBgSubtle} border ${t.borderAccent} flex items-center justify-center mb-6 shadow-card group-hover:-translate-y-2 group-hover:border-primary/40 group-hover:shadow-gold-glow transition-all duration-300 relative`}>
                                     <Icon className="h-8 w-8 text-primary group-hover:text-primary-light transition-colors" />
 
                                     {/* Subtle pulsing ring on hover */}
                                     <div className="absolute inset-0 rounded-2xl border-2 border-primary/0 group-hover:block hidden animate-ping opacity-20" />
                                 </div>
 
-                                <h3 className="font-display text-xl text-white mb-3 flex items-center justify-center gap-2">
+                                <h3 className={`font-display text-xl ${t.heading} mb-3 flex items-center justify-center gap-2`}>
                                     {feature.title}
                                     {feature.badge && (
                                         <Badge variant="warning" size="sm" className="hidden sm:inline-flex text-[9px] py-0 px-1.5 h-4">
@@ -114,7 +117,7 @@ export function Features() {
                                     )}
                                 </h3>
 
-                                <p className="text-sm text-navy-200 leading-relaxed font-body max-w-xs">
+                                <p className={`text-sm ${t.body} leading-relaxed font-body max-w-xs`}>
                                     {feature.description}
                                 </p>
                             </motion.div>

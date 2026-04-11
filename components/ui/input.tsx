@@ -34,11 +34,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
         const variants = {
             default:
-                "bg-navy-700/50 border border-navy-500/50 focus:border-primary focus:ring-1 focus:ring-primary/30",
+                "bg-white dark:bg-navy-700/50 border border-slate-300 dark:border-navy-500/50 focus:border-primary focus:ring-1 focus:ring-primary/30",
             filled:
-                "bg-navy-600 border border-transparent focus:border-primary focus:ring-1 focus:ring-primary/30",
+                "bg-slate-100 dark:bg-navy-600 border border-transparent focus:border-primary focus:ring-1 focus:ring-primary/30",
             ghost:
-                "bg-transparent border border-transparent hover:bg-navy-700/30 focus:bg-navy-700/50 focus:border-primary/30",
+                "bg-transparent border border-transparent hover:bg-slate-100 dark:hover:bg-navy-700/30 focus:bg-slate-50 dark:focus:bg-navy-700/50 focus:border-primary/30",
         };
 
         return (
@@ -48,7 +48,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         htmlFor={inputId}
                         className={cn(
                             "block text-sm font-medium font-body transition-colors duration-200",
-                            focused ? "text-primary" : "text-navy-200",
+                            focused ? "text-primary" : "text-slate-600 dark:text-navy-200",
                             error && "text-danger"
                         )}
                     >
@@ -57,7 +57,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 )}
                 <div className="relative">
                     {leftIcon && (
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-navy-300">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-navy-300">
                             {leftIcon}
                         </span>
                     )}
@@ -66,7 +66,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         id={inputId}
                         type={type}
                         className={cn(
-                            "w-full h-10 px-3 rounded-md text-sm font-body text-white placeholder:text-navy-300 transition-all duration-200 outline-none",
+                            "w-full h-10 px-3 rounded-md text-sm font-body text-[#0D1B2A] dark:text-white placeholder:text-slate-400 dark:placeholder:text-navy-300 transition-all duration-200 outline-none",
                             variants[variant],
                             leftIcon && "pl-10",
                             rightIcon && "pr-10",
@@ -85,7 +85,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         {...props}
                     />
                     {rightIcon && (
-                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-navy-300">
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-navy-300">
                             {rightIcon}
                         </span>
                     )}
@@ -94,7 +94,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                     <p className="text-xs text-danger font-body">{error}</p>
                 )}
                 {hint && !error && (
-                    <p className="text-xs text-navy-300 font-body">{hint}</p>
+                    <p className="text-xs text-slate-400 dark:text-navy-300 font-body">{hint}</p>
                 )}
             </div>
         );
@@ -119,7 +119,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 {label && (
                     <label
                         htmlFor={inputId}
-                        className="block text-sm font-medium font-body text-navy-200"
+                        className="block text-sm font-medium font-body text-slate-600 dark:text-navy-200"
                     >
                         {label}
                     </label>
@@ -128,7 +128,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                     ref={ref}
                     id={inputId}
                     className={cn(
-                        "w-full min-h-[100px] px-3 py-2 rounded-md text-sm font-body text-white bg-navy-700/50 border border-navy-500/50 placeholder:text-navy-300 transition-all duration-200 outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 resize-y",
+                        "w-full min-h-[100px] px-3 py-2 rounded-md text-sm font-body text-[#0D1B2A] dark:text-white bg-white dark:bg-navy-700/50 border border-slate-300 dark:border-navy-500/50 placeholder:text-slate-400 dark:placeholder:text-navy-300 transition-all duration-200 outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 resize-y",
                         error && "border-danger focus:border-danger focus:ring-danger/30",
                         className
                     )}

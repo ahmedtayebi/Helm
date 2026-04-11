@@ -106,16 +106,16 @@ function LibrarySearchContent() {
     }, [searchQuery, activeFilters, sortBy, isFeatured]);
 
     return (
-        <main className="min-h-screen bg-navy-950 pt-28 pb-20 border-t border-navy-500/30">
+        <main className="min-h-screen bg-[var(--color-bg)] pt-28 pb-20 border-t border-slate-200 dark:border-navy-500/30">
 
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* Page Header */}
                 <div className="mb-10 mt-4">
-                    <h1 className="font-display text-4xl text-white mb-2">
+                    <h1 className="font-display text-4xl text-[#0D1B2A] dark:text-white mb-2">
                         Search <span className="text-gradient-gold">Resources</span>
                     </h1>
-                    <p className="text-navy-300">Browse and filter thousands of items in the HELM digital library.</p>
+                    <p className="text-slate-500 dark:text-navy-300">Browse and filter thousands of items in the HELM digital library.</p>
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-10">
@@ -124,7 +124,7 @@ function LibrarySearchContent() {
                     <div className="lg:hidden flex items-center justify-between gap-4 mb-4">
                         <Button
                             variant="outline"
-                            className="w-full flex justify-center bg-navy-900"
+                            className="w-full flex justify-center bg-white dark:bg-navy-900"
                             onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
                         >
                             <SlidersHorizontal className="w-5 h-5 mr-2" />
@@ -146,15 +146,15 @@ function LibrarySearchContent() {
 
                     {/* Sidebar Filters */}
                     <aside className={`lg:w-72 lg:flex-shrink-0 space-y-8 ${isMobileFiltersOpen ? 'block' : 'hidden lg:block'}`}>
-                        <div className="glass p-6 rounded-2xl border border-navy-600 sticky top-28">
+                        <div className="glass p-6 rounded-2xl border border-slate-200 dark:border-navy-600 sticky top-28">
 
                             <div className="flex items-center justify-between mb-6">
-                                <h2 className="font-display text-xl text-white flex items-center gap-2">
+                                <h2 className="font-display text-xl text-[#0D1B2A] dark:text-white flex items-center gap-2">
                                     <Filter className="w-5 h-5 text-primary" />
                                     Filters
                                 </h2>
                                 {totalActiveFilters > 0 && (
-                                    <button onClick={clearFilters} className="text-sm text-navy-300 hover:text-primary transition-colors">
+                                    <button onClick={clearFilters} className="text-sm text-slate-500 dark:text-navy-300 hover:text-primary transition-colors">
                                         Clear all
                                     </button>
                                 )}
@@ -178,7 +178,7 @@ function LibrarySearchContent() {
 
                             {/* Access */}
                             <div className="mb-8">
-                                <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Access Level</h3>
+                                <h3 className="text-sm font-bold text-[#0D1B2A] dark:text-white uppercase tracking-wider mb-4">Access Level</h3>
                                 <div className="flex gap-3">
                                     {["Free", "Premium"].map((p) => (
                                         <button
@@ -186,7 +186,7 @@ function LibrarySearchContent() {
                                             onClick={() => toggleFilter('access', p)}
                                             className={`flex flex-1 items-center justify-center gap-1.5 py-2 text-sm font-medium rounded-lg border transition-all ${activeFilters.access.includes(p)
                                                 ? (p === "Premium" ? 'bg-gradient-gold shadow-gold-sm border-yellow-200/50 text-navy-950' : 'bg-primary/20 border-primary text-primary')
-                                                : 'bg-navy-900 border-navy-600 text-navy-300 hover:border-navy-400'
+                                                : 'bg-white dark:bg-navy-900 border-slate-300 dark:border-navy-600 text-slate-500 dark:text-navy-300 hover:border-slate-400 dark:hover:border-navy-400'
                                                 }`}
                                         >
                                             {p === "Premium" && <Lock className={`w-3.5 h-3.5 ${activeFilters.access.includes(p) ? 'text-navy-950' : 'text-primary'}`} />}
@@ -198,13 +198,13 @@ function LibrarySearchContent() {
 
                             {/* Language */}
                             <div className="mb-2">
-                                <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Language</h3>
+                                <h3 className="text-sm font-bold text-[#0D1B2A] dark:text-white uppercase tracking-wider mb-4">Language</h3>
                                 <div className="flex flex-wrap gap-2">
                                     {["AR", "EN", "FR"].map((lang) => (
                                         <button
                                             key={lang}
                                             onClick={() => toggleFilter('language', lang)}
-                                            className={`px-4 py-1.5 text-sm font-medium rounded-lg border transition-all ${activeFilters.language.includes(lang) ? 'bg-primary/10 border-primary text-primary' : 'bg-navy-900 border-navy-600 text-navy-300 hover:border-navy-400'}`}
+                                            className={`px-4 py-1.5 text-sm font-medium rounded-lg border transition-all ${activeFilters.language.includes(lang) ? 'bg-primary/10 border-primary text-primary' : 'bg-white dark:bg-navy-900 border-slate-300 dark:border-navy-600 text-slate-500 dark:text-navy-300 hover:border-slate-400 dark:hover:border-navy-400'}`}
                                         >
                                             {lang}
                                         </button>
@@ -219,25 +219,25 @@ function LibrarySearchContent() {
                     <div className="flex-1 w-full flex flex-col min-w-0">
 
                         {/* Top Toolbar */}
-                        <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center mb-8 bg-navy-900/40 p-2 sm:p-4 rounded-2xl border border-navy-600/50">
+                        <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center mb-8 bg-white/40 dark:bg-navy-900/40 p-2 sm:p-4 rounded-2xl border border-slate-200 dark:border-navy-600/50">
                             <div className="relative w-full sm:max-w-xl">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-navy-400" />
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-navy-400" />
                                 <Input
                                     type="text"
                                     placeholder="Search title, author, isbn..."
-                                    className="pl-10 h-12 bg-navy-900 border-navy-500 focus:border-primary text-base rounded-xl shadow-inner w-full"
+                                    className="pl-10 h-12 bg-white dark:bg-navy-900 border-slate-300 dark:border-navy-500 focus:border-primary text-base rounded-xl shadow-inner w-full"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />
                                 {searchQuery && (
-                                    <button onClick={() => setSearchQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-navy-400 hover:text-white bg-navy-800 p-1 rounded">
+                                    <button onClick={() => setSearchQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-navy-400 hover:text-[#0D1B2A] dark:hover:text-white bg-slate-200 dark:bg-navy-800 p-1 rounded">
                                         <X className="w-4 h-4" />
                                     </button>
                                 )}
                             </div>
 
                             <div className="hidden lg:flex items-center gap-3 min-w-[200px]">
-                                <ArrowUpDown className="w-5 h-5 text-navy-400" />
+                                <ArrowUpDown className="w-5 h-5 text-slate-400 dark:text-navy-400" />
                                 <Select
                                     options={[
                                         { label: "Most Relevant", value: "relevant" },
@@ -246,7 +246,7 @@ function LibrarySearchContent() {
                                     ]}
                                     value={sortBy}
                                     onChange={(e) => setSortBy(e.target.value)}
-                                    className="h-12 border-navy-500 bg-navy-900 rounded-xl"
+                                    className="h-12 border-slate-300 dark:border-navy-500 bg-white dark:bg-navy-900 rounded-xl"
                                 />
                             </div>
                         </div>
@@ -260,9 +260,9 @@ function LibrarySearchContent() {
                                     exit={{ opacity: 0, height: 0 }}
                                     className="flex flex-wrap items-center gap-2 mb-6"
                                 >
-                                    <span className="text-sm text-navy-300 mr-2">Active filters:</span>
+                                    <span className="text-sm text-slate-500 dark:text-navy-300 mr-2">Active filters:</span>
                                     {isFeatured && (
-                                        <Badge variant="warning" className="flex items-center gap-1.5 bg-navy-900">
+                                        <Badge variant="warning" className="flex items-center gap-1.5 bg-white dark:bg-navy-900">
                                             Featured Selection
                                             <button onClick={() => {
                                                 const url = new URL(window.location.href);
@@ -276,7 +276,7 @@ function LibrarySearchContent() {
                                     )}
                                     {Object.entries(activeFilters).map(([type, values]) =>
                                         values.map((val) => (
-                                            <Badge key={`${type}-${val}`} variant="outline" className="flex items-center gap-1.5 bg-navy-900/50 border-primary/30 text-white">
+                                            <Badge key={`${type}-${val}`} variant="outline" className="flex items-center gap-1.5 bg-white/50 dark:bg-navy-900/50 border-primary/30 text-[#0D1B2A] dark:text-white">
                                                 {val}
                                                 <button onClick={() => toggleFilter(type, val)} className="hover:text-primary transition-colors ml-1">
                                                     <X className="w-3 h-3" />
@@ -285,7 +285,7 @@ function LibrarySearchContent() {
                                         ))
                                     )}
                                     {searchQuery && (
-                                        <Badge variant="outline" className="flex items-center gap-1.5 bg-navy-900/50 border-primary/30 text-white">
+                                        <Badge variant="outline" className="flex items-center gap-1.5 bg-white/50 dark:bg-navy-900/50 border-primary/30 text-[#0D1B2A] dark:text-white">
                                             &quot;{searchQuery}&quot;
                                             <button onClick={() => setSearchQuery("")} className="hover:text-primary transition-colors ml-1">
                                                 <X className="w-3 h-3" />
@@ -296,7 +296,7 @@ function LibrarySearchContent() {
                             )}
                         </AnimatePresence>
 
-                        <div className="mb-4 text-sm text-navy-300">
+                        <div className="mb-4 text-sm text-slate-500 dark:text-navy-300">
                             Showing <strong>{filteredResources.length}</strong> results
                         </div>
 
@@ -311,13 +311,13 @@ function LibrarySearchContent() {
                                     <motion.div
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="col-span-full py-24 text-center flex flex-col items-center border border-dashed border-navy-600 rounded-2xl bg-navy-900/30 backdrop-blur-sm"
+                                        className="col-span-full py-24 text-center flex flex-col items-center border border-dashed border-slate-300 dark:border-navy-600 rounded-2xl bg-white/30 dark:bg-navy-900/30 backdrop-blur-sm"
                                     >
-                                        <div className="w-20 h-20 rounded-full bg-navy-800 border border-navy-600 flex items-center justify-center mb-6">
-                                            <Search className="w-10 h-10 text-navy-400" />
+                                        <div className="w-20 h-20 rounded-full bg-slate-100 dark:bg-navy-800 border border-slate-200 dark:border-navy-600 flex items-center justify-center mb-6">
+                                            <Search className="w-10 h-10 text-slate-400 dark:text-navy-400" />
                                         </div>
-                                        <h3 className="text-2xl text-white font-display mb-2 drop-shadow-md">No resources found</h3>
-                                        <p className="text-navy-300 max-w-md mx-auto mb-8">
+                                        <h3 className="text-2xl text-[#0D1B2A] dark:text-white font-display mb-2 drop-shadow-md">No resources found</h3>
+                                        <p className="text-slate-500 dark:text-navy-300 max-w-md mx-auto mb-8">
                                             We couldn&apos;t find anything matching your current filters and search query. Try adjusting your criteria.
                                         </p>
                                         <Button variant="outline" size="lg" onClick={clearFilters} className="glass">
@@ -332,11 +332,11 @@ function LibrarySearchContent() {
                         {filteredResources.length > 0 && (
                             <div className="mt-12 flex justify-center">
                                 <div className="flex gap-2">
-                                    <Button variant="outline" size="sm" disabled className="border-navy-600 text-navy-500">Previous</Button>
+                                    <Button variant="outline" size="sm" disabled className="border-slate-300 dark:border-navy-600 text-slate-400 dark:text-navy-500">Previous</Button>
                                     <Button variant="primary" size="sm" className="bg-primary text-navy-950">1</Button>
-                                    <Button variant="outline" size="sm" className="border-navy-600 hover:border-primary">2</Button>
-                                    <Button variant="outline" size="sm" className="border-navy-600 hover:border-primary">3</Button>
-                                    <Button variant="outline" size="sm" className="border-navy-600 hover:border-primary">Next</Button>
+                                    <Button variant="outline" size="sm" className="border-slate-300 dark:border-navy-600 hover:border-primary">2</Button>
+                                    <Button variant="outline" size="sm" className="border-slate-300 dark:border-navy-600 hover:border-primary">3</Button>
+                                    <Button variant="outline" size="sm" className="border-slate-300 dark:border-navy-600 hover:border-primary">Next</Button>
                                 </div>
                             </div>
                         )}
@@ -352,7 +352,7 @@ function LibrarySearchContent() {
 export default function LibrarySearch() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen bg-navy-950 pt-28 flex items-center justify-center">
+            <div className="min-h-screen bg-[var(--color-bg)] pt-28 flex items-center justify-center">
                 <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
             </div>
         }>
@@ -365,14 +365,14 @@ export default function LibrarySearch() {
 function FilterGroup({ title, options, active, onToggle }: { title: string, options: string[], active: string[], onToggle: (s: string) => void }) {
     return (
         <div className="mb-8">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">{title}</h3>
+            <h3 className="text-sm font-bold text-[#0D1B2A] dark:text-white uppercase tracking-wider mb-4">{title}</h3>
             <div className="space-y-3">
                 {options.map((opt) => (
                     <label key={opt} onClick={() => onToggle(opt)} className="flex items-center gap-3 cursor-pointer group">
-                        <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all duration-200 ${active.includes(opt) ? 'bg-primary border-primary shadow-[0_0_10px_rgba(45,212,191,0.5)]' : 'bg-navy-900 border-navy-500 group-hover:border-primary/50'}`}>
+                        <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all duration-200 ${active.includes(opt) ? 'bg-primary border-primary shadow-[0_0_10px_rgba(45,212,191,0.5)]' : 'bg-white dark:bg-navy-900 border-slate-300 dark:border-navy-500 group-hover:border-primary/50'}`}>
                             {active.includes(opt) && <CheckIcon />}
                         </div>
-                        <span className={`text-sm ${active.includes(opt) ? 'text-white font-medium' : 'text-navy-300 group-hover:text-white transition-colors'}`}>{opt}</span>
+                        <span className={`text-sm ${active.includes(opt) ? 'text-[#0D1B2A] dark:text-white font-medium' : 'text-slate-500 dark:text-navy-300 group-hover:text-[#0D1B2A] dark:group-hover:text-white transition-colors'}`}>{opt}</span>
                     </label>
                 ))}
             </div>

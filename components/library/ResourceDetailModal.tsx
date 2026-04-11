@@ -28,7 +28,7 @@ export function ResourceDetailModal({ isOpen, onClose, resource }: ResourceDetai
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={onClose}
-                    className="absolute inset-0 bg-navy-950/80 backdrop-blur-sm"
+                    className="absolute inset-0 bg-slate-900/20 dark:bg-navy-950/80 backdrop-blur-sm"
                 />
 
                 {/* Modal Content */}
@@ -37,12 +37,12 @@ export function ResourceDetailModal({ isOpen, onClose, resource }: ResourceDetai
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: -20 }}
                     transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 25 }}
-                    className="relative w-full max-w-5xl bg-navy-900 border border-navy-600 rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col max-h-[90vh]"
+                    className="relative w-full max-w-5xl bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-600 rounded-3xl overflow-hidden shadow-2xl z-10 flex flex-col max-h-[90vh]"
                 >
                     {/* Close Button */}
                     <button
                         onClick={onClose}
-                        className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-navy-950/50 backdrop-blur border border-white/10 flex items-center justify-center text-navy-200 hover:text-white hover:bg-red-500/20 hover:border-red-500/50 transition-all"
+                        className="absolute top-4 right-4 z-50 w-10 h-10 rounded-full bg-white/50 dark:bg-navy-950/50 backdrop-blur border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 dark:text-navy-200 hover:text-[#0D1B2A] dark:hover:text-white hover:bg-red-500/20 hover:border-red-500/50 transition-all"
                     >
                         <X className="w-5 h-5" />
                     </button>
@@ -50,15 +50,15 @@ export function ResourceDetailModal({ isOpen, onClose, resource }: ResourceDetai
                     <div className="flex flex-col md:flex-row h-full overflow-y-auto overflow-x-hidden md:overflow-hidden">
 
                         {/* Left Column: Visuals & Actions */}
-                        <div className="w-full md:w-[40%] bg-navy-950 p-6 md:p-10 flex flex-col border-r border-navy-600/50 relative overflow-y-auto">
+                        <div className="w-full md:w-[40%] bg-slate-50 dark:bg-navy-950 p-6 md:p-10 flex flex-col border-r border-slate-200 dark:border-navy-600/50 relative overflow-y-auto">
 
-                            <div className="mb-6 w-[80%] max-w-[280px] aspect-[3/4] mx-auto rounded-xl overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] border border-navy-600 relative group">
+                            <div className="mb-6 w-[80%] max-w-[280px] aspect-[3/4] mx-auto rounded-xl overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] border border-slate-200 dark:border-navy-600 relative group">
                                 {resource.coverImage ? (
                                     /* eslint-disable-next-line @next/next/no-img-element */
                                     <img src={resource.coverImage} alt={resource.title} className="w-full h-full object-cover" />
                                 ) : (
                                     <div className={`w-full h-full bg-gradient-to-br ${resource.coverGradient || 'from-navy-800 to-navy-950'} flex flex-col p-6 relative`}>
-                                        <div className="absolute left-0 top-0 bottom-0 w-8 bg-black/20 border-r border-white/10 shadow-[inset_4px_0_8px_rgba(0,0,0,0.5)]" />
+                                        <div className="absolute left-0 top-0 bottom-0 w-8 bg-black/20 border-r border-slate-200 dark:border-white/10 shadow-[inset_4px_0_8px_rgba(0,0,0,0.5)]" />
                                         <div className="z-10 ml-6 mt-auto h-full flex flex-col justify-end">
                                             <h4 className="font-display text-white text-2xl leading-none mb-3 drop-shadow-md">{resource.title}</h4>
                                             <p className="text-white/70 font-medium">{resource.author}</p>
@@ -95,26 +95,26 @@ export function ResourceDetailModal({ isOpen, onClose, resource }: ResourceDetai
                                 )}
 
                                 <div className="flex gap-3">
-                                    <Button variant="outline" className="flex-1 bg-navy-900 border-navy-600 hover:border-primary">
+                                    <Button variant="outline" className="flex-1 bg-white dark:bg-navy-900 border-slate-200 dark:border-navy-600 hover:border-primary">
                                         <Bookmark className="w-4 h-4 mr-2" /> Save
                                     </Button>
-                                    <Button variant="outline" className="flex-1 bg-navy-900 border-navy-600 hover:border-primary">
+                                    <Button variant="outline" className="flex-1 bg-white dark:bg-navy-900 border-slate-200 dark:border-navy-600 hover:border-primary">
                                         <Share2 className="w-4 h-4 mr-2" /> Share
                                     </Button>
                                 </div>
                             </div>
 
                             {/* Mini Stats */}
-                            <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-navy-800 text-center">
+                            <div className="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-slate-200 dark:border-navy-800 text-center">
                                 <div>
-                                    <p className="text-xs text-navy-400 mb-1">Downloads</p>
-                                    <p className="text-lg font-display text-white">{(resource.downloadCount / 1000).toFixed(1)}k</p>
+                                    <p className="text-xs text-slate-400 dark:text-navy-400 mb-1">Downloads</p>
+                                    <p className="text-lg font-display text-[#0D1B2A] dark:text-white">{(resource.downloadCount / 1000).toFixed(1)}k</p>
                                 </div>
                                 <div>
-                                    <p className="text-xs text-navy-400 mb-1">Rating</p>
+                                    <p className="text-xs text-slate-400 dark:text-navy-400 mb-1">Rating</p>
                                     <div className="flex items-center justify-center gap-1">
                                         <Star className="w-4 h-4 text-primary fill-primary" />
-                                        <span className="text-lg font-display text-white">{resource.rating}</span>
+                                        <span className="text-lg font-display text-[#0D1B2A] dark:text-white">{resource.rating}</span>
                                     </div>
                                 </div>
                             </div>
@@ -128,19 +128,19 @@ export function ResourceDetailModal({ isOpen, onClose, resource }: ResourceDetai
                                 <Badge className="bg-primary/20 text-primary border-primary/50 pointer-events-none">
                                     {resource.type}
                                 </Badge>
-                                <Badge variant="outline" className="border-navy-600 pointer-events-none">
+                                <Badge variant="outline" className="border-slate-200 dark:border-navy-600 pointer-events-none">
                                     {resource.category}
                                 </Badge>
                             </div>
 
-                            <h2 className="text-3xl md:text-4xl font-display text-white leading-tight mb-2">
+                            <h2 className="text-3xl md:text-4xl font-display text-[#0D1B2A] dark:text-white leading-tight mb-2">
                                 {resource.title}
                             </h2>
-                            <p className="text-lg text-navy-200 mb-6">
+                            <p className="text-lg text-slate-500 dark:text-navy-200 mb-6">
                                 By <span className="text-primary">{resource.author}</span>
                             </p>
 
-                            <div className="flex flex-wrap gap-4 md:gap-8 mb-8 pb-8 border-b border-navy-600/50 text-sm font-medium text-navy-300">
+                            <div className="flex flex-wrap gap-4 md:gap-8 mb-8 pb-8 border-b border-slate-200 dark:border-navy-600/50 text-sm font-medium text-slate-500 dark:text-navy-300">
                                 <div className="flex items-center gap-2">
                                     <Calendar className="w-4 h-4" /> Published {resource.year}
                                 </div>
@@ -148,36 +148,36 @@ export function ResourceDetailModal({ isOpen, onClose, resource }: ResourceDetai
                                     <FileJson className="w-4 h-4" /> {resource.pageCount} Pages
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="px-1.5 py-0.5 rounded bg-navy-800 text-xs">EN</span> English
+                                    <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-navy-800 text-xs">EN</span> English
                                 </div>
                             </div>
 
                             {/* Description */}
                             <div className="mb-10">
-                                <h3 className="text-xl font-display text-white mb-4">About this Resource</h3>
-                                <p className="text-navy-200 leading-relaxed text-lg">
+                                <h3 className="text-xl font-display text-[#0D1B2A] dark:text-white mb-4">About this Resource</h3>
+                                <p className="text-slate-500 dark:text-navy-200 leading-relaxed text-lg">
                                     {resource.description}
                                 </p>
                                 {/* Mock extended description content for visual bulk */}
-                                <p className="text-navy-300 leading-relaxed mt-4">
+                                <p className="text-slate-400 dark:text-navy-300 leading-relaxed mt-4">
                                     This comprehensive guide is designed for petroleum engineering professionals and students seeking to deepen their understanding of {resource.category.toLowerCase()} concepts. Featuring real-world case studies, advanced mathematical models, and industry best practices.
                                 </p>
                             </div>
 
                             {/* Table of Contents Preview */}
-                            <div className="mb-10 p-6 rounded-2xl bg-navy-950/50 border border-navy-600/30">
-                                <h3 className="text-lg font-display text-white mb-4 flex items-center gap-2">
+                            <div className="mb-10 p-6 rounded-2xl bg-slate-50 dark:bg-navy-950/50 border border-slate-200 dark:border-navy-600/30">
+                                <h3 className="text-lg font-display text-[#0D1B2A] dark:text-white mb-4 flex items-center gap-2">
                                     <BookOpen className="w-5 h-5 text-primary" />
                                     Table of Contents Preview
                                 </h3>
                                 <ul className="space-y-3">
                                     {['Introduction & Fundamentals', 'Advanced Design Considerations', 'Case Studies & Practical Application', 'Industry Standards & Guidelines'].map((chap, i) => (
-                                        <li key={i} className="flex items-center justify-between text-navy-200 text-sm group cursor-pointer">
+                                        <li key={i} className="flex items-center justify-between text-slate-600 dark:text-navy-200 text-sm group cursor-pointer">
                                             <span className="flex items-center gap-2 group-hover:text-primary transition-colors">
-                                                <CheckCircle2 className="w-4 h-4 text-navy-500" />
+                                                <CheckCircle2 className="w-4 h-4 text-slate-400 dark:text-navy-500" />
                                                 Chapter {i + 1}: {chap}
                                             </span>
-                                            <span className="text-navy-500 text-xs shadow-inner bg-navy-900 px-2 py-0.5 rounded">p. {i * 45 + 1}</span>
+                                            <span className="text-slate-400 dark:text-navy-500 text-xs shadow-inner bg-slate-100 dark:bg-navy-900 px-2 py-0.5 rounded">p. {i * 45 + 1}</span>
                                         </li>
                                     ))}
                                 </ul>

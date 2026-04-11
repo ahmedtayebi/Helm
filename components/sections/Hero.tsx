@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 // ── Particle Network Background ──
 function ParticleBackground() {
     const [mounted, setMounted] = useState(false);
+    const t = useThemeColors();
 
     useEffect(() => {
         setMounted(true);
@@ -26,16 +28,16 @@ function ParticleBackground() {
     }));
 
     return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 bg-[#060E1A]">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0" style={{ backgroundColor: t.bg }}>
             {/* Deep Space Gradient Overlay */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-navy-900/40 via-[#060E1A] to-[#060E1A] z-10" />
+            <div className={`absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] ${t.gradientOverlay} z-10`} />
 
             {/* Subtle Grid / Structural lines */}
             <div
                 className="absolute inset-0 opacity-[0.03] z-10"
                 style={{
                     backgroundImage:
-                        "linear-gradient(rgba(212, 160, 23, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 160, 23, 0.4) 1px, transparent 1px)",
+                        `linear-gradient(${t.gridLine} 1px, transparent 1px), linear-gradient(90deg, ${t.gridLine} 1px, transparent 1px)`,
                     backgroundSize: "100px 100px",
                 }}
             />
@@ -83,6 +85,7 @@ function AnimatedCounter({ value, suffix = "", label }: { value: number; suffix?
     const [count, setCount] = useState(0);
     const [isInView, setIsInView] = useState(false);
     const ref = React.useRef<HTMLDivElement>(null);
+    const t = useThemeColors();
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -122,7 +125,7 @@ function AnimatedCounter({ value, suffix = "", label }: { value: number; suffix?
 
     return (
         <div ref={ref} className="text-center px-4 py-6 relative">
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-navy-500/30 hidden md:block" />
+            <div className={`absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 ${t.borderMuted} hidden md:block`} />
             <motion.p
                 className="text-4xl sm:text-5xl font-display font-bold text-gradient-gold"
                 initial={{ opacity: 0, scale: 0.5 }}
@@ -132,7 +135,7 @@ function AnimatedCounter({ value, suffix = "", label }: { value: number; suffix?
                 {formattedCount}
                 {suffix}
             </motion.p>
-            <p className="mt-2 text-sm text-navy-200 font-body uppercase tracking-wider">
+            <p className={`mt-2 text-sm ${t.body} font-body uppercase tracking-wider`}>
                 {label}
             </p>
         </div>
@@ -143,6 +146,7 @@ export function Hero() {
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
     const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+    const t = useThemeColors();
 
     return (
         <section className="relative min-h-[100svh] flex flex-col justify-center pt-24 pb-12 overflow-hidden">
@@ -159,7 +163,7 @@ export function Hero() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-primary/20 mb-8"
                 >
                     <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                    <span className="text-xs font-medium text-navy-100 uppercase tracking-widest">
+                    <span className={`text-xs font-medium ${t.body} uppercase tracking-widest`}>
                         HELM Academy
                     </span>
                 </motion.div>
@@ -170,14 +174,14 @@ export function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                 >
-                    <span className="block text-white">Engineer Your</span>
+                    <span className={`block ${t.heading}`}>Engineer Your</span>
                     <span className="block text-gradient-gold pb-2 shadow-sm">
                         Future in Energy
                     </span>
                 </motion.h1>
 
                 <motion.p
-                    className="mt-6 text-lg sm:text-xl text-navy-200 font-body max-w-2xl mx-auto leading-relaxed"
+                    className={`mt-6 text-lg sm:text-xl ${t.body} font-body max-w-2xl mx-auto leading-relaxed`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
@@ -198,7 +202,7 @@ export function Hero() {
                     <Button
                         variant="outline"
                         size="xl"
-                        className="w-full sm:w-auto backdrop-blur-md bg-navy-900/40"
+                        className={`w-full sm:w-auto backdrop-blur-md ${t.isDark ? "bg-navy-900/40" : "bg-white/60"}`}
                         leftIcon={<BookOpen className="h-5 w-5" />}
                     >
                         Browse Library
@@ -213,8 +217,8 @@ export function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
             >
-                <div className="glass-strong rounded-2xl border border-navy-500/40 p-2 shadow-2xl">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-0 divide-x-0 md:divide-x divide-navy-500/30">
+                <div className={`glass-strong rounded-2xl border ${t.borderFaint} p-2 shadow-2xl`}>
+                    <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-0 divide-x-0 md:divide-x ${t.isDark ? "divide-navy-500/30" : "divide-slate-200"}`}>
                         <AnimatedCounter value={500} suffix="+" label="Courses" />
                         <AnimatedCounter value={12000} suffix="+" label="Engineers" />
                         <AnimatedCounter value={50} suffix="+" label="Companies" />
@@ -224,7 +228,7 @@ export function Hero() {
             </motion.div>
 
             {/* Fade out gradient at bottom */}
-            <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-navy-900 to-transparent z-10 pointer-events-none" />
+            <div className={`absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t ${t.bottomFade} to-transparent z-10 pointer-events-none`} />
         </section>
     );
 }

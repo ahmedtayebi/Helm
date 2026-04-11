@@ -4,14 +4,14 @@ import { cn } from "@/lib/utils";
 /* ─── Skeleton Line ────────────────── */
 export function Skeleton({ className }: { className?: string }) {
     return (
-        <div className={cn("animate-pulse rounded-lg bg-navy-800/70", className)} />
+        <div className={cn("animate-pulse rounded-lg bg-slate-200 dark:bg-navy-800/70", className)} />
     );
 }
 
 /* ─── Course Card Skeleton ─────────── */
 export function CourseCardSkeleton() {
     return (
-        <div className="bg-navy-900 border border-navy-800 rounded-2xl overflow-hidden">
+        <div className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-800 rounded-2xl overflow-hidden">
             <Skeleton className="h-44 w-full rounded-none" />
             <div className="p-5 space-y-3">
                 <div className="flex gap-2">
@@ -36,7 +36,7 @@ export function CourseCardSkeleton() {
 /* ─── List Item Skeleton ─────────── */
 export function ListItemSkeleton() {
     return (
-        <div className="bg-navy-900 border border-navy-800 rounded-xl p-4 flex items-center gap-4">
+        <div className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-800 rounded-xl p-4 flex items-center gap-4">
             <Skeleton className="w-12 h-12 rounded-xl flex-shrink-0" />
             <div className="flex-1 space-y-2">
                 <Skeleton className="h-4 w-3/4" />
@@ -50,7 +50,7 @@ export function ListItemSkeleton() {
 /* ─── Stat Card Skeleton ─────────── */
 export function StatCardSkeleton() {
     return (
-        <div className="bg-navy-900 border border-navy-800 rounded-xl p-4 space-y-3">
+        <div className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-800 rounded-xl p-4 space-y-3">
             <Skeleton className="w-8 h-8 rounded-lg" />
             <Skeleton className="h-7 w-20" />
             <Skeleton className="h-3 w-28" />

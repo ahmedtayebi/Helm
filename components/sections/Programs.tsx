@@ -5,6 +5,7 @@ import { motion, Variants } from "framer-motion";
 import { ArrowRight, Flame, Droplets, BarChart3, Shield, GraduationCap, BookOpen } from "lucide-react";
 import { Card, CardContent, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 const programs = [
     {
@@ -82,8 +83,10 @@ const itemVariants: Variants = {
 };
 
 export function Programs() {
+    const t = useThemeColors();
+
     return (
-        <section className="section-padding bg-navy-900 relative">
+        <section className={`section-padding ${t.sectionBg} relative`}>
             <div className="section-container">
 
                 {/* Header */}
@@ -95,10 +98,10 @@ export function Programs() {
                     variants={itemVariants}
                 >
                     <Badge variant="warning" className="mb-4">Specializations</Badge>
-                    <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-white mb-4">
+                    <h2 className={`font-display text-3xl md:text-4xl lg:text-5xl ${t.heading} mb-4`}>
                         Explore <span className="text-gradient-gold">Programs</span>
                     </h2>
-                    <p className="text-navy-200 font-body text-lg">
+                    <p className={`${t.body} font-body text-lg`}>
                         Comprehensive learning paths designed by industry experts to advance your career in every sector of the oil & gas industry.
                     </p>
                 </motion.div>
@@ -124,13 +127,13 @@ export function Programs() {
                                     <CardContent className="flex-1 p-6 z-10">
                                         <div className="flex justify-between items-start mb-6">
                                             <div
-                                                className="w-12 h-12 rounded-xl flex items-center justify-center bg-navy-800 border border-navy-600 group-hover:border-primary/40 transition-colors duration-300"
+                                                className={`w-12 h-12 rounded-xl flex items-center justify-center ${t.cardBgSubtle} border ${t.borderAccent} group-hover:border-primary/40 transition-colors duration-300`}
                                                 style={{ boxShadow: `0 4px 20px ${prog.color}20` }}
                                             >
                                                 <Icon className="h-6 w-6" style={{ color: prog.color }} />
                                             </div>
                                             {prog.badge && (
-                                                <Badge variant="outline" size="sm" className="bg-navy-900/50">
+                                                <Badge variant="outline" size="sm" className={`${t.isDark ? "bg-navy-900/50" : "bg-slate-100/80"}`}>
                                                     {prog.badge}
                                                 </Badge>
                                             )}
@@ -139,13 +142,13 @@ export function Programs() {
                                         <CardTitle className="mb-3 text-xl group-hover:text-primary-light transition-colors">
                                             {prog.title}
                                         </CardTitle>
-                                        <CardDescription className="text-sm leading-relaxed text-navy-200">
+                                        <CardDescription className={`text-sm leading-relaxed ${t.body}`}>
                                             {prog.description}
                                         </CardDescription>
                                     </CardContent>
 
                                     <CardFooter className="px-6 pb-6 pt-0 border-none z-10 mt-auto flex items-center justify-between">
-                                        <span className="text-xs font-semibold text-navy-300 uppercase tracking-wider">
+                                        <span className={`text-xs font-semibold ${t.muted} uppercase tracking-wider`}>
                                             {prog.courseCount} Courses
                                         </span>
                                         <button className="flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary-light transition-colors group/btn outline-none">

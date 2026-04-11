@@ -36,7 +36,7 @@ export function ResourceCard({ resource, index = 0 }: ResourceCardProps) {
     const syntheticCover = (
         <div className={`w-full h-full bg-gradient-to-br ${resource.coverGradient || 'from-navy-800 to-navy-950'} flex flex-col p-4 relative overflow-hidden`}>
             {/* Book spine elements */}
-            <div className="absolute left-0 top-0 bottom-0 w-8 bg-black/20 border-r border-white/10 shadow-[inset_4px_0_8px_rgba(0,0,0,0.5)]" />
+            <div className="absolute left-0 top-0 bottom-0 w-8 bg-black/20 border-r border-slate-200 dark:border-white/10 shadow-[inset_4px_0_8px_rgba(0,0,0,0.5)]" />
             <div className="absolute left-6 top-0 bottom-0 w-[1px] bg-white/20" />
             <div className="absolute left-8 top-0 bottom-0 w-12 bg-white/5" />
 
@@ -67,12 +67,12 @@ export function ResourceCard({ resource, index = 0 }: ResourceCardProps) {
                 console.log("Open Resource:", resource.id);
             }}
         >
-            <div className="bg-navy-900 border border-navy-600 rounded-2xl overflow-hidden shadow-card hover:shadow-gold-glow hover:border-primary/50 transition-all duration-300 flex-1 flex flex-col relative">
+            <div className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-600 rounded-2xl overflow-hidden shadow-card hover:shadow-gold-glow hover:border-primary/50 transition-all duration-300 flex-1 flex flex-col relative">
 
                 {/* Floating Actions */}
                 <div className="absolute top-3 right-3 z-20 flex flex-col gap-2">
                     <button
-                        className="w-8 h-8 rounded-full bg-navy-950/60 backdrop-blur-md border border-white/10 flex items-center justify-center text-navy-200 hover:text-white hover:border-primary hover:bg-navy-800 transition-all"
+                        className="w-8 h-8 rounded-full bg-white/60 dark:bg-navy-950/60 backdrop-blur-md border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 dark:text-navy-200 hover:text-[#0D1B2A] dark:hover:text-white hover:border-primary hover:bg-slate-100 dark:hover:bg-navy-800 transition-all"
                         onClick={(e) => {
                             e.stopPropagation();
                             // Bookmark action
@@ -83,7 +83,7 @@ export function ResourceCard({ resource, index = 0 }: ResourceCardProps) {
                 </div>
 
                 {/* Thumbnail Setup */}
-                <div className="relative aspect-[3/4] sm:aspect-[4/3] bg-navy-950 overflow-hidden border-b border-navy-600">
+                <div className="relative aspect-[3/4] sm:aspect-[4/3] bg-slate-100 dark:bg-navy-950 overflow-hidden border-b border-slate-200 dark:border-navy-600">
 
                     {/* Cover Render */}
                     {resource.coverImage ? (
@@ -115,21 +115,21 @@ export function ResourceCard({ resource, index = 0 }: ResourceCardProps) {
                     )}
 
                     {/* Hover CTA Download */}
-                    <div className="absolute inset-0 bg-navy-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 backdrop-blur-sm">
+                    <div className="absolute inset-0 bg-slate-900/60 dark:bg-navy-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10 backdrop-blur-sm">
                         <div className="transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex flex-col items-center">
                             {resource.isPremium ? (
                                 <>
-                                    <div className="w-12 h-12 rounded-full bg-navy-800 border-2 border-primary/50 flex items-center justify-center mb-3">
+                                    <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-navy-800 border-2 border-primary/50 flex items-center justify-center mb-3">
                                         <Lock className="w-5 h-5 text-primary" />
                                     </div>
-                                    <span className="font-medium text-white text-sm bg-navy-900/80 px-4 py-1.5 rounded-full border border-navy-600">Unlock Premium</span>
+                                    <span className="font-medium text-white text-sm bg-slate-800/80 dark:bg-navy-900/80 px-4 py-1.5 rounded-full border border-slate-600 dark:border-navy-600">Unlock Premium</span>
                                 </>
                             ) : (
                                 <>
                                     <div className="w-12 h-12 rounded-full bg-primary/20 border-2 border-primary text-primary flex items-center justify-center mb-3 hover:bg-primary hover:text-navy-950 transition-colors">
                                         <Download className="w-5 h-5 ml-0.5" />
                                     </div>
-                                    <span className="font-medium text-white text-sm bg-navy-900/80 px-4 py-1.5 rounded-full border border-navy-600">Download PDF</span>
+                                    <span className="font-medium text-white text-sm bg-slate-800/80 dark:bg-navy-900/80 px-4 py-1.5 rounded-full border border-slate-600 dark:border-navy-600">Download PDF</span>
                                 </>
                             )}
                         </div>
@@ -140,40 +140,40 @@ export function ResourceCard({ resource, index = 0 }: ResourceCardProps) {
                 {/* Info Area */}
                 <div className="p-5 flex flex-col flex-1">
                     {/* Meta Row */}
-                    <div className="flex items-center justify-between text-xs text-navy-300 font-medium mb-3">
+                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-navy-300 font-medium mb-3">
                         <div className="flex items-center gap-2">
                             <span className="flex items-center gap-1">
                                 <Calendar className="w-3.5 h-3.5" />
                                 {resource.year}
                             </span>
-                            <span className="flex items-center gap-1 bg-navy-800 px-1.5 py-0.5 rounded text-navy-200">
+                            <span className="flex items-center gap-1 bg-slate-100 dark:bg-navy-800 px-1.5 py-0.5 rounded text-slate-600 dark:text-navy-200">
                                 {resource.language}
                             </span>
                         </div>
-                        <span className="flex items-center gap-1 bg-navy-800/50 px-2 py-0.5 rounded-full text-primary border border-primary/20">
+                        <span className="flex items-center gap-1 bg-slate-50 dark:bg-navy-800/50 px-2 py-0.5 rounded-full text-primary border border-primary/20">
                             {resource.category}
                         </span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-white font-display text-lg leading-tight mb-2 group-hover:text-primary transition-colors line-clamp-2" title={resource.title}>
+                    <h3 className="text-[#0D1B2A] dark:text-white font-display text-lg leading-tight mb-2 group-hover:text-primary transition-colors line-clamp-2" title={resource.title}>
                         {resource.title}
                     </h3>
 
                     {/* Description Preview */}
-                    <p className="text-sm text-navy-300 line-clamp-2 leading-relaxed mb-4">
+                    <p className="text-sm text-slate-500 dark:text-navy-300 line-clamp-2 leading-relaxed mb-4">
                         {resource.description}
                     </p>
 
-                    <div className="mt-auto pt-4 border-t border-navy-600/50 flex items-center justify-between">
-                        <div className="flex items-center gap-1 text-sm bg-navy-950 px-2 py-1 rounded border border-navy-800 text-navy-200 shadow-inner">
-                            <FileJson className="w-3.5 h-3.5 text-navy-400" />
+                    <div className="mt-auto pt-4 border-t border-slate-200 dark:border-navy-600/50 flex items-center justify-between">
+                        <div className="flex items-center gap-1 text-sm bg-slate-100 dark:bg-navy-950 px-2 py-1 rounded border border-slate-200 dark:border-navy-800 text-slate-600 dark:text-navy-200 shadow-inner">
+                            <FileJson className="w-3.5 h-3.5 text-slate-400 dark:text-navy-400" />
                             {resource.pageCount}p
                         </div>
                         <div className="flex items-center gap-1.5">
                             <Star className="w-4 h-4 text-primary fill-primary" />
-                            <span className="text-sm font-medium text-white">{resource.rating}</span>
-                            <span className="text-xs text-navy-400">({resource.reviewsCount})</span>
+                            <span className="text-sm font-medium text-[#0D1B2A] dark:text-white">{resource.rating}</span>
+                            <span className="text-xs text-slate-400 dark:text-navy-400">({resource.reviewsCount})</span>
                         </div>
                     </div>
                 </div>

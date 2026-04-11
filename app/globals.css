@@ -43,6 +43,28 @@
   --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+html.light {
+  /* ── Color Palette (Light) ── */
+  --color-bg: #F5F7FA;
+  --color-bg-secondary: #EDF0F5;
+  --color-bg-card: #FFFFFF;
+  --color-surface: #E8EDF5;
+  --color-text: #0D1B2A;
+  --color-text-muted: #4A5568;
+  --color-primary: #A07810;
+  --color-primary-light: #D4A017;
+  --color-primary-dark: #7A5C0C;
+  --color-accent: #0D9488;
+
+  /* ── Shadows (Light) ── */
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08),
+                 0 1px 0 rgba(212, 160, 23, 0.12);
+  --shadow-card-hover: 0 8px 40px rgba(0, 0, 0, 0.12),
+                       0 2px 0 rgba(212, 160, 23, 0.2);
+  --shadow-gold-sm: 0 2px 8px rgba(160, 120, 16, 0.12);
+  --shadow-gold-md: 0 4px 16px rgba(160, 120, 16, 0.18);
+}
+
 /* ── Base Styles ── */
 @layer base {
   * {
@@ -222,6 +244,30 @@
       rgba(212, 160, 23, 0.3),
       transparent
     );
+  }
+
+  /* ── Light Mode Glass Overrides ── */
+  html.light .glass {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(160, 120, 16, 0.15);
+  }
+
+  html.light .glass-strong {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(160, 120, 16, 0.2);
+  }
+
+  html.light ::selection {
+    background-color: rgba(212, 160, 23, 0.25);
+    color: #0D1B2A;
+  }
+
+  html.light ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+
+  html.light ::-webkit-scrollbar-thumb {
+    background: #C5D0E5;
   }
 }
 

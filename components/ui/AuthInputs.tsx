@@ -18,7 +18,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
         return (
             <div className="w-full space-y-1.5">
                 {label && (
-                    <label htmlFor={inputId} className={cn("block text-sm font-medium text-navy-200", error && "text-red-400")}>
+                    <label htmlFor={inputId} className={cn("block text-sm font-medium text-slate-600 dark:text-navy-200", error && "text-red-400")}>
                         {label}
                     </label>
                 )}
@@ -28,8 +28,8 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
                         id={inputId}
                         type={show ? "text" : "password"}
                         className={cn(
-                            "w-full h-12 px-4 pr-12 rounded-xl text-sm text-white placeholder:text-navy-400 outline-none transition-all duration-200",
-                            "bg-navy-800/80 border border-navy-600",
+                            "w-full h-12 px-4 pr-12 rounded-xl text-sm text-[#0D1B2A] dark:text-white placeholder:text-slate-400 dark:placeholder:text-navy-400 outline-none transition-all duration-200",
+                            "bg-white dark:bg-navy-800/80 border border-slate-300 dark:border-navy-600",
                             "focus:border-primary focus:ring-2 focus:ring-primary/20",
                             error && "border-red-500 focus:border-red-500 focus:ring-red-500/20",
                             className
@@ -39,7 +39,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
                     <button
                         type="button"
                         onClick={() => setShow(s => !s)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-navy-400 hover:text-primary transition-colors p-1 rounded"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-navy-400 hover:text-primary transition-colors p-1 rounded"
                         aria-label={show ? "Hide password" : "Show password"}
                     >
                         {show ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -50,7 +50,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
                         <span>⚠</span> {error}
                     </p>
                 )}
-                {hint && !error && <p className="text-xs text-navy-400">{hint}</p>}
+                {hint && !error && <p className="text-xs text-slate-400 dark:text-navy-400">{hint}</p>}
             </div>
         );
     }
@@ -72,13 +72,13 @@ export const AuthInput = React.forwardRef<HTMLInputElement, AuthInputProps>(
         return (
             <div className="w-full space-y-1.5">
                 {label && (
-                    <label htmlFor={inputId} className={cn("block text-sm font-medium text-navy-200", error && "text-red-400")}>
+                    <label htmlFor={inputId} className={cn("block text-sm font-medium text-slate-600 dark:text-navy-200", error && "text-red-400")}>
                         {label}
                     </label>
                 )}
                 <div className="relative">
                     {icon && (
-                        <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-navy-400 pointer-events-none">
+                        <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 dark:text-navy-400 pointer-events-none">
                             {icon}
                         </span>
                     )}
@@ -86,8 +86,8 @@ export const AuthInput = React.forwardRef<HTMLInputElement, AuthInputProps>(
                         ref={ref}
                         id={inputId}
                         className={cn(
-                            "w-full h-12 px-4 rounded-xl text-sm text-white placeholder:text-navy-400 outline-none transition-all duration-200",
-                            "bg-navy-800/80 border border-navy-600",
+                            "w-full h-12 px-4 rounded-xl text-sm text-[#0D1B2A] dark:text-white placeholder:text-slate-400 dark:placeholder:text-navy-400 outline-none transition-all duration-200",
+                            "bg-white dark:bg-navy-800/80 border border-slate-300 dark:border-navy-600",
                             "focus:border-primary focus:ring-2 focus:ring-primary/20",
                             error && "border-red-500 focus:border-red-500 focus:ring-red-500/20",
                             icon && "pl-10",
@@ -101,7 +101,7 @@ export const AuthInput = React.forwardRef<HTMLInputElement, AuthInputProps>(
                         <span>⚠</span> {error}
                     </p>
                 )}
-                {hint && !error && <p className="text-xs text-navy-400">{hint}</p>}
+                {hint && !error && <p className="text-xs text-slate-400 dark:text-navy-400">{hint}</p>}
             </div>
         );
     }
@@ -121,15 +121,15 @@ export function AuthSelect({ label, error, options, placeholder, id, className, 
     return (
         <div className="w-full space-y-1.5">
             {label && (
-                <label htmlFor={inputId} className={cn("block text-sm font-medium text-navy-200", error && "text-red-400")}>
+                <label htmlFor={inputId} className={cn("block text-sm font-medium text-slate-600 dark:text-navy-200", error && "text-red-400")}>
                     {label}
                 </label>
             )}
             <select
                 id={inputId}
                 className={cn(
-                    "w-full h-12 px-4 rounded-xl text-sm text-white outline-none transition-all duration-200",
-                    "bg-navy-800/80 border border-navy-600",
+                    "w-full h-12 px-4 rounded-xl text-sm text-[#0D1B2A] dark:text-white outline-none transition-all duration-200",
+                    "bg-white dark:bg-navy-800/80 border border-slate-300 dark:border-navy-600",
                     "focus:border-primary focus:ring-2 focus:ring-primary/20",
                     error && "border-red-500",
                     className
