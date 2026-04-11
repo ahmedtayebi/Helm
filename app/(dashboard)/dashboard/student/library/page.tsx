@@ -21,25 +21,25 @@ export default function StudentLibraryPage() {
     return (
         <div className="space-y-6">
             <div className="relative max-w-sm">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-500" />
-                <input placeholder="Search saved items..." className="pl-10 h-10 w-full bg-navy-800 border border-navy-600 rounded-xl text-sm text-white placeholder:text-navy-500 focus:border-primary focus:outline-none" value={search} onChange={e => setSearch(e.target.value)} />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-navy-500" />
+                <input placeholder="Search saved items..." className="pl-10 h-10 w-full bg-slate-100 dark:bg-navy-800 border border-slate-300 dark:border-navy-600 rounded-xl text-sm text-[#0D1B2A] dark:text-white placeholder:text-slate-400 dark:text-navy-500 focus:border-primary focus:outline-none" value={search} onChange={e => setSearch(e.target.value)} />
             </div>
             {filtered.length === 0 ? (
-                <div className="text-center py-16"><div className="text-4xl mb-3">📚</div><p className="text-navy-400">No saved items found.</p></div>
+                <div className="text-center py-16"><div className="text-4xl mb-3">📚</div><p className="text-slate-500 dark:text-navy-400">No saved items found.</p></div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     {filtered.map((item, idx) => (
                         <motion.div key={item.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}
-                            className="bg-navy-900 border border-navy-700 rounded-xl p-4 hover:border-primary/30 transition-colors group">
+                            className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-xl p-4 hover:border-primary/30 transition-colors group">
                             <div className="flex items-start gap-3 mb-3">
-                                <div className="w-10 h-10 rounded-lg bg-navy-800 flex items-center justify-center text-lg flex-shrink-0">{item.thumb}</div>
+                                <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-navy-800 flex items-center justify-center text-lg flex-shrink-0">{item.thumb}</div>
                                 <div className="min-w-0">
-                                    <p className="text-sm font-semibold text-white truncate">{item.title}</p>
-                                    <p className="text-xs text-navy-400">{item.author} · {item.year}</p>
+                                    <p className="text-sm font-semibold text-[#0D1B2A] dark:text-white truncate">{item.title}</p>
+                                    <p className="text-xs text-slate-500 dark:text-navy-400">{item.author} · {item.year}</p>
                                 </div>
                             </div>
                             <div className="flex items-center justify-between">
-                                <span className="text-[10px] uppercase tracking-wider font-medium px-2 py-0.5 rounded-full bg-navy-800 text-navy-400 border border-navy-700">{item.type}</span>
+                                <span className="text-[10px] uppercase tracking-wider font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-navy-800 text-slate-500 dark:text-navy-400 border border-slate-200 dark:border-navy-700">{item.type}</span>
                                 <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                                     <Button size="sm" variant="outline" className="text-xs px-2"><ExternalLink className="w-3 h-3" /></Button>
                                     <Button size="sm" variant="outline" className="text-xs px-2 text-red-400 border-red-500/30 hover:bg-red-500/10" onClick={() => setItems(p => p.filter(x => x.id !== item.id))}><Trash2 className="w-3 h-3" /></Button>

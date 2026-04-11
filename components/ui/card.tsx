@@ -22,10 +22,10 @@ export function Card({
     ...props
 }: CardProps) {
     const variants = {
-        default: "bg-navy-600 border border-navy-500/50",
+        default: "bg-white dark:bg-navy-600 border border-slate-200 dark:border-navy-500/50",
         glass: "glass",
-        outlined: "bg-transparent border border-navy-400/30",
-        elevated: "bg-navy-600 shadow-card",
+        outlined: "bg-transparent border border-slate-200 dark:border-navy-400/30",
+        elevated: "bg-white dark:bg-navy-600 shadow-card",
     };
 
     return (
@@ -64,7 +64,7 @@ export function CardTitle({ className, ...props }: CardTitleProps) {
     return (
         <h3
             className={cn(
-                "font-display text-lg font-semibold text-white leading-tight",
+                "font-display text-lg font-semibold text-[#0D1B2A] dark:text-white leading-tight",
                 className
             )}
             {...props}
@@ -78,7 +78,7 @@ export type CardDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
 export function CardDescription({ className, ...props }: CardDescriptionProps) {
     return (
         <p
-            className={cn("text-sm text-navy-200 font-body line-clamp-2", className)}
+            className={cn("text-sm text-slate-500 dark:text-navy-200 font-body line-clamp-2", className)}
             {...props}
         />
     );
@@ -98,7 +98,7 @@ export function CardFooter({ className, ...props }: CardFooterProps) {
     return (
         <div
             className={cn(
-                "px-5 pb-5 pt-3 flex items-center border-t border-navy-500/30",
+                "px-5 pb-5 pt-3 flex items-center border-t border-slate-200 dark:border-navy-500/30",
                 className
             )}
             {...props}
@@ -137,7 +137,7 @@ export function CardImage({
                 )}
             />
             {overlay && (
-                <div className="absolute inset-0 bg-gradient-to-t from-navy-900/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 dark:from-navy-900/60 via-transparent to-transparent" />
             )}
         </div>
     );

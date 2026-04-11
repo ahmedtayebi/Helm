@@ -22,10 +22,10 @@ export default function InstructorAnalyticsPage() {
                     const Icon = m.icon;
                     return (
                         <motion.div key={m.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.06 }}
-                            className="bg-navy-900 border border-navy-700 rounded-xl p-4">
+                            className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-xl p-4">
                             <Icon className={`w-5 h-5 ${m.accent} mb-2`} />
-                            <p className="font-display text-2xl text-white font-bold">{m.value}</p>
-                            <p className="text-xs text-navy-400 mt-0.5">{m.change}</p>
+                            <p className="font-display text-2xl text-[#0D1B2A] dark:text-white font-bold">{m.value}</p>
+                            <p className="text-xs text-slate-500 dark:text-navy-400 mt-0.5">{m.change}</p>
                         </motion.div>
                     );
                 })}
@@ -33,13 +33,13 @@ export default function InstructorAnalyticsPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-                    className="bg-navy-900 border border-navy-700 rounded-2xl p-5">
-                    <h2 className="font-display text-lg text-white mb-4">Enrollment Trends</h2>
+                    className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-2xl p-5">
+                    <h2 className="font-display text-lg text-[#0D1B2A] dark:text-white mb-4">Enrollment Trends</h2>
                     <EnrollmentChart />
                 </motion.div>
                 <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                    className="bg-navy-900 border border-navy-700 rounded-2xl p-5">
-                    <h2 className="font-display text-lg text-white mb-4">Ratings Distribution</h2>
+                    className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-2xl p-5">
+                    <h2 className="font-display text-lg text-[#0D1B2A] dark:text-white mb-4">Ratings Distribution</h2>
                     <RatingsChart />
                 </motion.div>
             </div>

@@ -2,7 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { GraduationCap, ArrowRight, Linkedin, Twitter, Youtube, Send } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Linkedin, Twitter, Youtube, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useThemeColors } from "@/lib/useThemeColors";
@@ -25,9 +26,13 @@ export function Footer() {
                     {/* ── Col 1: Brand & Social ── */}
                     <div className="space-y-6">
                         <Link href="/" className="flex items-center gap-2 outline-none inline-block">
-                            <div className="w-10 h-10 rounded-md bg-gradient-gold flex items-center justify-center shadow-gold-sm">
-                                <GraduationCap className="h-6 w-6 text-navy-900" />
-                            </div>
+                            <Image
+                                src="/assets/logos/helmlogo.png"
+                                alt="HELM Academy"
+                                width={40}
+                                height={40}
+                                className="h-10 w-auto"
+                            />
                             <div>
                                 <span className={`block text-xl font-display font-bold ${t.heading} tracking-tight leading-none`}>
                                     HELM

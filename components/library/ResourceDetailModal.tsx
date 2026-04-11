@@ -57,7 +57,7 @@ export function ResourceDetailModal({ isOpen, onClose, resource }: ResourceDetai
                                     /* eslint-disable-next-line @next/next/no-img-element */
                                     <img src={resource.coverImage} alt={resource.title} className="w-full h-full object-cover" />
                                 ) : (
-                                    <div className={`w-full h-full bg-gradient-to-br ${resource.coverGradient || 'from-navy-800 to-navy-950'} flex flex-col p-6 relative`}>
+                                    <div className={`w-full h-full bg-gradient-to-br ${resource.coverGradient || 'from-slate-500 to-slate-800 dark:from-navy-800 dark:to-navy-950'} flex flex-col p-6 relative`}>
                                         <div className="absolute left-0 top-0 bottom-0 w-8 bg-black/20 border-r border-slate-200 dark:border-white/10 shadow-[inset_4px_0_8px_rgba(0,0,0,0.5)]" />
                                         <div className="z-10 ml-6 mt-auto h-full flex flex-col justify-end">
                                             <h4 className="font-display text-white text-2xl leading-none mb-3 drop-shadow-md">{resource.title}</h4>

@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import {
     BookOpen, FileText, FileBadge, GraduationCap,
-    Download, Lock, Bookmark, Star, Calendar, FileJson
+    Lock, Bookmark, Star, Calendar, FileJson, ExternalLink, Clock
 } from "lucide-react";
 
 import { LibraryResource } from "@/data/library";
@@ -34,7 +34,7 @@ export function ResourceCard({ resource, index = 0 }: ResourceCardProps) {
 
     // Synthetic Cover (Book Spine Design)
     const syntheticCover = (
-        <div className={`w-full h-full bg-gradient-to-br ${resource.coverGradient || 'from-navy-800 to-navy-950'} flex flex-col p-4 relative overflow-hidden`}>
+        <div className={`w-full h-full bg-gradient-to-br ${resource.coverGradient || 'from-slate-500 to-slate-800 dark:from-navy-800 dark:to-navy-950'} flex flex-col p-4 relative overflow-hidden`}>
             {/* Book spine elements */}
             <div className="absolute left-0 top-0 bottom-0 w-8 bg-black/20 border-r border-slate-200 dark:border-white/10 shadow-[inset_4px_0_8px_rgba(0,0,0,0.5)]" />
             <div className="absolute left-6 top-0 bottom-0 w-[1px] bg-white/20" />
@@ -124,12 +124,25 @@ export function ResourceCard({ resource, index = 0 }: ResourceCardProps) {
                                     </div>
                                     <span className="font-medium text-white text-sm bg-slate-800/80 dark:bg-navy-900/80 px-4 py-1.5 rounded-full border border-slate-600 dark:border-navy-600">Unlock Premium</span>
                                 </>
+                            ) : resource.fileUrl ? (
+                                <>
+                                    <a
+                                        href={resource.fileUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="w-12 h-12 rounded-full bg-primary/20 border-2 border-primary text-primary flex items-center justify-center mb-3 hover:bg-primary hover:text-navy-950 transition-colors"
+                                    >
+                                        <ExternalLink className="w-5 h-5" />
+                                    </a>
+                                    <span className="font-medium text-white text-sm bg-slate-800/80 dark:bg-navy-900/80 px-4 py-1.5 rounded-full border border-slate-600 dark:border-navy-600">Read Now</span>
+                                </>
                             ) : (
                                 <>
-                                    <div className="w-12 h-12 rounded-full bg-primary/20 border-2 border-primary text-primary flex items-center justify-center mb-3 hover:bg-primary hover:text-navy-950 transition-colors">
-                                        <Download className="w-5 h-5 ml-0.5" />
+                                    <div className="w-12 h-12 rounded-full bg-slate-700/60 border-2 border-slate-500/50 text-slate-400 flex items-center justify-center mb-3">
+                                        <Clock className="w-5 h-5" />
                                     </div>
-                                    <span className="font-medium text-white text-sm bg-slate-800/80 dark:bg-navy-900/80 px-4 py-1.5 rounded-full border border-slate-600 dark:border-navy-600">Download PDF</span>
+                                    <span className="font-medium text-slate-300 text-sm bg-slate-800/80 dark:bg-navy-900/80 px-4 py-1.5 rounded-full border border-slate-600 dark:border-navy-600">Coming Soon</span>
                                 </>
                             )}
                         </div>

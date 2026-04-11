@@ -2,6 +2,7 @@
 
 import React, { useState, createContext, useContext } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -77,9 +78,14 @@ function Sidebar({ collapsed, toggle, role, mobileOpen, onMobileClose }: {
             {/* Logo */}
             <div className={`flex items-center h-16 border-b ${t.borderClass} px-4 ${collapsed ? "justify-center" : "gap-3"}`}>
                 <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-gold flex items-center justify-center flex-shrink-0">
-                        <span className="text-navy-950 font-display font-bold text-sm">H</span>
-                    </div>
+                    <Image
+                        src="/assets/logos/helmlogo.png"
+                        alt="HELM"
+                        width={32}
+                        height={32}
+                        className="h-8 w-auto flex-shrink-0"
+                        priority
+                    />
                     {!collapsed && <span className={`font-display text-lg ${t.heading} whitespace-nowrap`}>HELM</span>}
                 </Link>
                 <button onClick={toggle} className={`hidden lg:flex ml-auto ${t.faint} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} transition-colors p-1 rounded`}>

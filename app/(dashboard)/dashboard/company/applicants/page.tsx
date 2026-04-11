@@ -35,25 +35,25 @@ export default function CompanyApplicantsPage() {
                 <div className="flex gap-2 flex-wrap">
                     {(["all", "New", "Screening", "Interview", "Offered", "Rejected"] as Pipeline[]).map(s => (
                         <button key={s} onClick={() => setFilter(s)}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-all ${filter === s ? "bg-primary text-navy-950 border-primary" : "border-navy-600 text-navy-400 hover:text-white"}`}>
+                            className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-all ${filter === s ? "bg-primary text-navy-950 border-primary" : "border-slate-300 dark:border-navy-600 text-slate-500 dark:text-navy-400 hover:text-[#0D1B2A] dark:text-white"}`}>
                             {s === "all" ? "All" : s} {s !== "all" && `(${APPLICANTS.filter(a => a.stage === s).length})`}
                         </button>
                     ))}
                 </div>
                 <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-500" />
-                    <input placeholder="Search..." className="pl-10 h-9 bg-navy-800 border border-navy-600 rounded-xl text-sm text-white placeholder:text-navy-500 focus:border-primary focus:outline-none w-48" value={search} onChange={e => setSearch(e.target.value)} />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-navy-500" />
+                    <input placeholder="Search..." className="pl-10 h-9 bg-slate-100 dark:bg-navy-800 border border-slate-300 dark:border-navy-600 rounded-xl text-sm text-[#0D1B2A] dark:text-white placeholder:text-slate-400 dark:text-navy-500 focus:border-primary focus:outline-none w-48" value={search} onChange={e => setSearch(e.target.value)} />
                 </div>
             </div>
 
             <div className="space-y-3">
                 {filtered.map((a, idx) => (
                     <motion.div key={a.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}
-                        className="bg-navy-900 border border-navy-700 rounded-xl p-4 flex items-center gap-4 hover:border-primary/20 transition-colors">
+                        className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-xl p-4 flex items-center gap-4 hover:border-primary/20 transition-colors">
                         <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-xs font-bold text-primary flex-shrink-0">{a.avatar}</div>
                         <div className="flex-1 min-w-0">
-                            <p className="font-semibold text-sm text-white truncate">{a.name}</p>
-                            <p className="text-xs text-navy-400">{a.position} · {a.experience}</p>
+                            <p className="font-semibold text-sm text-[#0D1B2A] dark:text-white truncate">{a.name}</p>
+                            <p className="text-xs text-slate-500 dark:text-navy-400">{a.position} · {a.experience}</p>
                         </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
                             <span className="text-xs font-bold text-primary">{a.match}%</span>

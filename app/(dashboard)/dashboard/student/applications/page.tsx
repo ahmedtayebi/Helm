@@ -31,25 +31,25 @@ export default function ApplicationsPage() {
             <div className="flex flex-wrap gap-2">
                 {(["all", "Pending", "Reviewed", "Accepted", "Rejected"] as Status[]).map(s => (
                     <button key={s} onClick={() => setFilter(s)}
-                        className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-all ${filter === s ? "bg-primary text-navy-950 border-primary" : "border-navy-600 text-navy-400 hover:text-white"}`}>
+                        className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-all ${filter === s ? "bg-primary text-navy-950 border-primary" : "border-slate-300 dark:border-navy-600 text-slate-500 dark:text-navy-400 hover:text-[#0D1B2A] dark:text-white"}`}>
                         {s === "all" ? "All" : s} {s !== "all" && `(${APPLICATIONS.filter(a => a.status === s).length})`}
                     </button>
                 ))}
             </div>
 
             {filtered.length === 0 ? (
-                <div className="text-center py-16"><div className="text-4xl mb-3">📋</div><p className="text-navy-400">No applications match this filter.</p></div>
+                <div className="text-center py-16"><div className="text-4xl mb-3">📋</div><p className="text-slate-500 dark:text-navy-400">No applications match this filter.</p></div>
             ) : (
                 <div className="space-y-3">
                     {filtered.map((app, idx) => (
                         <motion.div key={app.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}
-                            className="bg-navy-900 border border-navy-700 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-4 hover:border-primary/20 transition-colors">
-                            <div className="w-10 h-10 rounded-lg bg-navy-800 border border-navy-700 flex items-center justify-center flex-shrink-0 font-bold text-primary text-sm">
+                            className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-4 hover:border-primary/20 transition-colors">
+                            <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-navy-800 border border-slate-200 dark:border-navy-700 flex items-center justify-center flex-shrink-0 font-bold text-primary text-sm">
                                 {app.company.charAt(0)}
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="font-semibold text-sm text-white">{app.title}</p>
-                                <div className="flex flex-wrap gap-2 text-xs text-navy-400 mt-1">
+                                <p className="font-semibold text-sm text-[#0D1B2A] dark:text-white">{app.title}</p>
+                                <div className="flex flex-wrap gap-2 text-xs text-slate-500 dark:text-navy-400 mt-1">
                                     <span className="flex items-center gap-1"><Briefcase className="w-3 h-3" />{app.company}</span>
                                     <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{app.location}</span>
                                     <span className="flex items-center gap-1"><Clock className="w-3 h-3" />Applied {app.date}</span>

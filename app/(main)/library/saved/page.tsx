@@ -18,7 +18,7 @@ export default function SavedResources() {
     };
 
     return (
-        <main className="min-h-screen bg-navy-950 pt-32 pb-20">
+        <main className="min-h-screen bg-white dark:bg-navy-950 pt-32 pb-20">
             <div className="max-w-7xl mx-auto px-6">
 
                 {/* Page Header */}
@@ -27,16 +27,16 @@ export default function SavedResources() {
                         <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 text-primary mb-6">
                             <Bookmark className="w-6 h-6" />
                         </div>
-                        <h1 className="font-display text-4xl md:text-5xl text-white mb-4">
+                        <h1 className="font-display text-4xl md:text-5xl text-[#0D1B2A] dark:text-white mb-4">
                             My Saved <span className="text-gradient-gold">Resources</span>
                         </h1>
-                        <p className="text-navy-300 text-lg max-w-2xl">
+                        <p className="text-slate-600 dark:text-navy-300 text-lg max-w-2xl">
                             Quickly access the books, papers, and summaries you&apos;ve bookmarked for later reading.
                         </p>
                     </div>
 
                     {savedItems.length > 0 && (
-                        <div className="text-navy-300 text-sm font-medium bg-navy-900 px-4 py-2 rounded-lg border border-navy-600">
+                        <div className="text-slate-600 dark:text-navy-300 text-sm font-medium bg-slate-100 dark:bg-navy-900 px-4 py-2 rounded-lg border border-slate-300 dark:border-navy-600">
                             {savedItems.length} items saved
                         </div>
                     )}
@@ -75,22 +75,22 @@ export default function SavedResources() {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="flex flex-col items-center justify-center py-20 px-6 max-w-2xl mx-auto text-center border border-dashed border-navy-600 rounded-3xl bg-navy-900/30 backdrop-blur-sm"
+                        className="flex flex-col items-center justify-center py-20 px-6 max-w-2xl mx-auto text-center border border-dashed border-slate-300 dark:border-navy-600 rounded-3xl bg-slate-50/80 dark:bg-navy-900/30 backdrop-blur-sm"
                     >
                         <div className="relative mb-8">
                             <div className="absolute inset-0 bg-gradient-gold blur-[40px] opacity-20 rounded-full" />
-                            <div className="w-24 h-24 rounded-full bg-navy-800 border-2 border-primary/30 flex items-center justify-center relative z-10 shadow-gold-sm">
+                            <div className="w-24 h-24 rounded-full bg-slate-100 dark:bg-navy-800 border-2 border-primary/30 flex items-center justify-center relative z-10 shadow-gold-sm">
                                 <Library className="w-10 h-10 text-primary" />
                             </div>
 
                             {/* Floating aesthetic elements */}
-                            <div className="absolute -top-2 -right-4 w-8 h-8 rounded-full bg-navy-900 border border-navy-600 flex items-center justify-center z-20 animate-bounce" style={{ animationDuration: '3s' }}>
-                                <Bookmark className="w-4 h-4 text-navy-400" />
+                            <div className="absolute -top-2 -right-4 w-8 h-8 rounded-full bg-white dark:bg-navy-900 border border-slate-300 dark:border-navy-600 flex items-center justify-center z-20 animate-bounce" style={{ animationDuration: '3s' }}>
+                                <Bookmark className="w-4 h-4 text-slate-400 dark:text-navy-400" />
                             </div>
                         </div>
 
-                        <h2 className="font-display text-3xl text-white mb-4">Your reading list is empty</h2>
-                        <p className="text-navy-300 text-lg mb-10 leading-relaxed">
+                        <h2 className="font-display text-3xl text-[#0D1B2A] dark:text-white mb-4">Your reading list is empty</h2>
+                        <p className="text-slate-600 dark:text-navy-300 text-lg mb-10 leading-relaxed">
                             You haven&apos;t saved any resources yet. Browse our extensive library of petroleum engineering books, research papers, and summaries to build your personal knowledge base.
                         </p>
 

@@ -25,7 +25,7 @@ export function RoleCard({ icon, title, subtitle, description, isSelected, onCli
                 "relative w-full text-left p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer outline-none group",
                 isSelected
                     ? "border-primary bg-primary/8 shadow-[0_0_24px_rgba(212,160,23,0.2)]"
-                    : "border-navy-600 bg-navy-900/60 hover:border-navy-400"
+                    : "border-slate-300 dark:border-navy-600 bg-slate-50 dark:bg-navy-900/60 hover:border-slate-400 dark:hover:border-navy-400"
             )}
         >
             {/* Gold glow top bar */}
@@ -49,15 +49,15 @@ export function RoleCard({ icon, title, subtitle, description, isSelected, onCli
             {/* Icon */}
             <div className={cn(
                 "text-4xl mb-4 w-16 h-16 rounded-2xl flex items-center justify-center transition-all",
-                isSelected ? "bg-primary/15 border border-primary/30" : "bg-navy-800 border border-navy-700 group-hover:border-navy-500"
+                isSelected ? "bg-primary/15 border border-primary/30" : "bg-slate-100 dark:bg-navy-800 border border-slate-300 dark:border-navy-700 group-hover:border-slate-400 dark:group-hover:border-navy-500"
             )}>
                 {icon}
             </div>
 
             {/* Text */}
-            <h3 className={cn("font-display text-xl mb-1 transition-colors", isSelected ? "text-primary" : "text-white")}>{title}</h3>
-            <p className="text-xs font-medium text-navy-400 mb-2 uppercase tracking-wider">{subtitle}</p>
-            <p className="text-sm text-navy-300 leading-relaxed">{description}</p>
+            <h3 className={cn("font-display text-xl mb-1 transition-colors", isSelected ? "text-primary" : "text-[#0D1B2A] dark:text-white")}>{title}</h3>
+            <p className="text-xs font-medium text-slate-500 dark:text-navy-400 mb-2 uppercase tracking-wider">{subtitle}</p>
+            <p className="text-sm text-slate-600 dark:text-navy-300 leading-relaxed">{description}</p>
         </motion.button>
     );
 }

@@ -12,7 +12,7 @@ const PLANS = [
         features: ["Post up to 3 jobs", "View 10 engineer profiles/month", "Email support", "Basic analytics"],
         missing: ["Priority placement", "Unlimited profiles", "Dedicated coordinator", "API access"],
         isActive: false,
-        accent: "border-navy-600",
+        accent: "border-slate-300 dark:border-navy-600",
     },
     {
         name: "Professional",
@@ -52,25 +52,25 @@ export default function CompanySubscriptionPage() {
                             <Zap className="w-5 h-5 text-primary" />
                             <span className="text-sm text-primary font-bold uppercase tracking-wider">Professional Plan</span>
                         </div>
-                        <p className="text-navy-300 text-sm">Your plan renews on <strong className="text-white">April 1, 2026</strong></p>
+                        <p className="text-slate-600 dark:text-navy-300 text-sm">Your plan renews on <strong className="text-[#0D1B2A] dark:text-white">April 1, 2026</strong></p>
                     </div>
                     <div className="text-right">
-                        <p className="font-display text-3xl text-white">$149<span className="text-sm text-navy-400 font-normal">/month</span></p>
-                        <p className="text-xs text-navy-500">Billed monthly</p>
+                        <p className="font-display text-3xl text-[#0D1B2A] dark:text-white">$149<span className="text-sm text-slate-500 dark:text-navy-400 font-normal">/month</span></p>
+                        <p className="text-xs text-slate-400 dark:text-navy-500">Billed monthly</p>
                     </div>
                 </div>
             </motion.div>
 
             {/* Usage */}
             <div>
-                <h2 className="font-display text-lg text-white mb-4">Usage This Month</h2>
+                <h2 className="font-display text-lg text-[#0D1B2A] dark:text-white mb-4">Usage This Month</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {USAGE.map((u, idx) => (
                         <motion.div key={u.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.06 }}
-                            className="bg-navy-900 border border-navy-700 rounded-xl p-4">
-                            <p className="text-xs text-navy-400 mb-2">{u.label}</p>
-                            <p className="font-display text-2xl text-white mb-2">{u.used}<span className="text-sm text-navy-500">/{u.limit === 999 ? "∞" : u.limit}</span></p>
-                            <div className="h-1.5 bg-navy-800 rounded-full">
+                            className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-xl p-4">
+                            <p className="text-xs text-slate-500 dark:text-navy-400 mb-2">{u.label}</p>
+                            <p className="font-display text-2xl text-[#0D1B2A] dark:text-white mb-2">{u.used}<span className="text-sm text-slate-400 dark:text-navy-500">/{u.limit === 999 ? "∞" : u.limit}</span></p>
+                            <div className="h-1.5 bg-slate-200 dark:bg-slate-100 dark:bg-navy-800 rounded-full">
                                 <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${Math.min(u.percent, 100)}%` }} />
                             </div>
                         </motion.div>
@@ -80,20 +80,20 @@ export default function CompanySubscriptionPage() {
 
             {/* Plans */}
             <div>
-                <h2 className="font-display text-lg text-white mb-4">Available Plans</h2>
+                <h2 className="font-display text-lg text-[#0D1B2A] dark:text-white mb-4">Available Plans</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     {PLANS.map((plan, idx) => (
                         <motion.div key={plan.name} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 + idx * 0.08 }}
-                            className={`relative bg-navy-900 border rounded-2xl p-5 flex flex-col ${plan.accent}`}>
+                            className={`relative bg-white dark:bg-navy-900 border rounded-2xl p-5 flex flex-col ${plan.accent}`}>
                             {plan.isActive && <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] px-3 py-0.5 rounded-full bg-primary text-navy-950 font-bold">Current Plan</span>}
-                            <h3 className="font-display text-xl text-white mb-1">{plan.name}</h3>
-                            <p className="font-display text-3xl text-white mb-4">{plan.price}<span className="text-sm text-navy-400 font-normal">{plan.period}</span></p>
+                            <h3 className="font-display text-xl text-[#0D1B2A] dark:text-white mb-1">{plan.name}</h3>
+                            <p className="font-display text-3xl text-[#0D1B2A] dark:text-white mb-4">{plan.price}<span className="text-sm text-slate-500 dark:text-navy-400 font-normal">{plan.period}</span></p>
                             <ul className="space-y-2 mb-4 flex-1">
                                 {plan.features.map(f => (
-                                    <li key={f} className="flex items-center gap-2 text-xs text-navy-200"><CheckCircle className="w-3.5 h-3.5 text-teal-400 flex-shrink-0" />{f}</li>
+                                    <li key={f} className="flex items-center gap-2 text-xs text-slate-600 dark:text-navy-200"><CheckCircle className="w-3.5 h-3.5 text-teal-400 flex-shrink-0" />{f}</li>
                                 ))}
                                 {plan.missing.map(f => (
-                                    <li key={f} className="flex items-center gap-2 text-xs text-navy-500"><XIcon className="w-3.5 h-3.5 text-navy-600 flex-shrink-0" />{f}</li>
+                                    <li key={f} className="flex items-center gap-2 text-xs text-slate-400 dark:text-navy-500"><XIcon className="w-3.5 h-3.5 text-slate-400 dark:text-navy-600 flex-shrink-0" />{f}</li>
                                 ))}
                             </ul>
                             <Button variant={plan.isActive ? "secondary" : "primary"} size="md" className="w-full text-xs" disabled={plan.isActive}>

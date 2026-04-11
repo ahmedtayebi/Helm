@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -104,9 +105,14 @@ export function Navbar() {
 
                 {/* ── Left: Logo ── */}
                 <Link href="/" className="flex items-center gap-2.5 group outline-none">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-md bg-gradient-gold flex items-center justify-center shadow-gold-sm group-hover:shadow-gold-md transition-shadow">
-                        <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 text-navy-900" />
-                    </div>
+                    <Image
+                        src="/assets/logos/helmlogo.png"
+                        alt="HELM Academy"
+                        width={40}
+                        height={40}
+                        className="h-9 sm:h-10 w-auto"
+                        priority
+                    />
                     <div>
                         <span className={`block text-lg sm:text-xl font-display font-bold ${t.heading} tracking-tight leading-none group-hover:text-primary-light transition-colors`}>
                             HELM
@@ -125,7 +131,7 @@ export function Navbar() {
                         onMouseEnter={() => setMegaMenuOpen(true)}
                         onMouseLeave={() => setMegaMenuOpen(false)}
                     >
-                        <button className={`flex items-center gap-1.5 text-sm font-medium font-body ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} transition-colors h-full outline-none`}>
+                        <button className={`flex items-center gap-1.5 text-sm font-medium font-body ${t.body} hover:text-navy-900 dark:hover:text-white transition-colors h-full outline-none`}>
                             Explore
                             <ChevronDown
                                 className={cn(
@@ -165,7 +171,7 @@ export function Navbar() {
                                                         <div className={`w-8 h-8 rounded ${t.cardBgSubtle} flex items-center justify-center border ${t.borderAccent} group-hover:border-primary/30 transition-colors`}>
                                                             <Icon className="h-4 w-4" style={{ color: prog.color }} />
                                                         </div>
-                                                        <span className={`text-sm font-medium ${t.isDark ? "text-navy-100 group-hover:text-white" : "text-slate-600 group-hover:text-[#0D1B2A]"}`}>{prog.label}</span>
+                                                        <span className="text-sm font-medium text-slate-600 dark:text-navy-100 group-hover:text-navy-900 dark:group-hover:text-white">{prog.label}</span>
                                                     </Link>
                                                 );
                                             })}
@@ -223,7 +229,7 @@ export function Navbar() {
                                 key={link.label}
                                 href={link.href}
                                 className={cn(
-                                    `relative px-4 h-full flex items-center text-sm font-medium font-body transition-colors ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"}`,
+                                    `relative px-4 h-full flex items-center text-sm font-medium font-body transition-colors hover:text-navy-900 dark:hover:text-white`,
                                     isActive ? t.heading : t.body
                                 )}
                             >
@@ -244,15 +250,15 @@ export function Navbar() {
                 {/* ── Right: Actions ── */}
                 <div className="hidden lg:flex items-center gap-4">
                     <div className="flex items-center gap-1 mr-2">
-                        <button className={`w-8 h-8 rounded-full flex items-center justify-center ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} ${t.hoverBg} transition-colors`}>
+                        <button className={`w-8 h-8 rounded-full flex items-center justify-center ${t.body} hover:text-navy-900 dark:hover:text-white ${t.hoverBg} transition-colors`}>
                             <Search className="h-4 w-4" />
                         </button>
-                        <button className={`w-8 h-8 rounded-full flex items-center justify-center ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} ${t.hoverBg} transition-colors`}>
+                        <button className={`w-8 h-8 rounded-full flex items-center justify-center ${t.body} hover:text-navy-900 dark:hover:text-white ${t.hoverBg} transition-colors`}>
                             <Globe className="h-4 w-4" />
                         </button>
                         <button
                                 onClick={() => setTheme(t.isDark ? "light" : "dark")}
-                                className={`w-8 h-8 rounded-full flex items-center justify-center ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} ${t.hoverBg} transition-colors`}
+                                className={`w-8 h-8 rounded-full flex items-center justify-center ${t.body} hover:text-navy-900 dark:hover:text-white ${t.hoverBg} transition-colors`}
                                 aria-label="Toggle theme"
                             >
                                 {t.isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -271,7 +277,7 @@ export function Navbar() {
 
                 {/* ── Mobile Menu Toggle ── */}
                 <button
-                    className={`lg:hidden p-2 -mr-2 ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"}`}
+                    className={`lg:hidden p-2 -mr-2 ${t.body} hover:text-navy-900 dark:hover:text-white`}
                     onClick={() => setMobileMenuOpen(true)}
                 >
                     <Menu className="h-6 w-6" />
@@ -295,7 +301,6 @@ export function Navbar() {
                             exit={{ x: "100%" }}
                             transition={{ type: "spring", damping: 25, stiffness: 200 }}
                             className={`fixed top-0 right-0 bottom-0 w-[85vw] max-w-[400px] ${t.cardBg} border-l ${t.borderFaint} z-[120] lg:hidden flex flex-col shadow-2xl`}
-                            style={{ backgroundColor: t.isDark ? "#0A1628" : "#FFFFFF" }}
                         >
                             <div className={`flex items-center justify-between p-4 border-b ${t.borderMuted}`}>
                                 <span className={`font-display font-bold text-lg ${t.heading} tracking-tight`}>
@@ -303,7 +308,7 @@ export function Navbar() {
                                 </span>
                                 <button
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className={`p-2 rounded-md ${t.hoverBg} ${t.body} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} transition-colors`}
+                                    className={`p-2 rounded-md ${t.hoverBg} ${t.body} hover:text-navy-900 dark:hover:text-white transition-colors`}
                                 >
                                     <X className="h-5 w-5" />
                                 </button>
@@ -338,7 +343,7 @@ export function Navbar() {
                                         <Link
                                             key={link.label}
                                             href={link.href}
-                                            className={`block p-3 rounded-lg text-base font-medium ${t.isDark ? "text-navy-100 hover:text-white" : "text-slate-600 hover:text-[#0D1B2A]"} ${t.hoverBg} transition-colors`}
+                                            className={`block p-3 rounded-lg text-base font-medium text-slate-600 dark:text-navy-100 hover:text-navy-900 dark:hover:text-white ${t.hoverBg} transition-colors`}
                                         >
                                             {link.label}
                                         </Link>
@@ -349,17 +354,17 @@ export function Navbar() {
                             {/* Mobile Actions Footer */}
                             <div className={`p-4 border-t ${t.borderMuted} ${t.isDark ? "bg-navy-900/50" : "bg-slate-50/50"} space-y-3`}>
                                 <div className={`flex items-center justify-around pb-4 mb-4 border-b ${t.borderMuted}`}>
-                                    <button className={`${t.muted} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} flex flex-col items-center gap-1`}>
+                                    <button className={`${t.muted} hover:text-navy-900 dark:hover:text-white flex flex-col items-center gap-1`}>
                                         <Search className="h-5 w-5" />
                                         <span className="text-[10px] uppercase">Search</span>
                                     </button>
-                                    <button className={`${t.muted} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} flex flex-col items-center gap-1`}>
+                                    <button className={`${t.muted} hover:text-navy-900 dark:hover:text-white flex flex-col items-center gap-1`}>
                                         <Globe className="h-5 w-5" />
                                         <span className="text-[10px] uppercase">Ar / En</span>
                                     </button>
                                     <button
                                             onClick={() => setTheme(t.isDark ? "light" : "dark")}
-                                            className={`${t.muted} ${t.isDark ? "hover:text-white" : "hover:text-[#0D1B2A]"} flex flex-col items-center gap-1`}
+                                            className={`${t.muted} hover:text-navy-900 dark:hover:text-white flex flex-col items-center gap-1`}
                                         >
                                             {t.isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
                                             <span className="text-[10px] uppercase">Theme</span>

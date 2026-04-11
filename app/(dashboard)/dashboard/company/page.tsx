@@ -37,13 +37,13 @@ export default function CompanyDashboard() {
                     const Icon = stat.icon;
                     return (
                         <motion.div key={stat.label} {...fadeUp} transition={{ delay: idx * 0.08 }}
-                            className={`bg-navy-900 border rounded-xl p-4 ${stat.bg}`}>
+                            className={`bg-white dark:bg-navy-900 border rounded-xl p-4 ${stat.bg}`}>
                             <div className="flex items-center justify-between mb-3">
                                 <Icon className={`w-5 h-5 ${stat.accent}`} />
                                 <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-teal-500/10 text-teal-400 font-bold">{stat.change}</span>
                             </div>
-                            <p className="font-display text-2xl text-white font-bold">{stat.value}</p>
-                            <p className="text-xs text-navy-400 mt-0.5">{stat.label}</p>
+                            <p className="font-display text-2xl text-[#0D1B2A] dark:text-white font-bold">{stat.value}</p>
+                            <p className="text-xs text-slate-500 dark:text-navy-400 mt-0.5">{stat.label}</p>
                         </motion.div>
                     );
                 })}
@@ -53,19 +53,19 @@ export default function CompanyDashboard() {
                 {/* Active Job Listings */}
                 <div className="xl:col-span-2">
                     <div className="flex items-center justify-between mb-4">
-                        <h2 className="font-display text-lg text-white">Active Job Listings</h2>
+                        <h2 className="font-display text-lg text-[#0D1B2A] dark:text-white">Active Job Listings</h2>
                         <Link href="/dashboard/company/jobs" className="text-xs text-primary hover:underline flex items-center gap-1">Manage <ArrowRight className="w-3 h-3" /></Link>
                     </div>
                     <div className="space-y-3">
                         {ACTIVE_JOBS.map((job, idx) => (
                             <motion.div key={job.title} {...fadeUp} transition={{ delay: 0.1 + idx * 0.06 }}
-                                className="bg-navy-900 border border-navy-700 rounded-xl p-4 flex items-center gap-4 hover:border-primary/20 transition-colors">
+                                className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-xl p-4 flex items-center gap-4 hover:border-primary/20 transition-colors">
                                 <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
                                     <Briefcase className="w-4 h-4 text-primary" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="font-semibold text-sm text-white truncate">{job.title}</p>
-                                    <div className="flex gap-3 text-xs text-navy-400 mt-1">
+                                    <p className="font-semibold text-sm text-[#0D1B2A] dark:text-white truncate">{job.title}</p>
+                                    <div className="flex gap-3 text-xs text-slate-500 dark:text-navy-400 mt-1">
                                         <span className="flex items-center gap-1"><Users className="w-3 h-3" />{job.applicants} applicants</span>
                                         <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{job.views} views</span>
                                         <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{job.posted}</span>
@@ -80,20 +80,20 @@ export default function CompanyDashboard() {
                 {/* Recent Applicants */}
                 <div>
                     <div className="flex items-center justify-between mb-4">
-                        <h2 className="font-display text-lg text-white">Recent Applicants</h2>
+                        <h2 className="font-display text-lg text-[#0D1B2A] dark:text-white">Recent Applicants</h2>
                         <Link href="/dashboard/company/applicants" className="text-xs text-primary hover:underline">View all →</Link>
                     </div>
-                    <div className="bg-navy-900 border border-navy-700 rounded-xl divide-y divide-navy-800">
+                    <div className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-xl divide-y divide-slate-200 dark:divide-navy-800">
                         {RECENT_APPLICANTS.map((a) => (
-                            <div key={a.name + a.position} className="flex items-center gap-3 px-4 py-3 hover:bg-navy-800/30 transition-colors">
+                            <div key={a.name + a.position} className="flex items-center gap-3 px-4 py-3 hover:bg-slate-100/50 dark:hover:bg-navy-800/30 transition-colors">
                                 <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-[10px] font-bold text-primary flex-shrink-0">{a.avatar}</div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-xs font-semibold text-white truncate">{a.name}</p>
-                                    <p className="text-[10px] text-navy-400 truncate">{a.position}</p>
+                                    <p className="text-xs font-semibold text-[#0D1B2A] dark:text-white truncate">{a.name}</p>
+                                    <p className="text-[10px] text-slate-500 dark:text-navy-400 truncate">{a.position}</p>
                                 </div>
                                 <div className="flex flex-col items-end flex-shrink-0">
                                     <span className="text-[10px] font-bold text-primary">{a.match}%</span>
-                                    <span className="text-[10px] text-navy-500">{a.time}</span>
+                                    <span className="text-[10px] text-slate-400 dark:text-navy-500">{a.time}</span>
                                 </div>
                             </div>
                         ))}

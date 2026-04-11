@@ -1,3 +1,4 @@
+// Legacy mock data - kept as fallback
 export type ResourceType = "Book" | "Research Paper" | "Summary" | "Graduation Project";
 export type ResourceCategory = "Drilling" | "Reservoir" | "Production" | "HSE" | "LNG" | "Economics" | "General";
 export type ResourceLanguage = "AR" | "EN" | "FR";
@@ -20,6 +21,7 @@ export interface LibraryResource {
     downloadCount: number;
     addedAt: string; // ISO date string
     isFeatured?: boolean;
+    fileUrl?: string;
 }
 
 // 16 Mock Resources for the Library

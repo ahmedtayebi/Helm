@@ -8,11 +8,11 @@ const buttonVariants = {
     primary:
         "bg-gradient-to-r from-primary-dark via-primary to-primary-light text-navy-900 font-semibold shadow-gold-md hover:shadow-gold-lg",
     secondary:
-        "bg-navy-600 text-white border border-navy-400 hover:bg-navy-500 hover:border-primary/30",
+        "bg-slate-100 dark:bg-navy-600 text-[#0D1B2A] dark:text-white border border-slate-300 dark:border-navy-400 hover:bg-slate-200 dark:hover:bg-navy-500 hover:border-primary/30",
     outline:
         "bg-transparent text-primary border border-primary/40 hover:bg-primary/10 hover:border-primary",
     ghost:
-        "bg-transparent text-navy-200 hover:bg-navy-700 hover:text-white",
+        "bg-transparent text-slate-600 dark:text-navy-200 hover:bg-slate-100 dark:hover:bg-navy-700 hover:text-[#0D1B2A] dark:hover:text-white",
     danger:
         "bg-danger text-white hover:bg-danger-dark shadow-md",
     accent:
@@ -57,7 +57,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <motion.button
                 ref={ref}
                 className={cn(
-                    "inline-flex items-center justify-center font-body font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900 disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none",
+                    "inline-flex items-center justify-center font-body font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-navy-900 disabled:pointer-events-none disabled:opacity-50 cursor-pointer select-none",
                     buttonVariants[variant],
                     buttonSizes[size],
                     className

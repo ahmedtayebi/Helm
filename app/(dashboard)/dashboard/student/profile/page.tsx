@@ -21,7 +21,7 @@ export default function StudentProfilePage() {
         <div className="space-y-6 max-w-3xl">
             {/* Profile Header */}
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-                className="bg-navy-900 border border-navy-700 rounded-2xl p-6 relative overflow-hidden">
+                className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-2xl p-6 relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-r from-primary/15 via-primary/5 to-transparent" />
                 <div className="relative flex flex-col sm:flex-row items-start gap-5">
                     <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/30 to-primary/10 border-2 border-primary/40 flex items-center justify-center font-display text-2xl text-primary font-bold flex-shrink-0">
@@ -30,21 +30,21 @@ export default function StudentProfilePage() {
                     <div className="flex-1">
                         <div className="flex items-start justify-between">
                             <div>
-                                <h2 className="font-display text-2xl text-white">{profile.name}</h2>
+                                <h2 className="font-display text-2xl text-[#0D1B2A] dark:text-white">{profile.name}</h2>
                                 <p className="text-sm text-primary font-medium">{profile.specialization}</p>
                             </div>
                             <Button size="sm" variant="outline" className="text-xs gap-1" onClick={() => setEditing(!editing)}>
                                 <Edit3 className="w-3 h-3" />{editing ? "Cancel" : "Edit"}
                             </Button>
                         </div>
-                        <p className="text-sm text-navy-300 mt-2 leading-relaxed">{profile.bio}</p>
+                        <p className="text-sm text-slate-600 dark:text-navy-300 mt-2 leading-relaxed">{profile.bio}</p>
                     </div>
                 </div>
             </motion.div>
 
             {/* Info Fields */}
-            <div className="bg-navy-900 border border-navy-700 rounded-2xl p-6 space-y-4">
-                <h3 className="font-display text-lg text-white mb-4">Personal Information</h3>
+            <div className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-2xl p-6 space-y-4">
+                <h3 className="font-display text-lg text-[#0D1B2A] dark:text-white mb-4">Personal Information</h3>
                 {[
                     { icon: Mail, label: "Email", value: profile.email },
                     { icon: Building2, label: "University / Company", value: profile.university },
@@ -54,14 +54,14 @@ export default function StudentProfilePage() {
                 ].map(field => {
                     const Icon = field.icon;
                     return (
-                        <div key={field.label} className="flex items-center gap-4 py-3 border-b border-navy-800 last:border-0">
-                            <Icon className="w-4 h-4 text-navy-500 flex-shrink-0" />
+                        <div key={field.label} className="flex items-center gap-4 py-3 border-b border-slate-100 dark:border-navy-800 last:border-0">
+                            <Icon className="w-4 h-4 text-slate-400 dark:text-navy-500 flex-shrink-0" />
                             <div className="flex-1 min-w-0">
-                                <p className="text-xs text-navy-500">{field.label}</p>
+                                <p className="text-xs text-slate-400 dark:text-navy-500">{field.label}</p>
                                 {editing ? (
-                                    <input className="w-full bg-navy-800 border border-navy-600 rounded-lg px-3 py-1.5 text-sm text-white mt-1 focus:border-primary focus:outline-none" defaultValue={field.value} />
+                                    <input className="w-full bg-slate-100 dark:bg-navy-800 border border-slate-300 dark:border-navy-600 rounded-lg px-3 py-1.5 text-sm text-[#0D1B2A] dark:text-white mt-1 focus:border-primary focus:outline-none" defaultValue={field.value} />
                                 ) : (
-                                    <p className="text-sm text-white">{field.value}</p>
+                                    <p className="text-sm text-[#0D1B2A] dark:text-white">{field.value}</p>
                                 )}
                             </div>
                         </div>
@@ -75,8 +75,8 @@ export default function StudentProfilePage() {
             </div>
 
             {/* Skills */}
-            <div className="bg-navy-900 border border-navy-700 rounded-2xl p-6">
-                <h3 className="font-display text-lg text-white mb-4">Skills & Certifications</h3>
+            <div className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-2xl p-6">
+                <h3 className="font-display text-lg text-[#0D1B2A] dark:text-white mb-4">Skills & Certifications</h3>
                 <div className="flex flex-wrap gap-2">
                     {profile.skills.map(skill => (
                         <span key={skill} className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/25 font-medium">{skill}</span>
@@ -87,8 +87,8 @@ export default function StudentProfilePage() {
             {/* CV Builder CTA */}
             <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 rounded-2xl p-6 flex items-center justify-between">
                 <div>
-                    <h3 className="font-display text-lg text-white mb-1">Need a professional CV?</h3>
-                    <p className="text-sm text-navy-300">Use HELM&apos;s petroleum-focused CV Builder</p>
+                    <h3 className="font-display text-lg text-[#0D1B2A] dark:text-white mb-1">Need a professional CV?</h3>
+                    <p className="text-sm text-slate-600 dark:text-navy-300">Use HELM&apos;s petroleum-focused CV Builder</p>
                 </div>
                 <a href="/explore/career/cv-builder">
                     <Button size="md" className="gap-1"><ExternalLink className="w-4 h-4" />Build CV</Button>

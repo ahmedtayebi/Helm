@@ -26,34 +26,34 @@ export default function StudentCoursesPage() {
                 <div className="flex gap-2">
                     {(["in-progress", "completed"] as const).map(t => (
                         <button key={t} onClick={() => setTab(t)}
-                            className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all ${tab === t ? "bg-primary text-navy-950 border-primary" : "border-navy-600 text-navy-400 hover:text-white"}`}>
+                            className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all ${tab === t ? "bg-primary text-navy-950 border-primary" : "border-slate-300 dark:border-navy-600 text-slate-500 dark:text-navy-400 hover:text-[#0D1B2A] dark:text-white"}`}>
                             {t === "in-progress" ? "In Progress" : "Completed"}
                         </button>
                     ))}
                 </div>
                 <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-500" />
-                    <input placeholder="Search courses..." className="pl-10 pr-4 h-10 bg-navy-800 border border-navy-600 rounded-xl text-sm text-white placeholder:text-navy-500 focus:border-primary focus:outline-none w-full sm:w-64" value={search} onChange={e => setSearch(e.target.value)} />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-navy-500" />
+                    <input placeholder="Search courses..." className="pl-10 pr-4 h-10 bg-slate-100 dark:bg-navy-800 border border-slate-300 dark:border-navy-600 rounded-xl text-sm text-[#0D1B2A] dark:text-white placeholder:text-slate-400 dark:text-navy-500 focus:border-primary focus:outline-none w-full sm:w-64" value={search} onChange={e => setSearch(e.target.value)} />
                 </div>
             </div>
 
             {filtered.length === 0 ? (
                 <div className="text-center py-16">
                     <div className="text-4xl mb-4">📚</div>
-                    <p className="text-navy-400">No courses found. Try a different search or tab.</p>
+                    <p className="text-slate-500 dark:text-navy-400">No courses found. Try a different search or tab.</p>
                 </div>
             ) : (
                 <div className="space-y-3">
                     {filtered.map((c, idx) => (
                         <motion.div key={c.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }}
-                            className="bg-navy-900 border border-navy-700 rounded-xl p-4 flex items-center gap-4 hover:border-primary/30 transition-colors group">
-                            <div className="w-12 h-12 rounded-xl bg-navy-800 border border-navy-700 flex items-center justify-center text-xl flex-shrink-0">{c.thumb}</div>
+                            className="bg-white dark:bg-navy-900 border border-slate-200 dark:border-navy-700 rounded-xl p-4 flex items-center gap-4 hover:border-primary/30 transition-colors group">
+                            <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-navy-800 border border-slate-200 dark:border-navy-700 flex items-center justify-center text-xl flex-shrink-0">{c.thumb}</div>
                             <div className="flex-1 min-w-0">
-                                <p className="font-semibold text-sm text-white truncate">{c.title}</p>
-                                <p className="text-xs text-navy-400">{c.instructor} · {c.category} · {c.modules} modules</p>
+                                <p className="font-semibold text-sm text-[#0D1B2A] dark:text-white truncate">{c.title}</p>
+                                <p className="text-xs text-slate-500 dark:text-navy-400">{c.instructor} · {c.category} · {c.modules} modules</p>
                                 {c.status === "in-progress" && (
                                     <div className="flex items-center gap-2 mt-2">
-                                        <div className="flex-1 h-1.5 bg-navy-800 rounded-full max-w-xs">
+                                        <div className="flex-1 h-1.5 bg-slate-200 dark:bg-slate-100 dark:bg-navy-800 rounded-full max-w-xs">
                                             <div className="h-full bg-primary rounded-full" style={{ width: `${c.progress}%` }} />
                                         </div>
                                         <span className="text-xs text-primary font-bold">{c.progress}%</span>
