@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -143,6 +144,7 @@ function AnimatedCounter({ value, suffix = "", label }: { value: number; suffix?
 }
 
 export function Hero() {
+    const router = useRouter();
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
     const opacity = useTransform(scrollY, [0, 500], [1, 0]);
@@ -196,7 +198,12 @@ export function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
                 >
-                    <Button size="xl" className="w-full sm:w-auto group" rightIcon={<ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />}>
+                    <Button
+                        size="xl"
+                        className="w-full sm:w-auto group"
+                        rightIcon={<ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />}
+                        onClick={() => router.push("/explore/programs")}
+                    >
                         Explore Programs
                     </Button>
                     <Button
@@ -204,6 +211,7 @@ export function Hero() {
                         size="xl"
                         className={`w-full sm:w-auto backdrop-blur-md ${t.isDark ? "bg-navy-900/40" : "bg-white/60"}`}
                         leftIcon={<BookOpen className="h-5 w-5" />}
+                        onClick={() => router.push("/library")}
                     >
                         Browse Library
                     </Button>

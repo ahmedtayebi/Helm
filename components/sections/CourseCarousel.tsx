@@ -91,7 +91,7 @@ export function CourseCarousel() {
     };
 
     return (
-        <section className={`section-padding ${t.sectionBg} border-b ${t.borderMuted} overflow-hidden`} ref={containerRef}>
+        <section className={`section-padding ${t.sectionBg} border-b ${t.borderMuted} overflow-x-hidden`} ref={containerRef}>
             <div className="section-container mb-10">
                 <motion.div
                     className="flex flex-col md:flex-row md:items-end justify-between gap-6"
@@ -126,89 +126,88 @@ export function CourseCarousel() {
             </div>
 
             {/* Horizontal Scroll Container */}
-            <div className="relative w-full max-w-[100vw] overflow-hidden">
-                {/* Left Gradient Mask */}
-                <div className={`invisible lg:visible absolute left-0 inset-y-0 w-12 bg-gradient-to-r ${t.fadeFrom} to-transparent z-10 pointer-events-none`} />
-
-                <div
-                    ref={scrollRef}
-                    className="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-12 px-4 sm:px-6 lg:px-8"
-                    style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-                >
-                    {courses.map((course, index) => (
-                        <motion.div
-                            key={course.id}
-                            className="min-w-[300px] max-w-[300px] sm:min-w-[340px] sm:max-w-[340px] snap-start shrink-0"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={isInView ? { opacity: 1, x: 0 } : {}}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                        >
-                            <Card variant="glass" className={`h-full flex flex-col group hover:shadow-gold-glow ${t.borderMuted}`}>
-                                <div className="relative">
-                                    <CardImage
-                                        src={course.image}
-                                        alt={course.title}
-                                        className="h-44 group-hover:scale-110 transition-transform duration-700"
-                                    />
-                                    <div className="absolute top-3 left-3 flex items-center gap-2">
-                                        <Badge variant="default" className={`${t.isDark ? "bg-navy-900/80" : "bg-white/90"} backdrop-blur-md ${t.heading} border-primary/30`}>
-                                            {course.category}
-                                        </Badge>
-                                        {course.badge && (
-                                            <Badge variant={course.badge === "Free" ? "success" : "warning"} className={`${t.isDark ? "bg-navy-900/80" : "bg-white/90"} backdrop-blur-md shadow-sm`}>
-                                                {course.badge}
+            <div className="section-container">
+                <div className="relative overflow-hidden">
+                    <div
+                        ref={scrollRef}
+                        className="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-12"
+                        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                    >
+                        {courses.map((course, index) => (
+                            <motion.div
+                                key={course.id}
+                                className="min-w-[300px] max-w-[300px] sm:min-w-[340px] sm:max-w-[340px] snap-start shrink-0"
+                                initial={{ opacity: 0, x: 50 }}
+                                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                            >
+                                <Card variant="glass" className={`h-full flex flex-col group hover:shadow-gold-glow ${t.borderMuted}`}>
+                                    <div className="relative">
+                                        <CardImage
+                                            src={course.image}
+                                            alt={course.title}
+                                            className="h-44 group-hover:scale-110 transition-transform duration-700"
+                                        />
+                                        <div className="absolute top-3 left-3 flex items-center gap-2">
+                                            <Badge variant="default" className={`${t.isDark ? "bg-navy-900/80" : "bg-white/90"} backdrop-blur-md ${t.heading} border-primary/30`}>
+                                                {course.category}
                                             </Badge>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className="p-5 flex-1 flex flex-col">
-                                    {/* Meta Stats */}
-                                    <div className={`flex items-center gap-4 text-xs ${t.body} font-body mb-3`}>
-                                        <div className="flex items-center gap-1.5">
-                                            <Clock className="h-3.5 w-3.5 text-primary" />
-                                            {course.duration}
-                                        </div>
-                                        <div className="flex items-center gap-1.5">
-                                            <Video className="h-3.5 w-3.5 text-primary" />
-                                            {course.lessons} lessons
-                                        </div>
-                                    </div>
-
-                                    <h3 className={`font-display font-semibold text-lg ${t.heading} mb-2 line-clamp-2 leading-tight group-hover:text-primary transition-colors`}>
-                                        {course.title}
-                                    </h3>
-
-                                    <p className={`text-sm ${t.muted} mb-4`}>{course.instructor}</p>
-
-                                    <div className={`mt-auto flex items-center justify-between pt-4 border-t ${t.borderMuted}`}>
-                                        {/* Rating */}
-                                        <div className="flex items-center gap-1.5">
-                                            <Star className="h-4 w-4 fill-primary text-primary" />
-                                            <span className={`text-sm font-semibold ${t.heading}`}>{course.rating}</span>
-                                            <span className={`text-xs ${t.muted}`}>({course.reviews})</span>
-                                        </div>
-
-                                        {/* Price */}
-                                        <div className={`font-display font-bold text-lg ${t.heading}`}>
-                                            {course.price === 0 ? (
-                                                <span className="text-success tracking-wide uppercase text-sm">Free</span>
-                                            ) : (
-                                                `$${course.price}`
+                                            {course.badge && (
+                                                <Badge variant={course.badge === "Free" ? "success" : "warning"} className={`${t.isDark ? "bg-navy-900/80" : "bg-white/90"} backdrop-blur-md shadow-sm`}>
+                                                    {course.badge}
+                                                </Badge>
                                             )}
                                         </div>
                                     </div>
-                                </div>
-                            </Card>
-                        </motion.div>
-                    ))}
 
-                    {/* Spacer for right scrolling padding */}
-                    <div className="min-w-[1px] shrink-0" />
+                                    <div className="p-5 flex-1 flex flex-col">
+                                        {/* Meta Stats */}
+                                        <div className={`flex items-center gap-4 text-xs ${t.body} font-body mb-3`}>
+                                            <div className="flex items-center gap-1.5">
+                                                <Clock className="h-3.5 w-3.5 text-primary" />
+                                                {course.duration}
+                                            </div>
+                                            <div className="flex items-center gap-1.5">
+                                                <Video className="h-3.5 w-3.5 text-primary" />
+                                                {course.lessons} lessons
+                                            </div>
+                                        </div>
+
+                                        <h3 className={`font-display font-semibold text-lg ${t.heading} mb-2 line-clamp-2 leading-tight group-hover:text-primary transition-colors`}>
+                                            {course.title}
+                                        </h3>
+
+                                        <p className={`text-sm ${t.muted} mb-4`}>{course.instructor}</p>
+
+                                        <div className={`mt-auto flex items-center justify-between pt-4 border-t ${t.borderMuted}`}>
+                                            {/* Rating */}
+                                            <div className="flex items-center gap-1.5">
+                                                <Star className="h-4 w-4 fill-primary text-primary" />
+                                                <span className={`text-sm font-semibold ${t.heading}`}>{course.rating}</span>
+                                                <span className={`text-xs ${t.muted}`}>({course.reviews})</span>
+                                            </div>
+
+                                            {/* Price */}
+                                            <div className={`font-display font-bold text-lg ${t.heading}`}>
+                                                {course.price === 0 ? (
+                                                    <span className="text-success tracking-wide uppercase text-sm">Free</span>
+                                                ) : (
+                                                    `$${course.price}`
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card>
+                            </motion.div>
+                        ))}
+
+                        {/* Spacer for right scrolling padding */}
+                        <div className="min-w-[1px] shrink-0" />
+                    </div>
+
+                    {/* Right Gradient Mask */}
+                    <div className={`invisible lg:visible absolute right-0 inset-y-0 w-24 bg-gradient-to-l ${t.fadeFrom} to-transparent z-10 pointer-events-none`} />
                 </div>
-
-                {/* Right Gradient Mask */}
-                <div className={`invisible lg:visible absolute right-0 inset-y-0 w-24 bg-gradient-to-l ${t.fadeFrom} to-transparent z-10 pointer-events-none`} />
             </div>
         </section>
     );

@@ -15,7 +15,7 @@ const badgeVariants = {
     accent:
         "bg-accent/15 text-accent border border-accent/20",
     outline:
-        "bg-transparent text-navy-200 border border-navy-400",
+        "bg-transparent text-slate-600 dark:text-navy-200 border border-slate-300 dark:border-navy-400",
 };
 
 const badgeSizes = {

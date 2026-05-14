@@ -9,8 +9,10 @@ import { Badge } from "@/components/ui/badge";
 import { Select } from "@/components/ui/select";
 import { CourseCard } from "@/components/shared/CourseCard";
 import { MOCK_COURSES } from "@/data/courses";
+import { useThemeColors } from "@/lib/useThemeColors";
 
 export default function ExplorePrograms() {
+    const t = useThemeColors();
     const [searchQuery, setSearchQuery] = useState("");
     const [sortBy, setSortBy] = useState("popular"); // popular, newest, rated
     const [activeFilters, setActiveFilters] = useState<{ [key: string]: string[] }>({
@@ -99,20 +101,20 @@ export default function ExplorePrograms() {
     }, [searchQuery, activeFilters, sortBy]);
 
     return (
-        <main className="min-h-screen bg-navy-950 pt-28 pb-20">
+        <main className={`relative min-h-screen ${t.sectionBgAlt} pt-28 pb-20 overflow-hidden`}>
 
             {/* Background Decor */}
             <div className="absolute top-0 right-0 w-[800px] h-[400px] bg-primary/5 blur-[120px] pointer-events-none rounded-full" />
 
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="relative z-10 max-w-7xl mx-auto px-6">
 
                 {/* Page Header */}
                 <div className="mb-10 text-center md:text-left">
                     <Badge variant="outline" className="mb-4">Explore</Badge>
-                    <h1 className="font-display text-4xl md:text-5xl lg:text-6xl text-white mb-4">
+                    <h1 className={`font-display text-4xl md:text-5xl lg:text-6xl ${t.heading} mb-4`}>
                         Programs & <span className="text-gradient-gold">Courses</span>
                     </h1>
-                    <p className="text-navy-200 text-lg max-w-2xl font-body">
+                    <p className={`${t.body} text-lg max-w-2xl font-body`}>
                         Discover our comprehensive curriculum designed by industry experts to advance your petroleum engineering career.
                     </p>
                 </div>
@@ -123,7 +125,7 @@ export default function ExplorePrograms() {
                     <div className="lg:hidden flex items-center justify-between gap-4 mb-4">
                         <Button
                             variant="outline"
-                            className="w-full flex justify-center bg-navy-900"
+                            className={`w-full flex justify-center ${t.cardBg}`}
                             onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
                         >
                             <SlidersHorizontal className="w-5 h-5 mr-2" />
@@ -145,15 +147,15 @@ export default function ExplorePrograms() {
 
                     {/* Sidebar Filters */}
                     <aside className={`lg:w-72 lg:flex-shrink-0 space-y-8 ${isMobileFiltersOpen ? 'block' : 'hidden lg:block'}`}>
-                        <div className="glass p-6 rounded-2xl border border-navy-600 sticky top-28">
+                        <div className={`p-6 rounded-2xl border ${t.cardBg} ${t.borderFaint} shadow-card sticky top-28`}>
 
                             <div className="flex items-center justify-between mb-6">
-                                <h2 className="font-display text-xl text-white flex items-center gap-2">
+                                <h2 className={`font-display text-xl ${t.heading} flex items-center gap-2`}>
                                     <Filter className="w-5 h-5 text-primary" />
                                     Filters
                                 </h2>
                                 {totalActiveFilters > 0 && (
-                                    <button onClick={clearFilters} className="text-sm text-navy-300 hover:text-primary transition-colors">
+                                    <button onClick={clearFilters} className={`text-sm ${t.muted} hover:text-primary transition-colors`}>
                                         Clear all
                                     </button>
                                 )}
@@ -161,43 +163,53 @@ export default function ExplorePrograms() {
 
                             {/* Categories */}
                             <div className="mb-8">
-                                <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Specialization</h3>
+                                <h3 className={`text-sm font-bold ${t.heading} uppercase tracking-wider mb-4`}>Specialization</h3>
                                 <div className="space-y-3">
                                     {categories.map((cat) => (
-                                        <label key={cat} className="flex items-center gap-3 cursor-pointer group">
-                                            <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${activeFilters.category.includes(cat) ? 'bg-primary border-primary' : 'bg-navy-900 border-navy-500 group-hover:border-primary/50'}`}>
+                                        <button
+                                            key={cat}
+                                            type="button"
+                                            onClick={() => toggleFilter('category', cat)}
+                                            className="flex w-full items-center gap-3 text-left group"
+                                        >
+                                            <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${activeFilters.category.includes(cat) ? 'bg-primary border-primary' : `${t.cardBgSubtle} ${t.borderAccent} group-hover:border-primary/50`}`}>
                                                 {activeFilters.category.includes(cat) && <CheckIcon />}
                                             </div>
-                                            <span className={`text-sm ${activeFilters.category.includes(cat) ? 'text-white' : 'text-navy-300 group-hover:text-white transition-colors'}`}>{cat}</span>
-                                        </label>
+                                            <span className={`text-sm ${activeFilters.category.includes(cat) ? t.heading : `${t.muted} ${t.isDark ? "group-hover:text-white" : "group-hover:text-[#0D1B2A]"} transition-colors`}`}>{cat}</span>
+                                        </button>
                                     ))}
                                 </div>
                             </div>
 
                             {/* Level */}
                             <div className="mb-8">
-                                <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Level</h3>
+                                <h3 className={`text-sm font-bold ${t.heading} uppercase tracking-wider mb-4`}>Level</h3>
                                 <div className="space-y-3">
                                     {levels.map((lvl) => (
-                                        <label key={lvl} className="flex items-center gap-3 cursor-pointer group">
-                                            <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${activeFilters.level.includes(lvl) ? 'bg-primary border-primary' : 'bg-navy-900 border-navy-500 group-hover:border-primary/50'}`}>
+                                        <button
+                                            key={lvl}
+                                            type="button"
+                                            onClick={() => toggleFilter('level', lvl)}
+                                            className="flex w-full items-center gap-3 text-left group"
+                                        >
+                                            <div className={`w-5 h-5 rounded border flex items-center justify-center transition-colors ${activeFilters.level.includes(lvl) ? 'bg-primary border-primary' : `${t.cardBgSubtle} ${t.borderAccent} group-hover:border-primary/50`}`}>
                                                 {activeFilters.level.includes(lvl) && <CheckIcon />}
                                             </div>
-                                            <span className={`text-sm ${activeFilters.level.includes(lvl) ? 'text-white' : 'text-navy-300 group-hover:text-white transition-colors'}`}>{lvl}</span>
-                                        </label>
+                                            <span className={`text-sm ${activeFilters.level.includes(lvl) ? t.heading : `${t.muted} ${t.isDark ? "group-hover:text-white" : "group-hover:text-[#0D1B2A]"} transition-colors`}`}>{lvl}</span>
+                                        </button>
                                     ))}
                                 </div>
                             </div>
 
                             {/* Price */}
                             <div className="mb-8">
-                                <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Pricing</h3>
+                                <h3 className={`text-sm font-bold ${t.heading} uppercase tracking-wider mb-4`}>Pricing</h3>
                                 <div className="flex gap-3">
                                     {prices.map((p) => (
                                         <button
                                             key={p}
                                             onClick={() => toggleFilter('price', p)}
-                                            className={`flex-1 py-2 text-sm font-medium rounded-lg border transition-all ${activeFilters.price.includes(p) ? 'bg-primary/10 border-primary text-primary' : 'bg-navy-900 border-navy-600 text-navy-300 hover:border-navy-400'}`}
+                                            className={`flex-1 py-2 text-sm font-medium rounded-lg border transition-all ${activeFilters.price.includes(p) ? 'bg-primary/10 border-primary text-primary' : `${t.cardBgSubtle} ${t.borderAccent} ${t.muted} hover:border-primary/50`}`}
                                         >
                                             {p}
                                         </button>
@@ -207,13 +219,13 @@ export default function ExplorePrograms() {
 
                             {/* Language */}
                             <div>
-                                <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Language</h3>
+                                <h3 className={`text-sm font-bold ${t.heading} uppercase tracking-wider mb-4`}>Language</h3>
                                 <div className="flex flex-wrap gap-2">
                                     {languages.map((lang) => (
                                         <button
                                             key={lang}
                                             onClick={() => toggleFilter('language', lang)}
-                                            className={`px-4 py-1.5 text-sm font-medium rounded-lg border transition-all ${activeFilters.language.includes(lang) ? 'bg-primary/10 border-primary text-primary' : 'bg-navy-900 border-navy-600 text-navy-300 hover:border-navy-400'}`}
+                                            className={`px-4 py-1.5 text-sm font-medium rounded-lg border transition-all ${activeFilters.language.includes(lang) ? 'bg-primary/10 border-primary text-primary' : `${t.cardBgSubtle} ${t.borderAccent} ${t.muted} hover:border-primary/50`}`}
                                         >
                                             {lang}
                                         </button>
@@ -230,23 +242,23 @@ export default function ExplorePrograms() {
                         {/* Top Toolbar */}
                         <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center mb-8">
                             <div className="relative w-full sm:max-w-md">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-navy-400" />
+                                <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 ${t.subtle}`} />
                                 <Input
                                     type="text"
                                     placeholder="Search courses, instructors..."
-                                    className="pl-10 h-12 bg-navy-900 border-navy-600 focus:border-primary text-base"
+                                    className={`pl-10 h-12 ${t.inputBg} ${t.borderAccent} focus:border-primary text-base`}
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                 />
                                 {searchQuery && (
-                                    <button onClick={() => setSearchQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-navy-400 hover:text-white">
+                                    <button onClick={() => setSearchQuery("")} className={`absolute right-3 top-1/2 -translate-y-1/2 ${t.subtle} hover:text-primary`}>
                                         <X className="w-5 h-5" />
                                     </button>
                                 )}
                             </div>
 
                             <div className="hidden lg:flex items-center gap-3 w-64">
-                                <ArrowUpDown className="w-5 h-5 text-navy-400" />
+                                <ArrowUpDown className={`w-5 h-5 ${t.subtle}`} />
                                 <Select
                                     options={[
                                         { label: "Most Popular", value: "popular" },
@@ -270,7 +282,7 @@ export default function ExplorePrograms() {
                                 >
                                     {Object.entries(activeFilters).map(([type, values]) =>
                                         values.map((val) => (
-                                            <Badge key={`${type}-${val}`} variant="warning" className="flex items-center gap-1.5 bg-navy-900">
+                                            <Badge key={`${type}-${val}`} variant="warning" className={`flex items-center gap-1.5 ${t.cardBg}`}>
                                                 {val}
                                                 <button onClick={() => toggleFilter(type, val)} className="hover:text-red-400 transition-colors">
                                                     <X className="w-3 h-3" />
@@ -279,7 +291,7 @@ export default function ExplorePrograms() {
                                         ))
                                     )}
                                     {searchQuery && (
-                                        <Badge variant="warning" className="flex items-center gap-1.5 bg-navy-900">
+                                        <Badge variant="warning" className={`flex items-center gap-1.5 ${t.cardBg}`}>
                                             Search: &quot;{searchQuery}&quot;
                                             <button onClick={() => setSearchQuery("")} className="hover:text-red-400 transition-colors">
                                                 <X className="w-3 h-3" />
@@ -301,11 +313,11 @@ export default function ExplorePrograms() {
                                     <motion.div
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="col-span-full py-20 text-center flex flex-col items-center border border-dashed border-navy-600 rounded-2xl bg-navy-900/50"
+                                        className={`col-span-full py-20 text-center flex flex-col items-center border border-dashed ${t.borderAccent} rounded-2xl ${t.cardBgMuted}`}
                                     >
-                                        <Search className="w-12 h-12 text-navy-500 mb-4" />
-                                        <h3 className="text-xl text-white font-display mb-2">No courses found</h3>
-                                        <p className="text-navy-300">Try adjusting your filters or search query.</p>
+                                        <Search className={`w-12 h-12 ${t.faint} mb-4`} />
+                                        <h3 className={`text-xl ${t.heading} font-display mb-2`}>No courses found</h3>
+                                        <p className={t.muted}>Try adjusting your filters or search query.</p>
                                         <Button variant="outline" className="mt-6" onClick={clearFilters}>Reset Filters</Button>
                                     </motion.div>
                                 )}
