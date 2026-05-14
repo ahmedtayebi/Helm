@@ -127,7 +127,7 @@ export function Navbar() {
                 <nav className="hidden lg:flex items-center h-full">
                     {/* Explore Mega Menu Toggle */}
                     <div
-                        className="h-full flex items-center px-4"
+                        className="relative h-full flex items-center px-4"
                         onMouseEnter={() => setMegaMenuOpen(true)}
                         onMouseLeave={() => setMegaMenuOpen(false)}
                     >
@@ -149,24 +149,24 @@ export function Navbar() {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                     transition={{ duration: 0.2, ease: "easeOut" }}
-                                    className={`absolute top-full left-1/2 -translate-x-1/2 w-[800px] p-6 glass-strong shadow-card-hover border ${t.borderFaint} rounded-xl mt-2 grid grid-cols-12 gap-8 before:absolute before:-top-4 before:inset-x-0 before:h-4 overflow-hidden`}
+                                    className={`absolute top-full left-1/2 -translate-x-1/2 w-[min(760px,calc(100vw-2rem))] p-5 glass-strong shadow-card-hover border ${t.borderFaint} rounded-xl mt-1 grid grid-cols-12 gap-6 before:absolute before:-top-3 before:inset-x-0 before:h-3 overflow-hidden`}
                                 >
                                     {/* Left Column: Programs Grid */}
                                     <div className="col-span-7">
-                                        <div className="flex items-center justify-between mb-4">
+                                        <div className="flex items-center justify-between mb-3">
                                             <h4 className={`${t.heading} font-display text-lg`}>Engineering Programs</h4>
                                             <Link href="/explore" className="text-primary text-xs font-medium hover:underline flex items-center gap-1">
                                                 View all <ChevronDown className="h-3 w-3 -rotate-90" />
                                             </Link>
                                         </div>
-                                        <div className="grid grid-cols-2 gap-3">
+                                        <div className="grid grid-cols-2 gap-2">
                                             {explorePrograms.map((prog) => {
                                                 const Icon = prog.icon;
                                                 return (
                                                     <Link
                                                         key={prog.label}
                                                         href={prog.href}
-                                                        className={`flex items-center gap-3 p-2.5 rounded-lg ${t.hoverBgSubtle} border border-transparent ${t.isDark ? "hover:border-navy-500/50" : "hover:border-slate-200"} transition-colors group`}
+                                                        className={`flex items-center gap-3 p-2 rounded-lg ${t.hoverBgSubtle} border border-transparent ${t.isDark ? "hover:border-navy-500/50" : "hover:border-slate-200"} transition-colors group`}
                                                     >
                                                         <div className={`w-8 h-8 rounded ${t.cardBgSubtle} flex items-center justify-center border ${t.borderAccent} group-hover:border-primary/30 transition-colors`}>
                                                             <Icon className="h-4 w-4" style={{ color: prog.color }} />
@@ -179,11 +179,11 @@ export function Navbar() {
                                     </div>
 
                                     {/* Right Column: Links */}
-                                    <div className={`col-span-5 grid grid-cols-2 gap-6 ${t.isDark ? "bg-navy-800/30" : "bg-slate-50/80"} -m-6 p-6 border-l ${t.borderMuted}`}>
+                                    <div className={`col-span-5 grid grid-cols-2 gap-5 ${t.isDark ? "bg-navy-800/30" : "bg-slate-50/80"} -m-5 p-5 border-l ${t.borderMuted}`}>
                                         {exploreLinks.slice(0, 2).map((col) => (
-                                            <div key={col.title} className="space-y-4">
+                                            <div key={col.title} className="space-y-3">
                                                 <h5 className={`text-xs font-bold ${t.muted} uppercase tracking-wider`}>{col.title}</h5>
-                                                <ul className="space-y-2.5">
+                                                <ul className="space-y-2">
                                                     {col.links.map((link) => (
                                                         <li key={link.label}>
                                                             <Link href={link.href} className={`text-sm ${t.isDark ? "text-navy-100" : "text-slate-600"} hover:text-primary transition-colors`}>
@@ -195,7 +195,7 @@ export function Navbar() {
                                             </div>
                                         ))}
 
-                                        <div className={`col-span-2 space-y-4 mt-2 pt-4 border-t ${t.borderMuted}`}>
+                                        <div className={`col-span-2 space-y-3 mt-1 pt-3 border-t ${t.borderMuted}`}>
                                             <h5 className={`text-xs font-bold ${t.muted} uppercase tracking-wider`}>{exploreLinks[2].title}</h5>
                                             <ul className="grid grid-cols-2 gap-2.5">
                                                 {exploreLinks[2].links.map((link) => (
@@ -207,7 +207,7 @@ export function Navbar() {
                                                 ))}
                                             </ul>
 
-                                            <div className={`mt-4 p-3 rounded-md ${t.isDark ? "bg-gradient-to-r from-navy-800 to-navy-700" : "bg-gradient-to-r from-slate-100 to-white"} border border-primary/20 flex items-center justify-between group cursor-pointer hover:border-primary/50 transition-colors`}>
+                                            <div className={`mt-3 p-2.5 rounded-md ${t.isDark ? "bg-gradient-to-r from-navy-800 to-navy-700" : "bg-gradient-to-r from-slate-100 to-white"} border border-primary/20 flex items-center justify-between group cursor-pointer hover:border-primary/50 transition-colors`}>
                                                 <div className="flex items-center gap-2">
                                                     <Compass className="h-4 w-4 text-primary" />
                                                     <span className={`text-sm font-medium ${t.heading}`}>Engineering Tools</span>
