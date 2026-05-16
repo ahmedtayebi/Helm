@@ -5,7 +5,9 @@ import { useState, useRef, useEffect, useCallback } from "react";
 // ── Types ─────────────────────────────────────────────────────────────────────
 export interface ChatSource {
     source_title: string;
-    page_number: number;
+    pages: number[];
+    resource_id?: string;
+    file_url?: string | null;
     similarity?: number;
 }
 
@@ -47,29 +49,22 @@ export function useChatLogic(resourceIds?: string[]) {
     const persistConversation = useCallback(
         (msgs: ChatMessage[], convId: string) => {
             if (typeof window === "undefined") return;
-
             const firstUserMsg = msgs.find((m) => m.role === "user");
             if (!firstUserMsg) return;
 
-            const title = firstUserMsg.content.slice(0, 30);
-            const stored = loadAllConversations();
-            const existing = stored.findIndex((c) => c.id === convId);
-
-            const conversation: StoredConversation = {
+            const map = loadStoredMap();
+            map[convId] = {
                 id: convId,
-                title,
+                title: firstUserMsg.content.slice(0, 30),
                 messages: msgs,
-                createdAt: existing >= 0 ? stored[existing].createdAt : Date.now(),
+                createdAt: map[convId]?.createdAt ?? Date.now(),
             };
 
-            if (existing >= 0) {
-                stored[existing] = conversation;
-            } else {
-                stored.unshift(conversation);
-            }
-
-            // Keep max 20 conversations
-            const trimmed = stored.slice(0, 20);
+            // Keep max 20 most recent
+            const sorted = Object.values(map)
+                .sort((a, b) => b.createdAt - a.createdAt)
+                .slice(0, 20);
+            const trimmed = Object.fromEntries(sorted.map((c) => [c.id, c]));
             localStorage.setItem(HISTORY_KEY, JSON.stringify(trimmed));
         },
         [],
@@ -88,6 +83,20 @@ export function useChatLogic(resourceIds?: string[]) {
         setMessages([]);
         setInput("");
     }, []);
+
+    // ── Delete a stored conversation ───────────────────────────────────────────
+    const deleteConversation = useCallback((convId: string) => {
+        if (typeof window === "undefined") return;
+        const map = loadStoredMap();
+        delete map[convId];
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(map));
+        // If deleting the active conversation, start fresh
+        if (convId === conversationId) {
+            setConversationId(`conv-${Date.now()}`);
+            setMessages([]);
+            setInput("");
+        }
+    }, [conversationId]);
 
     // ── Main send handler ─────────────────────────────────────────────────────
     const handleSend = useCallback(
@@ -231,16 +240,29 @@ export function useChatLogic(resourceIds?: string[]) {
         messagesEndRef,
         loadConversation,
         newConversation,
+        deleteConversation,
         conversationId,
     };
 }
 
+// ── Utility: load stored map (keyed by id) ───────────────────────────────────
+function loadStoredMap(): Record<string, StoredConversation> {
+    if (typeof window === "undefined") return {};
+    try {
+        const raw = JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "{}");
+        // Handle legacy array format gracefully
+        if (Array.isArray(raw)) {
+            return Object.fromEntries((raw as StoredConversation[]).map((c) => [c.id, c]));
+        }
+        return raw as Record<string, StoredConversation>;
+    } catch {
+        return {};
+    }
+}
+
 // ── Utility: load all conversations from localStorage ─────────────────────────
 export function loadAllConversations(): StoredConversation[] {
-    if (typeof window === "undefined") return [];
-    try {
-        return JSON.parse(localStorage.getItem(HISTORY_KEY) ?? "[]") as StoredConversation[];
-    } catch {
-        return [];
-    }
+    return Object.values(loadStoredMap())
+        .sort((a, b) => b.createdAt - a.createdAt)
+        .slice(0, 20);
 }

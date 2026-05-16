@@ -39,7 +39,7 @@ export default function AiAssistantPage() {
 
     const {
         messages, input, setInput, isLoading, handleSend,
-        messagesEndRef, loadConversation, newConversation, conversationId,
+        messagesEndRef, loadConversation, newConversation, deleteConversation, conversationId,
     } = useChatLogic();
 
     useEffect(() => {
@@ -50,15 +50,14 @@ export default function AiAssistantPage() {
     const surfaceBorder = c.isDark ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.07)";
     const dividerColor = c.isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)";
 
-    // Collect unique sources from all assistant messages
+    // Collect unique sources from all assistant messages (one per book)
     const allSources = messages
         .filter((m) => m.role === "assistant" && m.sources?.length)
         .flatMap((m) => m.sources ?? []);
     const seen = new Set<string>();
     const uniqueSources = allSources.filter((s) => {
-        const key = `${s.source_title}|${s.page_number}`;
-        if (seen.has(key)) return false;
-        seen.add(key);
+        if (seen.has(s.source_title)) return false;
+        seen.add(s.source_title);
         return true;
     });
 
@@ -116,20 +115,32 @@ export default function AiAssistantPage() {
                         history.map((conv) => {
                             const isActive = conv.id === conversationId;
                             return (
-                                <motion.button
+                                <div
                                     key={conv.id}
-                                    className="w-full text-right text-xs px-3 py-2.5 rounded-xl flex items-center gap-2 transition-colors"
-                                    style={{
-                                        backgroundColor: isActive ? (c.isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.04)") : "transparent",
-                                        color: isActive ? c.text : c.textMuted,
-                                    }}
-                                    whileHover={{ backgroundColor: c.isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.03)" }}
-                                    onClick={() => loadConversation(conv)}
+                                    className="group relative flex items-center"
                                 >
-                                    <MessageSquare size={11} className="shrink-0 opacity-40" />
-                                    <span className="truncate flex-1 text-left">{conv.title}</span>
-                                    {isActive && <ChevronRight size={10} className="shrink-0 opacity-30" />}
-                                </motion.button>
+                                    <motion.button
+                                        className="w-full text-right text-xs px-3 py-2.5 rounded-xl flex items-center gap-2 transition-colors pr-7"
+                                        style={{
+                                            backgroundColor: isActive ? (c.isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.04)") : "transparent",
+                                            color: isActive ? c.text : c.textMuted,
+                                        }}
+                                        whileHover={{ backgroundColor: c.isDark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.03)" }}
+                                        onClick={() => loadConversation(conv)}
+                                    >
+                                        <MessageSquare size={11} className="shrink-0 opacity-40" />
+                                        <span className="truncate flex-1 text-left">{conv.title}</span>
+                                    </motion.button>
+                                    {/* Delete button — visible on hover */}
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); deleteConversation(conv.id); setHistory(loadAllConversations()); }}
+                                        className="absolute right-1.5 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded-lg"
+                                        style={{ color: c.muted }}
+                                        title="حذف المحادثة"
+                                    >
+                                        <span className="text-[10px] leading-none">✕</span>
+                                    </button>
+                                </div>
                             );
                         })
                     )}
@@ -274,20 +285,24 @@ export default function AiAssistantPage() {
                                                             {msg.sources && msg.sources.length > 0 && (
                                                                 <div className="flex flex-wrap gap-2 pt-1">
                                                                     {msg.sources.map((s, i) => (
-                                                                        <span
+                                                                        <button
                                                                             key={i}
-                                                                            className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl"
+                                                                            disabled={!s.file_url}
+                                                                            onClick={() => s.file_url && window.open(s.file_url, "_blank")}
+                                                                            className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1.5 rounded-xl transition-all"
                                                                             style={{
                                                                                 backgroundColor: "rgba(212,160,23,0.08)",
                                                                                 border: "1px solid rgba(212,160,23,0.2)",
                                                                                 color: "#D4A017",
+                                                                                cursor: s.file_url ? "pointer" : "default",
                                                                             }}
+                                                                            title={s.file_url ? "فتح المرجع" : s.source_title}
                                                                         >
                                                                             <BookOpen size={10} />
-                                                                            <span className="max-w-[120px] truncate">{s.source_title}</span>
-                                                                            <span className="opacity-40">·</span>
-                                                                            <span>ص{s.page_number}</span>
-                                                                        </span>
+                                                                            <span className="max-w-[140px] truncate">{s.source_title}</span>
+                                                                            <span className="opacity-40">—</span>
+                                                                            <span className="shrink-0">ص {s.pages.join("، ")}</span>
+                                                                        </button>
                                                                     ))}
                                                                 </div>
                                                             )}
@@ -393,22 +408,31 @@ export default function AiAssistantPage() {
                                     className="p-3 rounded-xl"
                                     style={{
                                         backgroundColor: surfaceBg,
-                                        border: `1px solid ${surfaceBorder}`,
+                                        border: `1px solid ${s.file_url ? "rgba(212,160,23,0.25)" : surfaceBorder}`,
+                                        cursor: s.file_url ? "pointer" : "default",
                                     }}
+                                    onClick={() => s.file_url && window.open(s.file_url, "_blank")}
+                                    whileHover={s.file_url ? { borderColor: "rgba(212,160,23,0.4)", backgroundColor: "rgba(212,160,23,0.05)" } : {}}
                                 >
                                     <p className={`text-[12px] font-semibold leading-snug ${c.heading}`}>
                                         {s.source_title}
                                     </p>
-                                    <div className="flex items-center gap-1.5 mt-1.5">
-                                        <span
-                                            className="text-[10px] px-2 py-0.5 rounded-lg"
-                                            style={{
-                                                backgroundColor: "rgba(212,160,23,0.1)",
-                                                color: "#D4A017",
-                                            }}
-                                        >
-                                            ص {s.page_number}
-                                        </span>
+                                    <div className="flex flex-wrap items-center gap-1 mt-1.5">
+                                        {s.pages.map((p) => (
+                                            <span
+                                                key={p}
+                                                className="text-[10px] px-1.5 py-0.5 rounded-md"
+                                                style={{
+                                                    backgroundColor: "rgba(212,160,23,0.1)",
+                                                    color: "#D4A017",
+                                                }}
+                                            >
+                                                ص{p}
+                                            </span>
+                                        ))}
+                                        {s.file_url && (
+                                            <span className="text-[10px] ml-auto" style={{ color: "rgba(212,160,23,0.6)" }}>↗</span>
+                                        )}
                                     </div>
                                 </motion.div>
                             ))

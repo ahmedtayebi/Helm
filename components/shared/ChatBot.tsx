@@ -257,20 +257,24 @@ export default function ChatBot() {
                                                                 {msg.sources && msg.sources.length > 0 && (
                                                                     <div className="flex flex-wrap gap-1.5 mt-2">
                                                                         {msg.sources.map((s, i) => (
-                                                                            <span
+                                                                            <button
                                                                                 key={i}
-                                                                                className="inline-flex items-center gap-1 text-[10px] px-2 py-1 rounded-lg"
+                                                                                disabled={!s.file_url}
+                                                                                onClick={() => s.file_url && window.open(s.file_url, "_blank")}
+                                                                                className="inline-flex items-center gap-1 text-[10px] px-2 py-1 rounded-lg transition-all"
                                                                                 style={{
                                                                                     backgroundColor: "rgba(212,160,23,0.08)",
                                                                                     border: "1px solid rgba(212,160,23,0.2)",
                                                                                     color: "#D4A017",
+                                                                                    cursor: s.file_url ? "pointer" : "default",
                                                                                 }}
+                                                                                title={s.file_url ? "فتح المرجع" : s.source_title}
                                                                             >
                                                                                 <BookOpen size={9} />
-                                                                                <span className="max-w-[90px] truncate">{s.source_title}</span>
-                                                                                <span className="opacity-50">·</span>
-                                                                                <span>ص{s.page_number}</span>
-                                                                            </span>
+                                                                                <span className="max-w-[100px] truncate">{s.source_title}</span>
+                                                                                <span className="opacity-40">—</span>
+                                                                                <span className="shrink-0">ص {s.pages.join("، ")}</span>
+                                                                            </button>
                                                                         ))}
                                                                     </div>
                                                                 )}
