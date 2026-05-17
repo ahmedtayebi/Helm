@@ -22,26 +22,26 @@ interface ChunkRow {
 }
 
 // ── Gemini 2.0 Flash (primary LLM) ───────────────────────────────────────────
-async function callGemini(
-    apiKey: string,
-    systemPrompt: string,
-    userPrompt: string,
-): Promise<Response> {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?key=${apiKey}&alt=sse`;
-    return fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            system_instruction: { parts: [{ text: systemPrompt }] },
-            contents: [{ role: "user", parts: [{ text: userPrompt }] }],
-            generationConfig: {
-                temperature: 0.35,
-                maxOutputTokens: 2048,
-                topP: 0.9,
-            },
-        }),
-    });
-}
+// async function callGemini(
+//     apiKey: string,
+//     systemPrompt: string,
+//     userPrompt: string,
+// ): Promise<Response> {
+//     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?key=${apiKey}&alt=sse`;
+//     return fetch(url, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//             system_instruction: { parts: [{ text: systemPrompt }] },
+//             contents: [{ role: "user", parts: [{ text: userPrompt }] }],
+//             generationConfig: {
+//                 temperature: 0.35,
+//                 maxOutputTokens: 2048,
+//                 topP: 0.9,
+//             },
+//         }),
+//     });
+// }
 
 // ── OpenRouter fallback cascade ───────────────────────────────────────────────
 async function callOpenRouter(

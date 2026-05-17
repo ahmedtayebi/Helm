@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUp, Plus, MessageSquare, BookOpen, Sparkles, ChevronRight } from "lucide-react";
+import { ArrowUp, Plus, MessageSquare, BookOpen, Sparkles } from "lucide-react";
 import { useThemeColors } from "@/lib/useThemeColors";
 import {
     useChatLogic,
