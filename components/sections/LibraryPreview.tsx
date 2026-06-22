@@ -7,34 +7,34 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useThemeColors } from "@/lib/useThemeColors";
 
-const featuredBooks = [
+const featuredFieldScenes = [
     {
         id: 1,
-        title: "Applied Drilling Engineering",
-        author: "Bourgoyne, Milheim, Chenevert",
-        type: "Textbook",
-        cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400",
+        title: "West Aglat Nasser 2",
+        author: "North of Hassi Messaoud · Sonatrach discovery",
+        type: "Drilling Site",
+        cover: "https://elraed.dz/media/articles/475265-300322.jpg",
     },
     {
         id: 2,
-        title: "Reservoir Engineering Handbook",
-        author: "Tarek Ahmed",
-        type: "Reference",
-        cover: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=400",
+        title: "Hassi Messaoud Refinery",
+        author: "Sonatrach downstream facility",
+        type: "Refinery",
+        cover: "https://news.radioalgerie.dz/sites/default/data/2024-01/pet.png",
     },
     {
         id: 3,
-        title: "Well Testing: SPE Monograph",
-        author: "John Lee",
-        type: "SPE Paper",
-        cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=400",
+        title: "Hassi Messaoud Oil Field",
+        author: "Algeria's largest Sonatrach-operated oil field",
+        type: "Production",
+        cover: "https://attaqa.net/wp-content/uploads/2024/10/c6a8488de86eddf87c84edf4136a1126-e1730136027987.jpg",
     },
     {
         id: 4,
-        title: "Production Optimization",
-        author: "H. Dale Beggs",
-        type: "Textbook",
-        cover: "https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?auto=format&fit=crop&q=80&w=400",
+        title: "Northern Hassi Messaoud",
+        author: "Sonatrach evaluation well operations",
+        type: "Field Ops",
+        cover: "https://www.sahm-media.dz/wp-content/uploads/2022/03/inbound3036077823015348536.jpg",
     },
 ];
 
@@ -120,28 +120,28 @@ export function LibraryPreview() {
                                 <BookMarked className="h-6 w-6 text-primary" />
                             </div>
 
-                            {featuredBooks.map((book, idx) => (
+                            {featuredFieldScenes.map((scene, idx) => (
                                 <motion.div
-                                    key={book.id}
+                                    key={scene.id}
                                     variants={itemVariants}
                                     className={`relative group ${idx % 2 === 1 ? 'sm:mt-12' : ''}`}
                                 >
                                     <div className={`aspect-[3/4] rounded-xl overflow-hidden relative shadow-card border ${t.borderFaint} group-hover:border-primary/50 transition-colors`}>
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img
-                                            src={book.cover}
-                                            alt={book.title}
+                                            src={scene.cover}
+                                            alt={scene.title}
                                             className="w-full h-full object-cover filter brightness-[0.8] group-hover:scale-110 group-hover:brightness-100 transition-all duration-700"
                                         />
                                         <div className={`absolute inset-x-0 bottom-0 ${t.isDark ? "bg-gradient-to-t from-navy-950 via-navy-900/80 to-transparent" : "bg-gradient-to-t from-slate-900/90 via-slate-800/60 to-transparent"} p-4 sm:p-5 translate-y-2 group-hover:translate-y-0 transition-transform`}>
                                             <Badge variant="outline" className={`${t.isDark ? "bg-navy-950/80" : "bg-slate-900/70"} backdrop-blur-md text-[10px] mb-2 border-primary/30 text-primary-light`}>
-                                                {book.type}
+                                                {scene.type}
                                             </Badge>
                                             <h4 className="text-white font-display font-medium text-sm sm:text-base leading-tight mb-1">
-                                                {book.title}
+                                                {scene.title}
                                             </h4>
                                             <p className="text-navy-300 text-xs truncate">
-                                                {book.author}
+                                                {scene.author}
                                             </p>
                                         </div>
                                     </div>
