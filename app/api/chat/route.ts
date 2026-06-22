@@ -12,6 +12,8 @@ const FALLBACK_MODELS = [
     "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
 ];
 
+const CONTEXT_SIMILARITY_THRESHOLD = 0.6;
+
 interface ChunkRow {
     id: string;
     content: string;
@@ -19,6 +21,45 @@ interface ChunkRow {
     source_title: string;
     resource_id: string;
     similarity: number;
+}
+
+function getSmallTalkReply(message: string): string | null {
+    const normalized = message
+        .trim()
+        .toLowerCase()
+        .replace(/[؟?!.،,;:ـ\s]+$/g, "");
+
+    const arabicGreetings = [
+        "مرحبا",
+        "مرحباا",
+        "اهلا",
+        "أهلا",
+        "السلام عليكم",
+        "سلام",
+        "هلا",
+        "صباح الخير",
+        "مساء الخير",
+    ].map((item) => item.toLowerCase());
+
+    const latinGreetings = [
+        "hi",
+        "hello",
+        "hey",
+        "good morning",
+        "good evening",
+        "bonjour",
+        "salut",
+    ];
+
+    if (arabicGreetings.includes(normalized)) {
+        return "أهلًا! كيف أقدر أساعدك في هندسة البترول اليوم؟";
+    }
+
+    if (latinGreetings.includes(normalized)) {
+        return "Hi! What petroleum engineering topic would you like help with today?";
+    }
+
+    return null;
 }
 
 // ── Gemini 2.0 Flash (primary LLM) ───────────────────────────────────────────
@@ -83,6 +124,7 @@ You have been given text excerpts extracted directly from petroleum engineering 
 ## YOUR MISSION
 Explain the scientific and technical content to the user clearly and in detail.
 Act like a professor teaching from a textbook — NOT a librarian pointing to a shelf.
+Scale your answer to the user's request: keep greetings and simple questions brief; only go deep when the user asks for explanation, comparison, calculation, or details.
 
 ## STRICT RULES
 1. **ALWAYS explain the actual scientific content** found in the excerpts. Never just say "the answer is on page X" or "refer to page X".
@@ -90,7 +132,7 @@ Act like a professor teaching from a textbook — NOT a librarian pointing to a 
 3. **Cite naturally**: After explaining a concept, you may note the source (e.g., "as described in Summary: Well Control, p.12").
 4. **Answer in the SAME language as the question** (Arabic, English, or French).
 5. **Use structure**: Use bullet points, numbered steps, formulas, and headers to organize technical answers.
-6. **Be comprehensive**: If the excerpts cover the topic from multiple angles, cover all of them.
+6. **Be appropriately scoped**: If the user asks a focused question, answer only that focus. If they ask for detail, be comprehensive.
 7. **Never refuse**: If the excerpts contain ANY relevant content, teach it. Do not say "I cannot find..." if content is present.
 8. **Supplement when needed**: If the excerpts only partially answer the question, teach what you find, then add from your petroleum engineering knowledge — clearly marking the addition as [من معرفتي العامة] or [From general knowledge].
 
@@ -110,6 +152,7 @@ No matching excerpts were found in the indexed textbooks for this question.
 Answer from your comprehensive petroleum engineering knowledge.
 Clearly note that this answer comes from general knowledge, not the indexed books.
 Answer in the SAME language as the question (Arabic, English, or French).
+Keep casual greetings short and friendly.
 If the question is completely outside petroleum engineering, politely say so.`;
 }
 
@@ -122,6 +165,11 @@ export async function POST(req: NextRequest) {
 
         if (!message) {
             return Response.json({ error: "message is required" }, { status: 400 });
+        }
+
+        const smallTalkReply = getSmallTalkReply(message);
+        if (smallTalkReply) {
+            return Response.json({ answer: smallTalkReply, sources: [] });
         }
 
         const geminiApiKey = process.env.GEMINI_API_KEY;
@@ -168,8 +216,8 @@ export async function POST(req: NextRequest) {
 
         const rpcParams: Record<string, unknown> = {
             query_embedding: embedding,
-            match_count: 15,        // up from 10 — more coverage
-            similarity_threshold: 0.45,
+            match_count: 15,
+            similarity_threshold: CONTEXT_SIMILARITY_THRESHOLD,
         };
 
         if (resource_ids && resource_ids.length > 0) {
@@ -191,10 +239,13 @@ export async function POST(req: NextRequest) {
 
         // ── 3. Prepare context ───────────────────────────────────────────────
         const typedChunks = (chunks ?? []) as ChunkRow[];
-        const hasContext = typedChunks.length > 0;
+        const relevantChunks = typedChunks.filter(
+            (chunk) => chunk.similarity >= CONTEXT_SIMILARITY_THRESHOLD,
+        );
+        const hasContext = relevantChunks.length > 0;
 
         // ── 4a. Fetch file_url for unique resource_ids ───────────────────────
-        const uniqueResourceIds = Array.from(new Set(typedChunks.map((c) => c.resource_id)));
+        const uniqueResourceIds = Array.from(new Set(relevantChunks.map((c) => c.resource_id)));
         const { data: resources } = uniqueResourceIds.length > 0
             ? await supabase.from("library_resources").select("id, file_url").in("id", uniqueResourceIds)
             : { data: [] };
@@ -204,7 +255,7 @@ export async function POST(req: NextRequest) {
         );
 
         // ── 4b. Build prompt context ─────────────────────────────────────────
-        const contextBlock = typedChunks
+        const contextBlock = relevantChunks
             .map((c) => `[ص${c.page_number} — ${c.source_title} (تطابق: ${(c.similarity * 100).toFixed(0)}%)]: ${c.content}`)
             .join("\n\n---\n\n");
 
@@ -231,12 +282,9 @@ export async function POST(req: NextRequest) {
         }
 
         // ── 6. Group sources by book (only if genuinely relevant) ─────────────
-        // Show sources only when best chunk similarity ≥ 0.60
+        // Show sources only when chunks passed the same relevance gate used in the prompt.
         // — this is robust to typos, greetings, off-topic questions, etc.
-        const bestSimilarity = typedChunks.length > 0
-            ? Math.max(...typedChunks.map((c) => c.similarity))
-            : 0;
-        const shouldShowSources = bestSimilarity >= 0.60;
+        const shouldShowSources = hasContext;
 
         const sourceMap = new Map<string, {
             source_title: string;
@@ -246,7 +294,7 @@ export async function POST(req: NextRequest) {
         }>();
 
         if (shouldShowSources) {
-            for (const c of typedChunks) {
+            for (const c of relevantChunks) {
                 if (!sourceMap.has(c.resource_id)) {
                     sourceMap.set(c.resource_id, {
                         source_title: c.source_title,
